@@ -11,8 +11,8 @@ public class InverseTime : MonoBehaviour
     public int frameRet = 180;
     public int frameCoold = 90;
     public Rigidbody2D playerBody;
-    //bool jumpSave;
     public int saveForce;
+
 
     private void Awake()
     {
@@ -27,14 +27,13 @@ public class InverseTime : MonoBehaviour
         temp.z = -1;
         shadowObj.position = temp;
         count = 0;
-       // jumpSave = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 temp2 = playerP.transform.position;
-        trackPos.Enqueue(temp2);
+        Vector3 tempInt = playerP.transform.position;
+        trackPos.Enqueue(tempInt);
         if (count < frameRet)
         {
             count++;
@@ -47,7 +46,37 @@ public class InverseTime : MonoBehaviour
         }
         if ((Input.GetKeyDown("r"))&&(count>frameCoold))
         {
-            Vector3 temp = shadowObj.position;
+            Vector3 temp = shadowObj.position;//obtain up to 5 intervals
+            Vector3 temp1, temp2, temp3, temp4, temp5;
+            for(int i = 0; i < 36; i++)
+            {
+               temp2 = trackPos.Dequeue();
+                count--;
+            }
+            if (count > 36)
+            {
+                for (int i = 0; i < 36; i++)
+                {
+                    temp3 = trackPos.Dequeue();
+                    count--;
+                }
+            }
+            if (count > 36)
+            {
+                for (int i = 0; i < 36; i++)
+                {
+                    temp4 = trackPos.Dequeue();
+                    count--;
+                }
+            }
+            if (count > 36)
+            {
+                for (int i = 0; i < 36; i++)
+                {
+                    temp5 = trackPos.Dequeue();
+                    count--;
+                }
+            }
             temp.z = -2;
             playerP.transform.position = temp;
             trackPos.Clear();
@@ -55,18 +84,6 @@ public class InverseTime : MonoBehaviour
                 playerBody.AddForce(new Vector2(0f, saveForce));
             }
             count = 0;
-            //jumpSave = true;
-        }/*
-        if (((Input.GetKeyDown("w")) && (jumpSave == true)) || ((Input.GetKeyDown("w")) && (jumpSave == true)))
-        {
-
-            playerBody.AddForce(new Vector2(0f, saveForce));
-            jumpSave = false;
         }
-        if ((count > 150) && (jumpSave == true))
-        {
-            jumpSave = false;
-        }*/
-
     }
 }
