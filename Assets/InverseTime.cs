@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class InverseTime : MonoBehaviour
 {
-    public List<GameObject> player;
-    public Queue<Vector3> trackPos;
+    Queue<Vector2> trackPos;
     public Transform shadowObj;
-    private GameObject shadow;
-    private Vector3 temp;
     public GameObject playerP;
-    Vector3 startPos;
-    float x, y, z;
-    Vector3 movement;
     private int count;
+    public int frameRet = 180;
+    public int frameCoold = 90;
+    public Rigidbody2D playerBody;
+    //bool jumpSave;
+    public int saveForce;
 
     private void Awake()
     {
@@ -23,31 +22,54 @@ public class InverseTime : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        trackPos = new Queue<Vector3>();
-        shadowObj.position = playerP.transform.position;
+        trackPos = new Queue<Vector2>();
+        Vector3 temp = playerP.transform.position;
+        temp.z = -1;
+        shadowObj.position = temp;
         count = 0;
+       // jumpSave = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        temp = playerP.transform.position;
-        trackPos.Enqueue(temp);
-        //Debug.Log(trackPos.Count);
-        if (count < 180)
+        Vector3 temp2 = playerP.transform.position;
+        trackPos.Enqueue(temp2);
+        Debug.Log(trackPos.Count);
+        Debug.Log(trackPos.Peek());
+        if (count < frameRet)
         {
             count++;
         }
         else
         {
-            shadowObj.position = trackPos.Dequeue();
+            Vector3 temp = trackPos.Dequeue();
+            temp.z = -1;
+            shadowObj.position = temp;
+            Debug.Log(shadowObj.position);
         }
-        if (Input.GetKeyDown("r"))
+        if ((Input.GetKeyDown("r"))&&(count>frameCoold))
         {
-            playerP.transform.position = shadowObj.position;
+            Vector3 temp = shadowObj.position;
+            temp.z = 0;
+            playerP.transform.position = temp;
             trackPos.Clear();
+            if (Input.GetButton("Jump")){
+                playerBody.AddForce(new Vector2(0f, saveForce));
+            }
             count = 0;
+            //jumpSave = true;
+        }/*
+        if (((Input.GetKeyDown("w")) && (jumpSave == true)) || ((Input.GetKeyDown("w")) && (jumpSave == true)))
+        {
+
+            playerBody.AddForce(new Vector2(0f, saveForce));
+            jumpSave = false;
         }
+        if ((count > 150) && (jumpSave == true))
+        {
+            jumpSave = false;
+        }*/
 
     }
 }
