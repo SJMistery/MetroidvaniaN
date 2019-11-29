@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InverseTime : MonoBehaviour
 {
+    public bool respawnReset;
     Queue<Vector2> trackPos;
     public Transform shadowObj;
     public GameObject playerP;
@@ -22,6 +23,7 @@ public class InverseTime : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        respawnReset = false;
         trackPos = new Queue<Vector2>();
         Vector3 temp = playerP.transform.position;
         temp.z = -1;
@@ -32,6 +34,12 @@ public class InverseTime : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (respawnReset)
+        {
+            count = 0;
+            trackPos.Clear();
+            respawnReset = false;
+        }
         Vector3 tempInt = playerP.transform.position;
         trackPos.Enqueue(tempInt);
         if (count < frameRet)

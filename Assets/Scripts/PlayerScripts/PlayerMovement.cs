@@ -13,8 +13,16 @@ public class PlayerMovement : MonoBehaviour {
     bool Crouch = false;
     bool Pivoting = false;
     float LHMov = 0f;
-  
+    int JumpCount;
+    bool JumpStart = false;
+    public float Drag;
+
+    public Rigidbody2D playerBody;
+    public float fallSpeedCap = 125;
+    public float jumpForce = 20;
+    int counter;
     // Update is called once per frame
+
     //Update with no physics, FixedUpdate with physics
     void Update() {
        LHMov = HMov;
@@ -55,6 +63,7 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetButtonDown("Jump"))
         {
             Jump = true;
+            JumpStart = true;
         }
         if (Input.GetButton("Crouch"))
         {
@@ -74,8 +83,40 @@ public class PlayerMovement : MonoBehaviour {
     void FixedUpdate()
     {
 
-        Control.Move(HMov*HSpd*Time.fixedDeltaTime, Crouch, Jump);
-        Jump = false;
+        Control.Move(HMov*HSpd*Time.fixedDeltaTime, Crouch, JumpStart);
+        JumpStart = false;
+        if (Jump)
+        {
+            JumpCount++;
+            playerBody.AddForce(new Vector2(0f, -Drag));
+            if (JumpCount > 3)
+            {
+                Jump = false;
+                JumpCount = 0;
+            }
+        }
+        /*
+        Vector2 speedCap;
+        speedCap.x = TopSpd;
+        speedCap.y = fallSpeedCap;
+        playerBody.velocity = Vector2.ClampMagnitude(playerBody.velocity, speedCap.y);
+
+        if (Jump)
+        {
+            //forca base
+            if (JumpStart)
+            {
+                playerBody.AddForce(new Vector2(0f, jumpForce));
+                JumpStart = false;
+            }
+            //deceleració ràpida per contrarestar la força adicional
+            playerBody.AddForce(new Vector2(0f, -2));
+            if (JumpCount > 5)
+            {
+                Jump = false;z
+            }
+        }
+        */
 
     }
 }
