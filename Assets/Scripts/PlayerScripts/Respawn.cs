@@ -17,14 +17,14 @@ public class Respawn : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("collided");
+       // Debug.Log("collided");
         if (other.gameObject.tag == "Enemy")
         {
-            Debug.Log("damaged");
+            //Debug.Log("damaged");
             LifeBar -= 1;
             if (LifeBar <= 0)
             {
-                Debug.Log("killed");
+                //Debug.Log("killed");
                 transform.position = RespawnPoint;
                 shadowReset.transform.position = RespawnPoint;
                 respawnReset = true;
@@ -33,7 +33,7 @@ public class Respawn : MonoBehaviour
         }
         else if(other.gameObject.tag == "DeathTrap")
         {
-            Debug.Log("instakilled");
+           // Debug.Log("instakilled");
             transform.position = RespawnPoint;
             shadowReset.transform.position = RespawnPoint;
             respawnReset = true;
@@ -41,7 +41,7 @@ public class Respawn : MonoBehaviour
         }
         else if (other.gameObject.tag == "SavePoint")
         {
-            Debug.Log("saved");
+           // Debug.Log("saved");
             RespawnPoint = other.gameObject.transform.position;
         }
     }

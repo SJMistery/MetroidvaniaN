@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour {
     float HSpd;
     bool Jump = false;
     bool Crouch = false;
+    bool canJump = true;
     bool Pivoting = false;
     float LHMov = 0f;
     int JumpCount;
@@ -82,19 +83,20 @@ public class PlayerMovement : MonoBehaviour {
     }
     void FixedUpdate()
     {
-
         Control.Move(HMov*HSpd*Time.fixedDeltaTime, Crouch, JumpStart);
         JumpStart = false;
         if (Jump)
         {
             JumpCount++;
             playerBody.AddForce(new Vector2(0f, -Drag));
-            if (JumpCount > 3)
+            if (JumpCount > 6)
             {
                 Jump = false;
                 JumpCount = 0;
             }
         }
+        playerBody.velocity = Vector2.ClampMagnitude(playerBody.velocity, fallSpeedCap);
+
         /*
         Vector2 speedCap;
         speedCap.x = TopSpd;
