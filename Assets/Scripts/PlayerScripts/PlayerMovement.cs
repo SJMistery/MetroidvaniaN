@@ -17,47 +17,54 @@ public class PlayerMovement : MonoBehaviour {
     int JumpCount;
     bool JumpStart = false;
     public float Drag;
-
+    public bool unpaused = true;
     public Rigidbody2D playerBody;
     public float fallSpeedCap = 125;
     public float jumpForce = 20;
     int counter;
     // Update is called once per frame
-
+    private void Start()
+    {
+        unpaused = true;
+    }
     //Update with no physics, FixedUpdate with physics
-    void Update() {
-       LHMov = HMov;
-       HMov = Input.GetAxisRaw("Horizontal");
-        if (LHMov * HMov < 0)
+    void Update()
+    {
+        if (unpaused)
         {
-            //PIVOTING
-            Pivoting = true;
-        }
-        else Pivoting = false;
+            LHMov = HMov;
+            HMov = Input.GetAxisRaw("Horizontal");
+            if (LHMov * HMov < 0)
+            {
+                //PIVOTING
+                Pivoting = true;
+            }
+            else Pivoting = false;
 
 
-        if (!Pivoting && (Input.GetButtonDown("Horizontal")))
-        {
-            HSpd += BaseAcc;
-        }
-        else if (Pivoting && (Input.GetButtonDown("Horizontal")))
+            if (!Pivoting && (Input.GetButtonDown("Horizontal")))
+            {
+                HSpd += BaseAcc;
+            }
+            else if (Pivoting && (Input.GetButtonDown("Horizontal")))
             {
                 HSpd -= BaseAcc;
             }
-        if (Input.GetButton("Horizontal"))
-        {
-            if (HSpd < TopSpd)
+            if (Input.GetButton("Horizontal"))
             {
-                HSpd += Accel;
-                
-            }
-        }
-        else
-        {
-            if (HSpd > 0)
-            {
-                HSpd -= Brake;
+                if (HSpd < TopSpd)
+                {
+                    HSpd += Accel;
 
+                }
+            }
+            else
+            {
+                if (HSpd > 0)
+                {
+                    HSpd -= Brake;
+
+                }
             }
         }
         //control.Move(2, false, false);

@@ -1,0 +1,165 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CharacterSpriteController : MonoBehaviour
+{
+    [SerializeField]private Animator controller;
+    [SerializeField] private bool animationState;
+    [SerializeField] private bool attack2;
+    [SerializeField] private bool attack3;
+    [SerializeField] private int attackCount;
+    [SerializeField] private bool stanceChanged;
+    [SerializeField] private bool inverted;
+    [SerializeField] private bool afterjump;
+    [SerializeField] private bool changeidle;
+    [SerializeField] private bool standup;
+    [SerializeField] private bool aux;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        controller = GetComponentInChildren<Animator>();
+        attack2 = false;
+        attack3 = false;
+        changeidle = true;
+        standup = true;
+        attackCount = 0;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+    
+        //controller.SetTrigger("running");
+        
+        animationState = controller.IsInTransition(0);
+        if (Input.GetKey(KeyCode.D))
+        {
+            controller.Play("run_animation");
+            controller.SetBool("running", true);
+            if (inverted)
+                GetComponent<SpriteRenderer>().flipX = false;
+            inverted = false;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            controller.Play("run_animation");
+            controller.SetBool("running", true);
+            if (!inverted)
+                GetComponent<SpriteRenderer>().flipX = true;
+            inverted = true;
+        }
+
+        if (Input.GetKey(KeyCode.S))
+        {
+            controller.Play("crouch_animation");
+            controller.SetBool("crouch", true);
+        }
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            controller.SetBool("jump", true);
+            controller.SetBool("infloor", false);
+            controller.SetBool("endedfalling", false);
+            controller.SetBool("standing", false);
+            afterjump = true;
+            controller.Play("jump_animation");
+        }
+
+        if (Input.GetKey(KeyCode.C))
+        {
+            controller.Play("Sword_Draw_animation");
+            controller.SetBool("changeidle-2", true);
+            controller.SetBool("idle2", true);
+            controller.SetBool("idle1", false);
+            stanceChanged = true;
+            if (aux)
+                SwitchF_TorT_F(5, controller.GetBool("changeidle-2"));
+            aux = false;
+        }
+        else
+            controller.ResetTrigger("changeidle-2");
+
+        if (Input.GetKey(KeyCode.T))
+        {
+            controller.Play("attack_animation_1");
+            controller.SetBool("attack1", true);
+            controller.SetBool("attack2", true);
+            controller.SetBool("attack3", true);
+            stanceChanged = true;
+        }
+        else
+        {
+            controller.SetBool("attack1", false);
+            controller.SetBool("attack2", false);
+            controller.SetBool("attack3", false);
+        }
+
+        if(controller.GetCurrentAnimatorStateInfo(0).IsName("idle_animation_2"))
+        {
+            StartCoroutine(ChangeAnimationafterXsecond(5, changeidle));
+            if(changeidle == false)
+            {
+                if (controller.GetBool("idle2") == true)
+                {
+                    controller.Play("sword_shte_animation");
+                    controller.SetBool("changeidle", true);
+                    controller.SetBool("changeidle-2", false);
+                    controller.SetBool("idle1", true);
+                    controller.SetBool("idle2", false);
+                    stanceChanged = false;
+                    SwitchF_TorT_F(5, controller.GetBool("changeidle"));
+                    standup = true;
+                }
+            }
+           
+        }
+        //Para cancelar las animaciones
+
+        if(controller.GetBool("endedfalling"))
+        {
+            controller.Play("after_jump_crouch_animation");
+           StartCoroutine(ChangeAnimationafterXsecond(3, standup));
+            if (standup == false)
+                afterjump = false;
+            controller.SetBool("endedfalling", false);
+        }
+
+        if (afterjump == false)
+        {
+            controller.SetBool("infloor", true);
+            controller.SetBool("standing", true);
+        }
+
+        if (!controller.GetCurrentAnimatorStateInfo(0).IsName("after_jump_crouch_animation") || !controller.GetCurrentAnimatorStateInfo(0).IsName("sword_shte_animation") || !controller.GetCurrentAnimatorStateInfo(0).IsName("Sword_Draw_animation"))
+            if (!(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.T) || controller.GetBool("standing") == false || controller.GetBool("changeidle-2") == true || controller.GetBool("changeidle") == true))
+            {
+                if (controller.GetBool("idle1"))
+                    controller.Play("idle_animation");
+                else if(controller.GetBool("idle2"))
+                    controller.Play("idle_animation_2");
+                controller.SetBool("running", false);
+                controller.SetBool("crouch", false);
+                controller.SetBool("jump", false);
+                controller.SetBool("changeidle-1", false);
+            }
+
+        //else
+        //    controller.runtimeAnimatorController = Resources.Load("Animator/idle") as RuntimeAnimatorController;
+    }
+    
+    IEnumerator SwitchF_TorT_F(int time, bool element)
+    {
+        yield return new WaitForSeconds(time);
+        element = !element;
+        //controller.SetBool("standing", true);
+        aux = true;
+    }
+
+    IEnumerator ChangeAnimationafterXsecond(int time, bool type)
+    {
+        yield return new WaitForSeconds(time);
+        type = false;
+    }
+}

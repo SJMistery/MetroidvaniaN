@@ -23,18 +23,14 @@ public class WeaponAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-    if (Input.GetKeyDown("t"))
+    if (Input.GetKey("t"))
         {
             attacking = true;
-            
-            
-        }
-        if (attacking && (sequenceCount == 0))
-        {
-            rend.enabled = true;
             hitbox.enabled = true;
+            sequenceCount = 0;
+           
         }
-        if (attacking && (sequenceCount < 120))
+        if (attacking && (sequenceCount < 20))
         {
             sequenceCount++;
         }

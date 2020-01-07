@@ -1,9 +1,13 @@
 using UnityEngine;
 using UnityEngine.Events;
 
+
+
 public class CharacterController2D : MonoBehaviour
 {
-	[SerializeField] private float m_JumpForce = 400f;							// Amount of force added when the player jumps.
+
+    [SerializeField] public Animator controller;
+    [SerializeField] private float m_JumpForce = 400f;							// Amount of force added when the player jumps.
 	[Range(0, 1)] [SerializeField] private float m_CrouchSpeed = .36f;			// Amount of maxSpeed applied to crouching movement. 1 = 100%
 	[Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;	// How much to smooth out the movement
 	[SerializeField] private bool m_AirControl = false;							// Whether or not a player can steer while jumping;
@@ -18,8 +22,8 @@ public class CharacterController2D : MonoBehaviour
 	private Rigidbody2D m_Rigidbody2D;
 	private bool m_FacingRight = true;  // For determining which way the player is currently facing.
 	private Vector3 m_Velocity = Vector3.zero;
-
-	[Header("Events")]
+    
+    [Header("Events")]
 	[Space]
 
 	public UnityEvent OnLandEvent;
@@ -32,7 +36,9 @@ public class CharacterController2D : MonoBehaviour
 
 	private void Awake()
 	{
-		m_Rigidbody2D = GetComponent<Rigidbody2D>();
+
+        controller = GetComponentInChildren<Animator>();
+        m_Rigidbody2D = GetComponent<Rigidbody2D>();
 
 		if (OnLandEvent == null)
 			OnLandEvent = new UnityEvent();
@@ -54,8 +60,14 @@ public class CharacterController2D : MonoBehaviour
 			if (colliders[i].gameObject != gameObject)
 			{
 				m_Grounded = true;
-				if (!wasGrounded)
-					OnLandEvent.Invoke();
+                if (!wasGrounded)
+                {
+                    OnLandEvent.Invoke();
+                    controller.SetBool("infloor", true);
+                    controller.SetBool("jump", false);
+                    controller.Play("idle_animation");
+                }
+
 			}
 		}
 	}
@@ -172,7 +184,14 @@ public class CharacterController2D : MonoBehaviour
 		{
 			// Add a vertical force to the player.
 			m_Grounded = false;
-			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+            OnLandEvent.Invoke();
+            /*if (controller.GetBool("infloor"))
+            {
+                controller.SetBool("infloor", false);
+                controller.SetBool("jump", true);
+                controller.Play("jump_animation");
+            }*/
+            m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
 		}
 	}
 

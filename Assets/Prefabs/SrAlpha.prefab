@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 3480378488109229953}
   - component: {fileID: 3480378488109229955}
   m_Layer: 0
-  m_Name: SrAlpha 1
+  m_Name: SrAlpha
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67,7 +67,6 @@ Transform:
   - {fileID: 3480378488802274850}
   - {fileID: 3480378487979444097}
   - {fileID: 3480378488758467890}
-  - {fileID: 3479054234412662941}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -243,6 +242,7 @@ MonoBehaviour:
   BaseAcc: 10
   TopSpd: 90
   Drag: 4
+  unpaused: 1
   playerBody: {fileID: 3480378488109229954}
   fallSpeedCap: 125
   jumpForce: 0
@@ -390,33 +390,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pl: {fileID: 0}
   offset: {x: 0, y: 0, z: 0}
---- !u!1 &7470405658068252334
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3479054234412662941}
-  m_Layer: 8
-  m_Name: WeaponAnchor
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3479054234412662941
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7470405658068252334}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 22.2, y: -0.9, z: 0}
-  m_LocalScale: {x: 1, y: 2, z: 8}
-  m_Children: []
-  m_Father: {fileID: 3480378488109229952}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
