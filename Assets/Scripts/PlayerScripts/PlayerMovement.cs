@@ -21,6 +21,9 @@ public class PlayerMovement : MonoBehaviour {
     public Rigidbody2D playerBody;
     public float fallSpeedCap = 125;
     public float jumpForce = 20;
+
+    public GameObject JumpSound;
+
     int counter;
     // Update is called once per frame
     private void Start()
@@ -72,6 +75,8 @@ public class PlayerMovement : MonoBehaviour {
         {
             Jump = true;
             JumpStart = true;
+            Instantiate(JumpSound);
+
         }
         if (Input.GetButton("Crouch"))
         {
@@ -94,6 +99,7 @@ public class PlayerMovement : MonoBehaviour {
         JumpStart = false;
         if (Jump)
         {
+            
             JumpCount++;
             playerBody.AddForce(new Vector2(0f, -Drag));
             if (JumpCount > 6)
