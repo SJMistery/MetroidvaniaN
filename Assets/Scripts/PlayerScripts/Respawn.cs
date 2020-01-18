@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class Respawn : MonoBehaviour
 {
@@ -8,6 +10,7 @@ public class Respawn : MonoBehaviour
     public int LifeBar;
     public bool respawnReset;
     public GameObject shadowReset;
+    public TextMeshProUGUI lifebarText;
     // Start is called before the first frame update
     void Start()
     {
@@ -49,5 +52,7 @@ public class Respawn : MonoBehaviour
     void Update()
     {
         respawnReset = false;
+        GameObject.Find("CurrentHP").GetComponent<TextMeshProUGUI>();
+        lifebarText.text = ": " + LifeBar.ToString(); 
     }
 }
