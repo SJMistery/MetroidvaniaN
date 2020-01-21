@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - SavePoint
+  - DeathTrap
+  - Weapon
   layers:
   - Default
   - TransparentFX
@@ -42,21 +45,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Background
-    uniqueID: 1385093095
-    locked: 0
   - name: Back
-    uniqueID: 346670821
+    uniqueID: 2180760207
     locked: 0
   - name: Middle
-    uniqueID: 805208187
+    uniqueID: 205033557
     locked: 0
   - name: Front
-    uniqueID: 412642487
+    uniqueID: 4136728013
     locked: 0
   - name: Enemies
-    uniqueID: 991222993
+    uniqueID: 1335347543
     locked: 0
   - name: Player
-    uniqueID: 1645268781
+    uniqueID: 2431104901
     locked: 0

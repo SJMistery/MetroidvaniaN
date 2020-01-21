@@ -146,7 +146,7 @@ public class CharacterSpriteController : MonoBehaviour
         
         //Para cancelar las animaciones
 
-        if (!controller.GetBool("endedfalling"))
+        if (controller.GetBool("endedfalling"))
         {
             controller.Play("after_jump_crouch_animation");
             StartCoroutine(ChangetoStanding(3));
