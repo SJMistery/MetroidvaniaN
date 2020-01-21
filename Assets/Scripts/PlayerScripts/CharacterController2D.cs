@@ -22,8 +22,13 @@ public class CharacterController2D : MonoBehaviour
 	private Rigidbody2D m_Rigidbody2D;
 	private bool m_FacingRight = true;  // For determining which way the player is currently facing.
 	private Vector3 m_Velocity = Vector3.zero;
-    
-    [Header("Events")]
+	
+	public float h_AirResist;
+
+	public GameObject JumpSound;
+
+
+	[Header("Events")]
 	[Space]
 
 	public UnityEvent OnLandEvent;
@@ -70,6 +75,18 @@ public class CharacterController2D : MonoBehaviour
 
 			}
 		}
+		//Testing the air resist in the horizontal way
+		if (Input.GetButton("Horizontal"))
+		{
+			if (!m_Grounded && m_FacingRight)
+			{
+				m_Rigidbody2D.AddForce(Vector2.left * h_AirResist, 0);
+			}
+			else if (!m_Grounded && !m_FacingRight)
+			{
+				m_Rigidbody2D.AddForce(Vector2.right * h_AirResist, 0);
+			}
+		}
 	}
 
 
@@ -107,7 +124,6 @@ public class CharacterController2D : MonoBehaviour
 			}
             else if (!m_Grounded)
             {
-
 
 
                 /*{
@@ -185,6 +201,7 @@ public class CharacterController2D : MonoBehaviour
 			// Add a vertical force to the player.
 			m_Grounded = false;
             OnLandEvent.Invoke();
+			
             /*if (controller.GetBool("infloor"))
             {
                 controller.SetBool("infloor", false);
@@ -192,6 +209,7 @@ public class CharacterController2D : MonoBehaviour
                 controller.Play("jump_animation");
             }*/
             m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+			Instantiate(JumpSound);
 		}
 	}
 

@@ -108,7 +108,7 @@ public class PlayerMovement : MonoBehaviour {
                 JumpCount = 0;
             }
         }
-        playerBody.velocity = Vector2.ClampMagnitude(playerBody.velocity, fallSpeedCap);
+        //playerBody.velocity = Vector2.ClampMagnitude(playerBody.velocity, fallSpeedCap);
 
         /*
         Vector2 speedCap;
