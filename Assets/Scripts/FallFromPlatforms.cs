@@ -5,12 +5,13 @@ using UnityEngine;
 public class FallFromPlatforms : MonoBehaviour
 {
     private PlatformEffector2D effector;
-    public float waitTime;
-    public float recoverTime;
+    private float waitTime;
+    private float recoverTime;
     void Start()
     {
         effector = GetComponent<PlatformEffector2D>();
-        recoverTime = 0.5f;
+        recoverTime = 0.25f;
+        waitTime = 0.15f;
     }
 
 
@@ -21,13 +22,13 @@ public class FallFromPlatforms : MonoBehaviour
             waitTime = 0f;
         }
 
-        if (Input.GetButton("Down"))
+        if (Input.GetButtonDown("Down"))
         {
             recoverTime = 0f;
             if (waitTime <= 0)
             {
                 effector.rotationalOffset = 180f;
-                waitTime = 0.3f;
+                waitTime = 0.15f;
             }
             else
             {
@@ -37,10 +38,10 @@ public class FallFromPlatforms : MonoBehaviour
 
 
 
-        if (recoverTime >= 0.2f)
+        if (recoverTime >= 0.25f)
         {
             effector.rotationalOffset = 0f;
-            recoverTime = 0.2f;
+            recoverTime = 0.25f;
         }
         else
         {

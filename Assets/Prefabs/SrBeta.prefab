@@ -73,11 +73,10 @@ GameObject:
   - component: {fileID: 6837691235316167439}
   - component: {fileID: 6837691235316167436}
   - component: {fileID: 6837691235316167432}
-  - component: {fileID: 6837691235316167437}
+  - component: {fileID: 6197470363190726374}
   - component: {fileID: 6837691235316167434}
-  - component: {fileID: 6837691235316167435}
-  - component: {fileID: 6837691235316167433}
   - component: {fileID: 6837691235316167430}
+  - component: {fileID: 2408530640797419719}
   - component: {fileID: 6837691235316167431}
   m_Layer: 8
   m_Name: SrBeta
@@ -225,7 +224,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &6837691235316167437
+--- !u!114 &6197470363190726374
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -237,14 +236,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a910148d41ff451458e99cc169199d06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 6837691235316167430}
+  controller: {fileID: 0}
   m_JumpForce: 1300
   m_CrouchSpeed: 0.36
   m_MovementSmoothing: 0.15
-  m_AirControl: 1
+  m_AirControl: 0
   m_WhatIsGround:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
   m_GroundCheck: {fileID: 6837691233550624723}
   m_CeilingCheck: {fileID: 6837691234424784722}
   m_CrouchDisableCollider: {fileID: 0}
@@ -273,7 +272,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20ec82ba3c0a01b45b16afd94e624184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Control: {fileID: 6837691235316167437}
+  Control: {fileID: 6197470363190726374}
+  animator: {fileID: 6837691235316167430}
   Accel: 7
   Brake: 100
   BaseAcc: 60
@@ -281,48 +281,7 @@ MonoBehaviour:
   Drag: 30
   unpaused: 1
   playerBody: {fileID: 6837691235316167432}
-  fallSpeedCap: 300
   jumpForce: 0
-  JumpSound: {fileID: 7737127159439314253, guid: 85edfb0c8fc44804792264afcc3f2d34,
-    type: 3}
---- !u!114 &6837691235316167435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6837691235316167429}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21309f47b6d823f4fb31275ac3c48290, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RespawnPoint: {x: 0, y: 0, z: 0}
-  LifeBar: 0
-  respawnReset: 0
-  shadowReset: {fileID: 0}
-  lifebarText: {fileID: 0}
---- !u!114 &6837691235316167433
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6837691235316167429}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9024d7ff46635143b12a12c67bfa564, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controller: {fileID: 6837691235316167430}
-  times: 0
-  animationState: 0
-  inverted: 0
-  afterjump: 0
-  changeidle: 0
-  change: 0
-  standup: 0
-  aux: 0
 --- !u!95 &6837691235316167430
 Animator:
   serializedVersion: 3
@@ -331,7 +290,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6837691235316167429}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: ec606b79773efb04180c248fa4a3fb41, type: 2}
   m_CullingMode: 0
@@ -342,6 +301,55 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2408530640797419719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6837691235316167429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0418832b24388d46a53d0db574a1201, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barImage: {fileID: 0}
+  barColor: {r: 1, g: 0, b: 0, a: 1}
+  barGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  _currentFraction: 1
+  barText: {fileID: 0}
+  RespawnPoint: {x: 0, y: 0, z: 0}
+  LifeBar: 0
+  respawnReset: 0
+  shadowReset: {fileID: 0}
 --- !u!114 &6837691235316167431
 MonoBehaviour:
   m_ObjectHideFlags: 0

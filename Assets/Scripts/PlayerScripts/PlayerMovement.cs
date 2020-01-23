@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour {
+public class PlayerMovement: MonoBehaviour
+{
 
     public CharacterController2D Control;
+    public Animator animator;
     float HMov = 0f;
     public float Accel = 1f;
     public float Brake = 2f;
@@ -19,16 +21,14 @@ public class PlayerMovement : MonoBehaviour {
     public float Drag;
     public bool unpaused = true;
     public Rigidbody2D playerBody;
-    public float fallSpeedCap = 125;
     public float jumpForce = 20;
-
-    public GameObject JumpSound;
 
     int counter;
     // Update is called once per frame
     private void Start()
     {
         unpaused = true;
+
     }
     //Update with no physics, FixedUpdate with physics
     void Update()
@@ -37,6 +37,7 @@ public class PlayerMovement : MonoBehaviour {
         {
             LHMov = HMov;
             HMov = Input.GetAxisRaw("Horizontal");
+            animator.SetFloat("Speed", Mathf.Abs(HMov));
             if (LHMov * HMov < 0)
             {
                 //PIVOTING
@@ -74,15 +75,18 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetButtonDown("Jump"))
         {
             Jump = true;
+            animator.SetBool("Jumping", true);
             JumpStart = true;
-            Instantiate(JumpSound);
 
         }
-        if (Input.GetButton("Crouch"))
+        if (Input.GetButtonDown("Crouch"))
         {
             Crouch = true;
         }
-        else Crouch = false;
+        else if (Input.GetButtonUp("Crouch"))
+        {
+            Crouch = false;
+        }
 
         if (HSpd > TopSpd)
         {
@@ -91,15 +95,28 @@ public class PlayerMovement : MonoBehaviour {
         if (HSpd < 0)
         {
             HSpd = 0;
+
         }
     }
+
+    public void OnLanding()
+    {
+        animator.SetBool("Jumping", false);
+    }
+    public void OnCrouching(bool isCrouching)
+    {
+
+        animator.SetBool("Crouching", false);
+
+    }
+
     void FixedUpdate()
     {
-        Control.Move(HMov*HSpd*Time.fixedDeltaTime, Crouch, JumpStart);
+        Control.Move(HMov * HSpd * Time.fixedDeltaTime, Crouch, JumpStart);
         JumpStart = false;
         if (Jump)
         {
-            
+
             JumpCount++;
             playerBody.AddForce(new Vector2(0f, -Drag));
             if (JumpCount > 6)
@@ -108,36 +125,6 @@ public class PlayerMovement : MonoBehaviour {
                 JumpCount = 0;
             }
         }
-        //playerBody.velocity = Vector2.ClampMagnitude(playerBody.velocity, fallSpeedCap);
-
-        /*
-        Vector2 speedCap;
-        speedCap.x = TopSpd;
-        speedCap.y = fallSpeedCap;
-        playerBody.velocity = Vector2.ClampMagnitude(playerBody.velocity, speedCap.y);
-
-        if (Jump)
-        {
-            //forca base
-            if (JumpStart)
-            {
-                playerBody.AddForce(new Vector2(0f, jumpForce));
-                JumpStart = false;
-            }
-            //deceleració ràpida per contrarestar la força adicional
-            playerBody.AddForce(new Vector2(0f, -2));
-            if (JumpCount > 5)
-            {
-                Jump = false;z
-            }
-        }
-        */
 
     }
 }
-
-//vector 4 spaces
-//each second register position and put on last place, moving the three places one place ahead beforehand, discarding the oldest
-//on press select the 
-//cooldown de X seconds
-

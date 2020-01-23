@@ -1,9 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
 
 public class InverseTime : MonoBehaviour
 {
+
+    
+    [SerializeField] private TextMeshProUGUI cooldnText;
+    [SerializeField] private GameObject clockImage;
+
+
     public bool respawnReset;
     Queue<Vector2> trackPos;
     public Transform shadowObj;
@@ -29,6 +38,10 @@ public class InverseTime : MonoBehaviour
         temp.z = -1;
         shadowObj.position = temp;
         count = 0;
+        cooldnText = GameObject.Find("cooldown").GetComponent<TextMeshProUGUI>();
+        cooldnText.gameObject.SetActive(false);
+        clockImage = GameObject.Find("clock");
+        clockImage.SetActive(false);
     }
 
     // Update is called once per frame
@@ -54,8 +67,9 @@ public class InverseTime : MonoBehaviour
         }
         if ((Input.GetKeyDown("r"))&&(count>frameCoold))
         {
-            Vector3 temp = shadowObj.position;//obtain up to 5 intervals
-            Vector3 temp1, temp2, temp3, temp4, temp5;
+            Debug.Log("recalling");
+           Vector3 temp = shadowObj.position;//obtain up to 5 intervals
+            /* Vector3 temp1, temp2, temp3, temp4, temp5;
             for(int i = 0; i < 36; i++)
             {
                temp2 = trackPos.Dequeue();
@@ -84,7 +98,7 @@ public class InverseTime : MonoBehaviour
                     temp5 = trackPos.Dequeue();
                     count--;
                 }
-            }
+            }*/
             temp.z = -2;
             playerP.transform.position = temp;
             trackPos.Clear();
@@ -93,5 +107,16 @@ public class InverseTime : MonoBehaviour
             }
             count = 0;
         }
+
+
+        if (frameCoold-count > 0)
+            cooldnText.gameObject.SetActive(true);
+        else
+            cooldnText.gameObject.SetActive(false);
+        if (frameCoold-count <= 0)
+            clockImage.SetActive(true);
+        else
+            clockImage.SetActive(false);
+        cooldnText.text = count.ToString();
     }
 }
