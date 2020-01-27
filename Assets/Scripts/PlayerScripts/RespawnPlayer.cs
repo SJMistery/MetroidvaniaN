@@ -16,9 +16,6 @@ public class RespawnPlayer : MonoBehaviour
     float _maxValue = 25.0f;
 
 
-
-
-
     public Vector3 RespawnPoint;
     public int LifeBar;
     public bool respawnReset;
@@ -66,11 +63,6 @@ public class RespawnPlayer : MonoBehaviour
     {
         barText.text = currentValue + "/" + maxValue;
     }
-
-
-
-
-
 
     private void OnTriggerEnter2D(Collider2D other)
     {

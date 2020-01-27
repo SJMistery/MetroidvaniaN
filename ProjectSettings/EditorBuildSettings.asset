@@ -5,7 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Scenes/TitleScene.unity
+    guid: 7eb26db11835f4f489bf0d4a8a0e3157
+  - enabled: 1
+    path: Assets/Scenes/0.Afueras de la Torre.unity
+    guid: 4e80e0904a5bc8046b6b8a75e49a2eee
   m_configObjects: {}
