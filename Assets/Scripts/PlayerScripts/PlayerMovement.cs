@@ -3,8 +3,7 @@
 public class PlayerMovement: MonoBehaviour
 {
 
-    public CharacterController2D Control;
-    public Animator animator;
+    public CharacterController2D_Mod Control;
     float HMov = 0f;
     public float Accel = 1f;
     public float Brake = 2f;
@@ -13,7 +12,6 @@ public class PlayerMovement: MonoBehaviour
     float HSpd;
     bool Jump = false;
     bool Crouch = false;
-    bool canJump = true;
     bool Pivoting = false;
     float LHMov = 0f;
     int JumpCount;
@@ -22,7 +20,6 @@ public class PlayerMovement: MonoBehaviour
     public bool unpaused = true;
     public Rigidbody2D playerBody;
     public float jumpForce = 20;
-
     int counter;
     // Update is called once per frame
     private void Start()
@@ -37,7 +34,6 @@ public class PlayerMovement: MonoBehaviour
         {
             LHMov = HMov;
             HMov = Input.GetAxisRaw("Horizontal");
-            animator.SetFloat("Speed", Mathf.Abs(HMov));
             if (LHMov * HMov < 0)
             {
                 //PIVOTING
@@ -71,11 +67,9 @@ public class PlayerMovement: MonoBehaviour
                 }
             }
         }
-        //control.Move(2, false, false);
         if (Input.GetButtonDown("Jump"))
         {
             Jump = true;
-            animator.SetBool("Jumping", true);
             JumpStart = true;
 
         }
@@ -87,7 +81,7 @@ public class PlayerMovement: MonoBehaviour
         {
             Crouch = false;
         }
-
+        //assegura que el PC no es passi de rapid i no vagi cap enrera
         if (HSpd > TopSpd)
         {
             HSpd = TopSpd;
@@ -97,17 +91,6 @@ public class PlayerMovement: MonoBehaviour
             HSpd = 0;
 
         }
-    }
-
-    public void OnLanding()
-    {
-        animator.SetBool("Jumping", false);
-    }
-    public void OnCrouching(bool isCrouching)
-    {
-
-        animator.SetBool("Crouching", false);
-
     }
 
     void FixedUpdate()
@@ -125,6 +108,5 @@ public class PlayerMovement: MonoBehaviour
                 JumpCount = 0;
             }
         }
-
     }
 }

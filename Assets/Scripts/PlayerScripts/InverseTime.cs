@@ -69,36 +69,7 @@ public class InverseTime : MonoBehaviour
         {
             Debug.Log("recalling");
            Vector3 temp = shadowObj.position;//obtain up to 5 intervals
-            /* Vector3 temp1, temp2, temp3, temp4, temp5;
-            for(int i = 0; i < 36; i++)
-            {
-               temp2 = trackPos.Dequeue();
-                count--;
-            }
-            if (count > 36)
-            {
-                for (int i = 0; i < 36; i++)
-                {
-                    temp3 = trackPos.Dequeue();
-                    count--;
-                }
-            }
-            if (count > 36)
-            {
-                for (int i = 0; i < 36; i++)
-                {
-                    temp4 = trackPos.Dequeue();
-                    count--;
-                }
-            }
-            if (count > 36)
-            {
-                for (int i = 0; i < 36; i++)
-                {
-                    temp5 = trackPos.Dequeue();
-                    count--;
-                }
-            }*/
+
             temp.z = -2;
             playerP.transform.position = temp;
             trackPos.Clear();

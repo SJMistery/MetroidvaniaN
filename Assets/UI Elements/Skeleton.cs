@@ -5,7 +5,6 @@ using UnityEngine;
 public class Skeleton : MonoBehaviour
 {
     [SerializeField] private Animator controller;
-    [SerializeField] private int times = 0;
     [SerializeField] private bool animationState;
     [SerializeField] private bool inverted;
     [SerializeField] private bool afterjump;
