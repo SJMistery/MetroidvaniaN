@@ -21,6 +21,14 @@ public class PlayerMovement: MonoBehaviour
     public Rigidbody2D playerBody;
     public float jumpForce = 20;
     int counter;
+    public float distance;
+    public LayerMask whatIsLadder;
+    [SerializeField] private bool isClimbing;
+    [SerializeField] private float inputVertical;
+    [SerializeField] private float speed = 15;
+
+
+
     // Update is called once per frame
     private void Start()
     {
@@ -107,6 +115,30 @@ public class PlayerMovement: MonoBehaviour
                 Jump = false;
                 JumpCount = 0;
             }
+        }
+
+        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.up, distance, whatIsLadder);
+        if(hitInfo.collider != null)
+        {
+            if (Input.GetButtonDown("Vertical"))
+            {
+                isClimbing = true;
+            }
+
+        }
+        else
+        {
+            isClimbing = false;
+        }
+        if (isClimbing == true)
+        {
+            inputVertical = Input.GetAxisRaw("Vertical");
+            playerBody.velocity = new Vector2(playerBody.velocity.x, inputVertical * speed);
+            playerBody.gravityScale = 0;
+        }
+        else
+        {
+            playerBody.gravityScale = 4;
         }
     }
 }
