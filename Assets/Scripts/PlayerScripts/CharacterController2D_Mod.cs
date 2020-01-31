@@ -56,8 +56,8 @@ public class CharacterController2D_Mod: MonoBehaviour
 	private BoxCollider2D hitbox;
 	private float waitAttackTime = 0.25f;
 
-	
 	[SerializeField] private GameObject shadowReset;
+	[SerializeField] private GameObject PCS;
 
 
 	[Header("Events")]
@@ -68,20 +68,35 @@ public class CharacterController2D_Mod: MonoBehaviour
 	[System.Serializable]
 	public class BoolEvent : UnityEvent<bool> { }
 
+	private void Start()
+	{
+		PCS = GameObject.FindGameObjectWithTag("P-C-S");
+		if (GlobalController.Instance.fromBeginning == true)
+		{
+			PCS.transform.position = GlobalController.Instance.actualPos;
+
+			fullHP = GlobalController.Instance.maxHp;
+			LifeBar = GlobalController.Instance.hp;
+		}
+		else
+		{
+			fullHP = LifeBar;
+		}
+	}
 
 	private void Awake()
 	{
-		
+
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
 		anim = GetComponent<Animator>();
 
+		
 
 		if (OnLandEvent == null)
 			OnLandEvent = new UnityEvent();
 
 		respawnReset = false;
 		RespawnPoint = transform.position;
-		fullHP = LifeBar;
 		healAvalible = maxHeal;
 
 		barImage = GameObject.Find("Green_Bar").GetComponent<Image>();

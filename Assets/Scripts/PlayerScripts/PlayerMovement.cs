@@ -23,7 +23,11 @@ public class PlayerMovement: MonoBehaviour
     int counter;
     public float distance;
     public LayerMask whatIsLadder;
+    public LayerMask transitionPoint;
     [SerializeField] private bool isClimbing;
+    [SerializeField] private bool canTP;
+    [SerializeField] private bool alredyTP;
+    [SerializeField] private string tpTag;
     [SerializeField] private float inputVertical;
     [SerializeField] private float speed = 15;
 
@@ -33,6 +37,7 @@ public class PlayerMovement: MonoBehaviour
     private void Start()
     {
         unpaused = true;
+        alredyTP = false;
 
     }
     //Update with no physics, FixedUpdate with physics
@@ -117,10 +122,12 @@ public class PlayerMovement: MonoBehaviour
             }
         }
 
-        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.up, distance, whatIsLadder);
-        if(hitInfo.collider != null)
+        //para subir escaleras
+        //detecta si hay una escalera donde el pj dibujando una linea que funciona de detector
+        RaycastHit2D ladderInfo = Physics2D.Raycast(transform.position, Vector2.up, distance, whatIsLadder);
+        if(ladderInfo.collider != null)
         {
-            if (Input.GetButtonDown("Vertical"))
+            if (Input.GetButtonDown("Vertical"))//detecta si esta pulsando hacia arriba/abajo
             {
                 isClimbing = true;
             }
@@ -132,13 +139,85 @@ public class PlayerMovement: MonoBehaviour
         }
         if (isClimbing == true)
         {
-            inputVertical = Input.GetAxisRaw("Vertical");
+            inputVertical = Input.GetAxisRaw("Vertical");//si lo hace sube o baja
             playerBody.velocity = new Vector2(playerBody.velocity.x, inputVertical * speed);
             playerBody.gravityScale = 0;
         }
         else
         {
             playerBody.gravityScale = 4;
+        }
+
+        //Transportarte a un punto desde x lugar
+        RaycastHit2D tpInfo = Physics2D.Raycast(transform.position, Vector2.up, distance, transitionPoint);
+
+        if (tpInfo.collider != null)
+        {
+            canTP = true;
+            tpTag = tpInfo.collider.tag;
+        }
+        else
+        {
+            canTP = false;
+            tpTag = null;
+        }
+
+        if(canTP == true)
+        {
+            if (Input.GetButtonDown("Interact"))
+            {
+                if (tpInfo.collider.tag == "Beginning")//Para ir al principio del nivel
+                {
+
+                    if (GlobalController.Instance.actualLevel == GlobalController.Level.OUTSIDE && alredyTP == false)
+                    {
+                        LoadScenes.Instance.LoadInsideBegLevel();
+                        alredyTP = true;
+                    }
+                }
+
+                if (tpInfo.collider.tag == "Up")//Parte alta del nivel
+                {
+                    if (GlobalController.Instance.actualLevel == GlobalController.Level.ROOF && alredyTP == false)
+                    {
+                        LoadScenes.Instance.LoadInsideUpLevel();
+                        alredyTP = true;
+                    }
+                    if (GlobalController.Instance.actualLevel == GlobalController.Level.INSIDE && alredyTP == false)
+                    {
+                        LoadScenes.Instance.LoadRoofLevel();
+                        alredyTP = true;
+                    }
+
+                }
+                if (tpInfo.collider.tag == "Middle")
+                {
+                    if (GlobalController.Instance.actualLevel == GlobalController.Level.PRISON && alredyTP == false)
+                    {
+                        LoadScenes.Instance.LoadInsideMidLevel();
+                        alredyTP = true;
+                    }
+                    if (GlobalController.Instance.actualLevel == GlobalController.Level.INSIDE && alredyTP == false)
+                    {
+                        LoadScenes.Instance.LoadPrisonBegLevel();
+                        alredyTP = true;
+                    }
+                }
+                if (tpInfo.collider.tag == "Down")
+                {
+                    if (GlobalController.Instance.actualLevel == GlobalController.Level.INSIDE && alredyTP == false)
+                    {
+                        LoadScenes.Instance.LoadPrisonEndLevel();
+                        alredyTP = true;
+                    }
+
+                    if (GlobalController.Instance.actualLevel == GlobalController.Level.PRISON && alredyTP == false)
+                    {
+                        LoadScenes.Instance.LoadInsideDownLevel();
+                        alredyTP = true;
+                    }
+                }
+            }
         }
     }
 }

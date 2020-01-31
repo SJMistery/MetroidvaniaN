@@ -8,6 +8,12 @@ TagManager:
   - SavePoint
   - DeathTrap
   - Weapon
+  - Up
+  - Down
+  - Middle
+  - Beginning
+  - P-C-S
+  - Shadow
   layers:
   - Default
   - TransparentFX
@@ -19,8 +25,8 @@ TagManager:
   - 
   - Player
   - Ground
-  - 
-  - 
+  - Ladder
+  - TransitionPoint
   - 
   - 
   - 
