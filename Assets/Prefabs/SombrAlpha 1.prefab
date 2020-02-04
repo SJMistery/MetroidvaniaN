@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 4557260234192179786}
   - component: {fileID: 4557260234192179787}
   - component: {fileID: 6345796497040653985}
-  - component: {fileID: 1373481508069694708}
+  - component: {fileID: 3675043740726091120}
   m_Layer: 8
   m_Name: SombrAlpha 1
-  m_TagString: Shadow
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,7 +102,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1373481508069694708
+--- !u!114 &3675043740726091120
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -111,17 +111,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 4557260234192179789}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e87dd1d11c6c4242b53f7caad1b098f, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e18d73e798e2964c9e5bd0940909a81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cooldnText: {fileID: 0}
   clockImage: {fileID: 0}
   respawnReset: 0
-  shadowObj: {fileID: 4557260234192179786}
-  playerP: {fileID: 200447387712738259, guid: 5e842ca8db63ae74d9bb63e1f806f677, type: 3}
-  count: 0
+  shadowObj: {fileID: 0}
+  playerP: {fileID: 0}
   frameRet: 180
   frameCoold: 90
-  playerBody: {fileID: 200447387712738220, guid: 5e842ca8db63ae74d9bb63e1f806f677,
-    type: 3}
+  playerBody: {fileID: 0}
   saveForce: 0

@@ -28,7 +28,7 @@ public class CameraControl : MonoBehaviour
     {
         // Set the position of the camera's transform to be the same as the player's, but offset by the calculated offset distance.
         // Si el jugador decide empezar a moverse mientras esta manipulando la camara automaticamente se redirije a su posicion.
-        if (followPlayer || Input.GetButton("Horizontal")) 
+        if (followPlayer || Input.GetButton("Horizontal"))
         {
             transform.position = player.transform.position + offset;
         }
@@ -39,7 +39,7 @@ public class CameraControl : MonoBehaviour
     {
         //Si el jugador esta en movimiento, no se activa el movimiento de la camara.  
         //Si se activa la camara y posteriormente se empieza a andar, la cámara se queda bloqueada durante un rato.
-        if (rb.velocity.x < 1) 
+        if (rb.velocity.x < 1)
         {
             newposY = transform.position.y;
             //al pulsar el las flechas abajo y arriba la camara del PJ se desplaza hacia dicha dirección.

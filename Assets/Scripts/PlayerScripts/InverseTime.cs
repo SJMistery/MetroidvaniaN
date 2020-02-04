@@ -8,7 +8,7 @@ using TMPro;
 public class InverseTime : MonoBehaviour
 {
 
-    
+
     [SerializeField] private TextMeshProUGUI cooldnText;
     [SerializeField] private GameObject clockImage;
 
@@ -17,22 +17,18 @@ public class InverseTime : MonoBehaviour
     Queue<Vector2> trackPos;
     public Transform shadowObj;
     public GameObject playerP;
-    public int count;
+    private int count;
     public int frameRet = 180;
-    public int frameCoold = 100;
+    public int frameCoold = 90;
     public Rigidbody2D playerBody;
     public int saveForce;
+    private CharacterController2D_Mod characterController;
 
-    private Image barImage; //imagen para la barra de cooldown
-    private Color barColor = Color.red; //color de la barra de cooldown
-    private Gradient barGradient = new Gradient();
-    private float _currentFraction = 1.0f;
-    float targetFill = 0.0f; //valores para hacer los calculos de la barra de cooldown.
-    float _maxValue = 25.0f; //valores para hacer los calculos de la barra de cooldown.
+
 
     private void Awake()
     {
-
+        characterController = GameObject.Find("SrBeta1").GetComponent<CharacterController2D_Mod>();
     }
 
     // Start is called before the first frame update
@@ -43,38 +39,16 @@ public class InverseTime : MonoBehaviour
         Vector3 temp = playerP.transform.position;
         temp.z = -1;
         shadowObj.position = temp;
-        count = GlobalController.Instance.cooldown;
+        count = 0;
         cooldnText = GameObject.Find("cooldown").GetComponent<TextMeshProUGUI>();
         cooldnText.gameObject.SetActive(false);
         clockImage = GameObject.Find("clock");
         clockImage.SetActive(false);
-        barImage = GameObject.Find("Cooldown_bar").GetComponent<Image>();
     }
-
-    private void UpdateCooldownBarFill(float currentValue, float maxValue)
-    {
-        // Fix the value to be a percentage.
-        _currentFraction = currentValue / maxValue;
-
-        // If the value is greater than 1 or less than 0, then fix the values to being min/max.
-        if (_currentFraction < 0 || _currentFraction > 1)
-            _currentFraction = _currentFraction < 0 ? 0 : 1;
-
-        // Store the target amount of fill according to the users options.
-        targetFill = _currentFraction;
-
-        // Store the values so that other functions used can reference the maxValue.
-        _maxValue = maxValue;
-
-        // Then just apply the target fill amount.
-        barImage.fillAmount = 1 - targetFill;
-    } //funcion que controla como se rellena o se vacia la barra de vida.
 
     // Update is called once per frame
     void Update()
     {
-        UpdateCooldownBarFill(count, frameCoold);
-
         if (respawnReset)
         {
             count = 0;
@@ -87,32 +61,72 @@ public class InverseTime : MonoBehaviour
         {
             count++;
         }
-        else
+        else if ((count >= frameRet) && (count < frameCoold))
+        {
+
+            count++;
+            Vector3 temp = trackPos.Dequeue();
+            temp.z = -1;
+            shadowObj.position = temp;
+        }
+        else if ((count >= frameRet) && (count >= frameCoold))
         {
             Vector3 temp = trackPos.Dequeue();
             temp.z = -1;
             shadowObj.position = temp;
         }
-        if ((Input.GetKeyDown("r"))&&(count>frameCoold))
+        if ((Input.GetKeyDown("r")) && (count >= frameCoold))
         {
             Debug.Log("recalling");
-           Vector3 temp = shadowObj.position;//obtain up to 5 intervals
+            //cuando se ejecuta el recall la variable m_grounded se vuelve falsa para que el jugador pueda saltar inmediatamente en el aire, sino no deja saltar el juego.
+            characterController.GetComponent<CharacterController2D_Mod>().m_Grounded = false;
+            Vector3 temp = shadowObj.position;//obtain up to 5 intervals
 
+            /* Vector3 temp1, temp2, temp3, temp4, temp5;
+            for(int i = 0; i < 36; i++)
+            {
+               temp2 = trackPos.Dequeue();
+                count--;
+            }
+            if (count > 36)
+            {
+                for (int i = 0; i < 36; i++)
+                {
+                    temp3 = trackPos.Dequeue();
+                    count--;
+                }
+            }
+            if (count > 36)
+            {
+                for (int i = 0; i < 36; i++)
+                {
+                    temp4 = trackPos.Dequeue();
+                    count--;
+                }
+            }
+            if (count > 36)
+            {
+                for (int i = 0; i < 36; i++)
+                {
+                    temp5 = trackPos.Dequeue();
+                    count--;
+                }
+            }*/
             temp.z = -2;
             playerP.transform.position = temp;
             trackPos.Clear();
-            if (Input.GetButton("Jump")){
-                playerBody.AddForce(new Vector2(0f, saveForce));
-            }
+            // la variable can double jump se activa para que el jugador pueda aplicar el doble salto.
+            characterController.GetComponent<CharacterController2D_Mod>().canDoubleJump = true;
             count = 0;
         }
 
 
-        if (frameCoold-count > 0)
+
+        if (frameCoold - count > 0)
             cooldnText.gameObject.SetActive(true);
         else
             cooldnText.gameObject.SetActive(false);
-        if (frameCoold-count <= 0)
+        if (frameCoold - count <= 0)
             clockImage.SetActive(true);
         else
             clockImage.SetActive(false);
