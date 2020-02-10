@@ -17,9 +17,9 @@ public class InverseTime : MonoBehaviour
     Queue<Vector2> trackPos;
     public Transform shadowObj;
     public GameObject playerP;
-    private int count;
+    public int count;
     public int frameRet = 180;
-    public int frameCoold = 90;
+    public int frameCoold = 100;
     public Rigidbody2D playerBody;
     public int saveForce;
     private CharacterController2D_Mod characterController;

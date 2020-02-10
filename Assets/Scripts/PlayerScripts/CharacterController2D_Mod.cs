@@ -10,7 +10,7 @@ public class CharacterController2D_Mod : MonoBehaviour
 {
 
     private Animator anim;
-    private enum State { idle, running, jumping, falling, dead, resting, attacking1, attacking2, attacking3 }
+    private enum State { idle, running, jumping, falling, dead, resting, attacking1, attacking2, attacking3, hurt }
     private State state = State.idle;
 
     [SerializeField] private float m_JumpForce = 400f;                          // Amount of force added when the player jumps.
@@ -21,34 +21,30 @@ public class CharacterController2D_Mod : MonoBehaviour
     [SerializeField] private Transform m_GroundCheck;                           // A position marking where to check if the player is grounded.
     [SerializeField] private Transform m_AttackPoint;
 
+    public bool m_Grounded;            // Whether or not the player is grounded.
+    const float k_CeilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
+    private Rigidbody2D m_Rigidbody2D;
+    private bool m_FacingRight = true;  // For determining which way the player is currently facing.
     public float attackRange = 0.4f;
     const float k_GroundedRadius = 0.07f; // Radius of the overlap circle to determine if grounded
-    private Rigidbody2D m_Rigidbody2D;
     private Vector3 m_Velocity = Vector3.zero;
     public GameObject JumpSound; //gameobject que contiene el sonido cuando el Pj salta y otra funcion que lo destruye poco despu�s.
-    private Image barImage; //imagen para la barra de vida
+   // private Image barImage; //imagen para la barra de vida
     private Color barColor = Color.red; //color de la barra de vida
     private Gradient barGradient = new Gradient();
     private float _currentFraction = 1.0f;
-    private TextMeshProUGUI barText; //texto para la barra de vida
+   // private TextMeshProUGUI barText; //texto para la barra de vida
     private Vector3 RespawnPoint;
     [SerializeField] private GameObject shadowReset;
 
-	private int fullHP = 0; //barra del PJ
-	private Image barImage; //imagen para la barra de vida
-	private Color barColor = Color.red; //color de la barra de vida
-	private Gradient barGradient = new Gradient();
-	private float _currentFraction = 1.0f;
-	private TextMeshProUGUI barText; //texto para la barra de vida
+	private int fullHP = 5; //barra del PJ
 	float targetFill = 0.0f; //valores para hacer los calculos de la barra de vida.
 	float _maxValue = 25.0f; //valores para hacer los calculos de la barra de vida.
-	private Vector3 RespawnPoint;
-	public int LifeBar;
+	public int LifeBar = 5;
 	
 	private int heal = 1;
 	private int maxHeal = 3;
-	public int healAvalible;
-	public float hurtforce;
+	public int healAvalible = 3;
 	private float contadormuerte = 3f;
 	public int noOfClicks = 0;
 	public float maxComboDelay = 0f; //Time when last button was clicked.  Delay between clicks for which clicks will be considered as combo.
@@ -56,40 +52,54 @@ public class CharacterController2D_Mod : MonoBehaviour
 	bool attackPressed; //sirve para que la animacion de ataque solo se ejecute 1 sola vez.
 	public bool respawnReset;
 
-    private int fullHP = 0; //barra del PJ
-    public int LifeBar;             //Vida del PJ.
     public int hpRecovered = 1;     //Cantidad de vida que recupera cada cura.
     public int maxHeals = 3;        //numero m�ximo de curas.
     private int healsAvalible;      //curas disponibles.
     public int attackDMG = 1;       //da�o de ataque.
     private int noAttack = 0;       //nummero del ataque para el control de que animaci�n de ataque va despu�s
     private float hurtforce = 15;        //potencia del knockback que recibe el PJ.
-    float targetFill = 0.0f; //valores para hacer los calculos de la barra de vida.
-    float _maxValue = 10.0f; //valores para hacer los calculos de la barra de vida.
     private float h_AirResist = 10f; // variable que controla la resistencia del aire en el eje horizontal.
     public float invencibleTime = 1.5f;
 
-
-	[SerializeField] private GameObject[] potionCDImage; //imagen para el cooldown de la pocion
+    [SerializeField] private GameObject PCS;
+    //[SerializeField] private BoxCollider2D hitbox;
+    [SerializeField] private GameObject[] potionCDImage; //imagen para el cooldown de la pocion
 	[SerializeField] private GameObject[] potionUsedImage; //imagen para el cooldown de la pocion
+    [SerializeField] private GameObject[] lifeStars; //imagen para el cooldown de la pocion
 
 
-	public int count;
+    public int count = 0;
 	public int frameRet = 180;
 	public int frameCoold = 100;
 
-	[Header("Events")]
-	[Space]
+    public bool m_AirControl;
+    public bool canDoubleJump;
+    public bool isDamaged;
+    public bool isResting;
+    public bool isDead;
+    public float knockbackTimer;
+    public float lastTimeDamaged;
+    public float deadTimer = 3;
+    public float nextAttackTimer = 3;
+    public float waitCollisionTime = 0.10f;
 
-	public UnityEvent OnLandEvent;
 
-	[System.Serializable]
+     [Header("Events")]
+    [Space]
+    public UnityEvent OnLandEvent;
+    [System.Serializable]
 	public class BoolEvent : UnityEvent<bool> { }
 
 	private void Start()
 	{
 		PCS = GameObject.FindGameObjectWithTag("P-C-S");
-		if (GlobalController.Instance.fromBeginning == true)
+
+        potionCDImage = new GameObject[maxHeal];
+        potionUsedImage = new GameObject[maxHeal];
+        potionCDImage = GameObject.FindGameObjectsWithTag("potionCD");
+        potionUsedImage = GameObject.FindGameObjectsWithTag("potion");
+        lifeStars = GameObject.FindGameObjectsWithTag("LifeStar");
+        if (GlobalController.Instance.fromBeginning == true)
 		{
 			PCS.transform.position = GlobalController.Instance.actualPos;
 
@@ -101,11 +111,11 @@ public class CharacterController2D_Mod : MonoBehaviour
 		else
 		{
 			fullHP = LifeBar;
-		}
-	}
+        }
+    }
 
-	private void Awake()
-	{
+	private void Awake() { 
+	
 
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
 		anim = GetComponent<Animator>();
@@ -115,52 +125,16 @@ public class CharacterController2D_Mod : MonoBehaviour
 		if (OnLandEvent == null)
 			OnLandEvent = new UnityEvent();
 
-    [Header("Events")]
-    [Space]
-    public UnityEvent OnLandEvent;
-    [System.Serializable]
-    public class BoolEvent : UnityEvent<bool> { }
 
-		potionCDImage = new GameObject[maxHeal];
-		potionUsedImage = new GameObject[maxHeal];
-
-		barImage = GameObject.Find("Green_Bar").GetComponent<Image>();
-		barText = GameObject.Find("Life_Bar_Text").GetComponent<TextMeshProUGUI>();
-		potionCDImage = GameObject.FindGameObjectsWithTag("potionCD");
-		potionUsedImage = GameObject.FindGameObjectsWithTag("potion");
-		hitbox = GameObject.Find("Espada").GetComponent<BoxCollider2D>();
-		hitbox.enabled = false;
-
-		for(int i = 0; i < maxHeal; i++)
-		{
-			potionUsedImage[i].SetActive(false);
-		}
-
-	}
-	public void Move(float move, bool crouch, bool jump)
-	{
-		
-		//only control the player if grounded or airControl is turned on
-		if (m_Grounded || m_AirControl)
-		{
-			// Move the character by finding the target velocity
-			Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);
-			// And then smoothing it out and applying it to the character
-			m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
-
-
-        if (OnLandEvent == null)
-            OnLandEvent = new UnityEvent();
+		//barImage = GameObject.Find("Green_Bar").GetComponent<Image>();
+		//barText = GameObject.Find("Life_Bar_Text").GetComponent<TextMeshProUGUI>();
 
         respawnReset = false;
         RespawnPoint = transform.position;
-        fullHP = LifeBar;
-        healsAvalible = maxHeals;
 
-        barImage = GameObject.Find("Green_Bar").GetComponent<Image>();
-        barText = GameObject.Find("Life_Bar_Text").GetComponent<TextMeshProUGUI>();
+		
 
-    }
+	}
     public void Move(float move, bool crouch, bool jump)
     {
         //only control the player if grounded or airControl is turned on
@@ -204,6 +178,11 @@ public class CharacterController2D_Mod : MonoBehaviour
         // Switch the way the player is labelled as facing.
         m_FacingRight = !m_FacingRight;
 
+        // Multiply the player's x local scale by -1.
+        Vector3 theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
+    }
 
 	private void UpdateHealFill(float currentValue, float maxValue, int i)
 	{
@@ -226,12 +205,13 @@ public class CharacterController2D_Mod : MonoBehaviour
 
 
 
-	private void OnTriggerEnter2D(Collider2D other)
-	{
-		// Debug.Log("collided");
-		if (other.gameObject.tag == "Enemy" && !collided)
-		{
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        // Debug.Log("collided");
+        if (other.gameObject.tag == "Enemy" && !collided)
+        {
 
+        }
     }
 
     // NEW O MOVIDO TODO LO QUE HAY A PARTIR DE AQUI.
@@ -242,6 +222,7 @@ public class CharacterController2D_Mod : MonoBehaviour
             return _currentFraction;
         }
     }
+    /*
     private void UpdateBarFill(float currentValue, float maxValue)
     {
         // Fix the value to be a percentage.
@@ -264,39 +245,41 @@ public class CharacterController2D_Mod : MonoBehaviour
     {
         barText.text = currentValue + "/" + maxValue;
     } //MOVIDOO
-
+    */
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.collider.tag == "Enemy" && !isDamaged)
         {
             LifeBar -= 1;
+        }
 
 
-		else
-		{
-			//Standing
-			state = State.idle;
-			if (!m_Grounded && m_Rigidbody2D.velocity.y < 0)
-			{
-				state = State.falling;
-			}
-		}
+        else
+        {
+            //Standing
+            state = State.idle;
+            if (!m_Grounded && m_Rigidbody2D.velocity.y < 0)
+            {
+                state = State.falling;
+            }
+        }
 	}
-	private void HealHP()
-	{
-		if(healAvalible > 0 && state != State.dead)
-		{
-			LifeBar += heal;
-			if (LifeBar >= fullHP)
-			{
-				LifeBar = fullHP;
-			}
-			healAvalible -= 1;
-		}
-		else
-		{
-			healAvalible = 0;
-		}
+    private void HealHP()
+    {
+        if (healAvalible > 0 && state != State.dead)
+        {
+            LifeBar += heal;
+            if (LifeBar >= fullHP)
+            {
+                LifeBar = fullHP;
+            }
+            healAvalible -= 1;
+        }
+        else
+        {
+            healAvalible = 0;
+        }
+    }
 
     private void OnTriggerStay2D(Collider2D other)
     {
@@ -332,6 +315,7 @@ public class CharacterController2D_Mod : MonoBehaviour
         {
             healsAvalible = 0;
             LifeBar = 0;
+
             if (deadTimer <= 0) //Contador de 3 segundos que controla que el PJ no haga respawn hasta que se haya finalizado este tiempo.
             {
                 deadTimer = 3f;
@@ -342,6 +326,18 @@ public class CharacterController2D_Mod : MonoBehaviour
                 GetComponent<PlayerMovement>().enabled = true;
                 state = State.resting;
                 healsAvalible = maxHeals;
+            }
+        }
+        else if (state == State.hurt)
+        {
+            if (m_Grounded && Mathf.Abs(m_Rigidbody2D.velocity.x) < 1f)
+            {
+                state = State.idle;
+                GetComponent<PlayerMovement>().enabled = true;
+            }
+            else
+            {
+                GetComponent<PlayerMovement>().enabled = false;
             }
         }
         else if (Input.GetButton("Attack") && !attackPressed && nextAttackTimer <= 0)
@@ -367,25 +363,64 @@ public class CharacterController2D_Mod : MonoBehaviour
 
             attackPressed = true;
 
-		//Air resist in the horizontal way
-		if (Input.GetButton("Horizontal"))
-		{
-			if (!m_Grounded && m_FacingRight)
-			{
-				m_Rigidbody2D.AddForce(Vector2.left * h_AirResist, 0);
-			}
-			else if (!m_Grounded && !m_FacingRight)
-			{
-				m_Rigidbody2D.AddForce(Vector2.right * h_AirResist, 0);
-			}
-		}
-		if (Input.GetButtonUp("Attack"))
-		{
-			attackPressed = false;
-		}
-		if (Input.GetButton("Jump") && m_Rigidbody2D.velocity.y > Mathf.Abs(Mathf.Epsilon))
-		{
-			state = State.jumping;
+            //Air resist in the horizontal way
+            if (Input.GetButton("Horizontal"))
+            {
+                if (!m_Grounded && m_FacingRight)
+                {
+                    m_Rigidbody2D.AddForce(Vector2.left * h_AirResist, 0);
+                }
+                else if (!m_Grounded && !m_FacingRight)
+                {
+                    m_Rigidbody2D.AddForce(Vector2.right * h_AirResist, 0);
+                }
+            }
+            if (Input.GetButtonUp("Attack"))
+            {
+                attackPressed = false;
+            }
+            if (Input.GetButton("Jump") && m_Rigidbody2D.velocity.y > Mathf.Abs(Mathf.Epsilon))
+            {
+                state = State.jumping;
+            }
+
+            else
+            {
+                //Standing
+                state = State.idle;
+                if (!m_Grounded && m_Rigidbody2D.velocity.y < 0)
+                {
+                    state = State.falling;
+                }
+            }
+
+        }
+        else if (state == State.jumping)
+        {
+            //saltando
+            if (m_Rigidbody2D.velocity.y < 5)
+            {
+                state = State.falling;
+            }
+        }
+        else if (state == State.falling)
+        {
+            //cayendo
+            if (m_Grounded) //cuando toca el suelo
+            {
+                state = State.idle;
+            }
+        }
+        //no puedo poner el numero 0, por que por las fuerzas a las que esta sometido al Pj siempre tiene el parametro velocity.x superior a 0
+        else if (m_Grounded && Mathf.Abs(m_Rigidbody2D.velocity.x) > 0.1f)
+        {
+            //Moving
+            state = State.running;
+            if (!m_Grounded && m_Rigidbody2D.velocity.y < 0)
+            {
+                state = State.falling;
+            }
+        }
 
         else
         {
@@ -397,23 +432,21 @@ public class CharacterController2D_Mod : MonoBehaviour
             }
         }
     }
-
-
     private void Heal()
     {
-        if (healsAvalible > 0)
+        if (healsAvalible > 0 && state != State.dead)
         {
-            LifeBar += hpRecovered; ;
+            LifeBar += hpRecovered;
             if (LifeBar >= fullHP)
             {
                 LifeBar = fullHP;
             }
+            healsAvalible -= 1;
         }
         else
         {
             healsAvalible = 0;
         }
-        healsAvalible -= 1;
 
 		//potion system
 
@@ -567,8 +600,42 @@ public class CharacterController2D_Mod : MonoBehaviour
 
 
         respawnReset = false;
-        UpdateBarFill(LifeBar, fullHP);
-        UpdateBarText(LifeBar, fullHP);
+
+        for (int i = 0; i <= healAvalible - 1; i++)
+        {
+            potionUsedImage[i].SetActive(false);
+        }
+
+        if (LifeBar >= 0)
+            for (int i = fullHP; i > LifeBar; i--)
+            {
+                lifeStars[i -1].SetActive(false);
+            }
+
+        for (int i = 0; i <= LifeBar - 1; i++)
+        {
+            lifeStars[i].SetActive(true);
+        }
+
+        if (count < frameRet)
+        {
+            count++;
+        }
+        if (Input.GetButtonDown("Heal") && (count > frameCoold))
+        {
+            count = 0;
+
+            if (LifeBar != fullHP)
+                HealHP();
+        }
+
+        for (int i = 0; i < maxHeal; i++)
+        {
+            if (healAvalible - 1 >= i)
+                UpdateHealFill(count, frameCoold, i);
+            else
+                potionUsedImage[i].SetActive(true);
+        }
 
     }
 

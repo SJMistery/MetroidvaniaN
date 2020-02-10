@@ -16,6 +16,7 @@ TagManager:
   - Shadow
   - potion
   - potionCD
+  - LifeStar
   layers:
   - Default
   - TransparentFX
