@@ -57,9 +57,18 @@ public class InverseTime : MonoBehaviour
         }
         Vector3 tempInt = playerP.transform.position;
         trackPos.Enqueue(tempInt);
-        if (count < frameRet)
+       if(Time.timeScale > 0)
         {
-            count++;
+            if (count < frameRet)
+            {
+                count++;
+            }
+            else
+            {
+                Vector3 temp = trackPos.Dequeue();
+                temp.z = -1;
+                shadowObj.position = temp;
+            }
         }
         else if ((count >= frameRet) && (count < frameCoold))
         {
@@ -130,6 +139,6 @@ public class InverseTime : MonoBehaviour
             clockImage.SetActive(true);
         else
             clockImage.SetActive(false);
-        cooldnText.text = count.ToString();
+        cooldnText.text = count.ToString() + '%';
     }
 }

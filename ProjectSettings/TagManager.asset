@@ -8,6 +8,14 @@ TagManager:
   - SavePoint
   - DeathTrap
   - Weapon
+  - Up
+  - Down
+  - Middle
+  - Beginning
+  - P-C-S
+  - Shadow
+  - potion
+  - potionCD
   layers:
   - Default
   - TransparentFX

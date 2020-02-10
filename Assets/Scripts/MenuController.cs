@@ -24,6 +24,7 @@ public class MenuController : MonoBehaviour
     public void LoadTitleScene()
     {
         SceneManager.LoadScene("TitleScene");
+        Time.timeScale = 1;
     }
     public void QuitGame()
     {
