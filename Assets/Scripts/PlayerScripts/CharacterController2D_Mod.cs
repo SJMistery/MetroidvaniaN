@@ -508,7 +508,7 @@ public class CharacterController2D_Mod : MonoBehaviour
 
     private void OnDrawGizmosSelected() // funcion que permite ver en el editor la hitbox de la espada.
     {
-        Gizmos.DrawWireSphere(m_AttackPoint.position, attackRange);
+        //Gizmos.DrawWireSphere(m_AttackPoint.position, attackRange);
     }
 
     private void Timers()

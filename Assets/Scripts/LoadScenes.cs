@@ -30,6 +30,18 @@ public class LoadScenes : MonoBehaviour
         GlobalController.Instance.positionPrisonEnd = new Vector3(33.76f, -43.92657f);
     }
 
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            DontDestroyOnLoad(gameObject);
+            Instance = this;
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
     public void LoadLevel1()
     {
         SceneManager.LoadScene("0.Afueras de la Torre");

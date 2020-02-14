@@ -34,6 +34,7 @@ public class InverseTime : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerP = GameObject.FindGameObjectWithTag("Player");
         respawnReset = false;
         trackPos = new Queue<Vector2>();
         Vector3 temp = playerP.transform.position;
@@ -132,13 +133,27 @@ public class InverseTime : MonoBehaviour
 
 
         if (frameCoold - count > 0)
-            cooldnText.gameObject.SetActive(true);
+        {
+            if (cooldnText != null)
+                cooldnText.gameObject.SetActive(true);
+        }
         else
-            cooldnText.gameObject.SetActive(false);
+        {
+            if (cooldnText != null)
+                cooldnText.gameObject.SetActive(false);
+        }
         if (frameCoold - count <= 0)
+        {
+            if(clockImage != null)
             clockImage.SetActive(true);
+        }
         else
-            clockImage.SetActive(false);
-        cooldnText.text = count.ToString() + '%';
+        {
+            if (clockImage != null)
+                clockImage.SetActive(true);
+        }
+
+        if (cooldnText != null)
+            cooldnText.text = count.ToString() + '%';
     }
 }
