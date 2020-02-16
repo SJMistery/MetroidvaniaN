@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7654160264679980581}
   - component: {fileID: 7654160264679980582}
-  - component: {fileID: 7654160264679980580}
+  - component: {fileID: 6885474802406896111}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dc3fce73e6681342868a877da63f3a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7654160264679980580
+--- !u!114 &6885474802406896111
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -53,12 +53,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 7654160264679980583}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7f7f94e7b8ff2844a2edad5713bd054, type: 3}
+  m_Script: {fileID: 11500000, guid: 0873fa41b5a33c0429e59c246a2f6bcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHp: 0
   hp: 0
+  cooldown: 0
+  maxpotions: 0
+  disp_potions: 0
   positionOutside: {x: 0, y: 0, z: 0}
-  positionInside: {x: 0, y: 0, z: 0}
+  positionInsideBeg: {x: 0, y: 0, z: 0}
+  positionInsideUp: {x: 0, y: 0, z: 0}
+  positionInsideMid: {x: 0, y: 0, z: 0}
+  positionInsideLow: {x: 0, y: 0, z: 0}
   positionRoof: {x: 0, y: 0, z: 0}
-  positionExterior: {x: 0, y: 0, z: 0}
+  positionPrisonBeg: {x: 0, y: 0, z: 0}
+  positionPrisonEnd: {x: 0, y: 0, z: 0}
+  actualPos: {x: 0, y: 0, z: 0}
   actualLevel: 0
+  fromBeginning: 0

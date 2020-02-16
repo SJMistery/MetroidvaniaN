@@ -15,13 +15,12 @@ public class InverseTime : MonoBehaviour
 
     public bool respawnReset;
     Queue<Vector2> trackPos;
-    public Transform shadowObj;
-    public GameObject playerP;
-    public int count;
+    private Transform shadowObj;
+    [SerializeField] private GameObject playerP;
+    private int count;
     public int frameRet = 180;
-    public int frameCoold = 100;
-    public Rigidbody2D playerBody;
-    public int saveForce;
+    public int frameCoold = 90;
+    private Rigidbody2D playerBody;
     private CharacterController2D_Mod characterController;
 
 
@@ -29,12 +28,13 @@ public class InverseTime : MonoBehaviour
     private void Awake()
     {
         characterController = GameObject.Find("SrBeta1").GetComponent<CharacterController2D_Mod>();
+        playerBody = GameObject.Find("SrBeta1").GetComponent<Rigidbody2D>();
+        shadowObj = GetComponent<Transform>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        playerP = GameObject.FindGameObjectWithTag("Player");
         respawnReset = false;
         trackPos = new Queue<Vector2>();
         Vector3 temp = playerP.transform.position;
@@ -58,18 +58,9 @@ public class InverseTime : MonoBehaviour
         }
         Vector3 tempInt = playerP.transform.position;
         trackPos.Enqueue(tempInt);
-       if(Time.timeScale > 0)
+        if (count < frameRet)
         {
-            if (count < frameRet)
-            {
-                count++;
-            }
-            else
-            {
-                Vector3 temp = trackPos.Dequeue();
-                temp.z = -1;
-                shadowObj.position = temp;
-            }
+            count++;
         }
         else if ((count >= frameRet) && (count < frameCoold))
         {
@@ -87,7 +78,6 @@ public class InverseTime : MonoBehaviour
         }
         if ((Input.GetKeyDown("r")) && (count >= frameCoold))
         {
-            Debug.Log("recalling");
             //cuando se ejecuta el recall la variable m_grounded se vuelve falsa para que el jugador pueda saltar inmediatamente en el aire, sino no deja saltar el juego.
             characterController.GetComponent<CharacterController2D_Mod>().m_Grounded = false;
             Vector3 temp = shadowObj.position;//obtain up to 5 intervals
@@ -133,27 +123,14 @@ public class InverseTime : MonoBehaviour
 
 
         if (frameCoold - count > 0)
-        {
-            if (cooldnText != null)
-                cooldnText.gameObject.SetActive(true);
-        }
+            cooldnText.gameObject.SetActive(true);
         else
-        {
-            if (cooldnText != null)
-                cooldnText.gameObject.SetActive(false);
-        }
+            cooldnText.gameObject.SetActive(false);
         if (frameCoold - count <= 0)
-        {
-            if(clockImage != null)
             clockImage.SetActive(true);
-        }
         else
-        {
-            if (clockImage != null)
-                clockImage.SetActive(true);
-        }
-
-        if (cooldnText != null)
-            cooldnText.text = count.ToString() + '%';
+            clockImage.SetActive(false);
+        int tempor = frameCoold - count;
+        cooldnText.text = tempor.ToString();
     }
 }

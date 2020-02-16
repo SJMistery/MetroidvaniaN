@@ -2,13 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/*
+ * 
+ * 
+ * COMO SE ESTA UTILIZANDO CINEMACHINE, ESTE SCRIPT ESTA EN DESHUSO, PENDIENTE DE SER BORRADO.
+ * 
+ * 
+ */
 public class CameraControl : MonoBehaviour
 {
     public float speed;
     public float maxdistance;
-    public Rigidbody2D rb;
-    public GameObject cam;
-    public GameObject player;
+    private Rigidbody2D rb;
+    [SerializeField] private GameObject cam;
+    [SerializeField] private GameObject player;
     private Vector3 offset;            //Private variable to store the offset distance between the player and camera
     private bool followPlayer;
 
@@ -21,6 +29,7 @@ public class CameraControl : MonoBehaviour
         //Calculate and store the offset value by getting the distance between the player's position and camera's position.
         offset = transform.position - player.transform.position;
         followPlayer = true;
+        rb = GameObject.Find("SrBeta1").GetComponent<Rigidbody2D>();
     }
 
     // LateUpdate is called after Update each frame

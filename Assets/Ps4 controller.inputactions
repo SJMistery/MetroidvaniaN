@@ -1,0 +1,33 @@
+{
+    "name": "Ps4 controller",
+    "maps": [
+        {
+            "name": "New action map",
+            "id": "12137ca9-7b46-41e5-8bc7-c7cb12ad85d1",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "3ffc5f0b-9e94-44a0-b3a1-5aa378d86e58",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "4c8d4ae0-d855-4ba9-a2d1-eed0adecfdb4",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

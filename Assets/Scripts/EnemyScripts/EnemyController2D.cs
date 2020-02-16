@@ -23,7 +23,8 @@ public class EnemyController2D : MonoBehaviour
 
     public int maxHP = 3;
     public int currentHP;
-    public float hurtforce = 2000;
+    public float hurtforceX;
+    public float hurtforceY;
 
     [Header("Events")]
     [Space]
@@ -68,12 +69,11 @@ public class EnemyController2D : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "DeathTrap")
         {
-
-            Die();
+            TakeDMG(maxHP);
         }
     }
 
@@ -121,7 +121,7 @@ public class EnemyController2D : MonoBehaviour
         currentHP -= dmg;
         enemyAnim.SetTrigger("hurt");
 
-        Debug.Log(" " + currentHP);
+        //Debug.Log(" " + currentHP);
 
         //si el enemigo tiene 0 hp se muere.
         if (currentHP <= 0)
@@ -131,11 +131,11 @@ public class EnemyController2D : MonoBehaviour
 
         else if (srBeta.transform.position.x <= transform.position.x)
         {
-            m_Rigidbody2D.AddForce(new Vector2(hurtforce, 0f));
+            m_Rigidbody2D.AddForce(new Vector2(hurtforceX, 0f));
         }
         else if (srBeta.transform.position.x > transform.position.x)
         {
-            m_Rigidbody2D.AddForce(new Vector2(-hurtforce, 0f));
+            m_Rigidbody2D.AddForce(new Vector2(-hurtforceX, 0f));
         }
 
     }
@@ -143,7 +143,7 @@ public class EnemyController2D : MonoBehaviour
     void Die()
     {
         enemyAnim.SetBool("Dead", true);
-        Debug.Log("enemy is dead");
+        //Debug.Log("enemy is dead");
 
         m_Rigidbody2D.constraints = RigidbodyConstraints2D.FreezeAll;    //Congela todas las direcciones para que al morir, para que el PJ no salga disparado
         GetComponent<Collider2D>().enabled = false;                 //Desactiva el boxcollider para que se posible atravessar el cuerpo.

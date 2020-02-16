@@ -10,8 +10,8 @@ public class BetterJumpControl : MonoBehaviour
 {
     // Start is called before the first frame update
     Rigidbody2D rb;
-    public float fallMultiplier;
-    public float lowJump;
+    private float fallMultiplier = 4f;
+    private float lowJump = 7f;
 
     private void Awake()
     {

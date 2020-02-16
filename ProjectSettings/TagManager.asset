@@ -8,14 +8,9 @@ TagManager:
   - SavePoint
   - DeathTrap
   - Weapon
-  - Up
-  - Down
-  - Middle
-  - Beginning
   - P-C-S
-  - Shadow
-  - potion
   - potionCD
+  - potion
   - LifeStar
   layers:
   - Default
@@ -29,13 +24,13 @@ TagManager:
   - Player
   - Ground
   - Enemies
+  - BackGround1
+  - BackGround2
+  - BackGround3
+  - BackGround4
+  - BackGround5
+  - BackGround
   - Ladder
-  - TP_point
-  - 
-  - 
-  - 
-  - 
-  - 
   - 
   - 
   - 

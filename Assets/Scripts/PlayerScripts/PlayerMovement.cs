@@ -3,46 +3,42 @@
 public class PlayerMovement : MonoBehaviour
 {
 
-    public CharacterController2D_Mod Control;
+    private CharacterController2D_Mod Control;
     float HMov = 0f;
-    public float Accel = 1f;
-    public float Brake = 2f;
-    public float BaseAcc = 10f;
-    public float TopSpd = 40f;
+    private float Accel = 7f;
+    private float Brake = 100f;
+    private float BaseAcc = 15f;
+    private float TopSpd = 75f;
+    private float Drag = 30f;
+    
     float HSpd;
     bool Jump = false;
     bool Crouch = false;
     bool Pivoting = false;
     float LHMov = 0f;
-    int JumpCount;
     bool JumpStart = false;
-    public float Drag;
     public bool unpaused = true;
     public Rigidbody2D playerBody;
-    public float jumpForce = 20;
-    int counter;
-    public float distance = 10;
+
+    private float distance = 0.1f; //distancia a la que el raycast detecta la escalera. ES VERTICAL, tiene que estar muy bajo.
     public LayerMask whatIsLadder;
     public LayerMask transitionPoint;
-    [SerializeField] private bool isClimbing;
+    public bool isClimbing;
     [SerializeField] private bool canTP;
     [SerializeField] private bool alredyTP;
     [SerializeField] private float inputVertical;
     [SerializeField] private float speed = 15;
 
-    float testingAxis;
     // Update is called once per frame
     private void Start()
     {
         unpaused = true;
-        testingAxis = Input.GetAxis("Horizontal");
+        Control = GetComponent<CharacterController2D_Mod>();
 
     }
     //Update with no physics, FixedUpdate with physics
     void Update()
     {
-        testingAxis = Input.GetAxis("Horizontal");
-        //Debug.Log("axis: " + testingAxis);
         if (unpaused)
         {
             LHMov = HMov;
@@ -106,12 +102,10 @@ public class PlayerMovement : MonoBehaviour
         if (Jump)
         {
 
-            JumpCount++;
             playerBody.AddForce(new Vector2(0f, -Drag));
             Jump = false;
 
-        }        
-        
+        }
         //para subir escaleras
         //detecta si hay una escalera donde el pj dibujando una linea que funciona de detector
         RaycastHit2D ladderInfo = Physics2D.Raycast(transform.position, Vector2.up, distance, whatIsLadder);
@@ -138,74 +132,5 @@ public class PlayerMovement : MonoBehaviour
             playerBody.gravityScale = 4;
         }
 
-        //Transportarte a un punto desde x lugar
-        RaycastHit2D tpInfo = Physics2D.Raycast(transform.position, Vector2.up, distance, transitionPoint);
-
-        if (tpInfo.collider != null)
-        {
-            canTP = true;
-        }
-        else
-        {
-            canTP = false;
-        }
-
-        if (canTP == true)
-        {
-            if (Input.GetButtonDown("Interact"))
-            {
-                if (tpInfo.collider.tag == "Beginning")//Para ir al principio del nivel
-                {
-
-                    if (GlobalController.Instance.actualLevel == GlobalController.Level.OUTSIDE && alredyTP == false)
-                    {
-                        LoadScenes.Instance.LoadInsideBegLevel();
-                        alredyTP = true;
-                    }
-                }
-
-                if (tpInfo.collider.tag == "Up")//Parte alta del nivel
-                {
-                    if (GlobalController.Instance.actualLevel == GlobalController.Level.ROOF && alredyTP == false)
-                    {
-                        LoadScenes.Instance.LoadInsideUpLevel();
-                        alredyTP = true;
-                    }
-                    if (GlobalController.Instance.actualLevel == GlobalController.Level.INSIDE && alredyTP == false)
-                    {
-                        LoadScenes.Instance.LoadRoofLevel();
-                        alredyTP = true;
-                    }
-
-                }
-                if (tpInfo.collider.tag == "Middle")
-                {
-                    if (GlobalController.Instance.actualLevel == GlobalController.Level.PRISON && alredyTP == false)
-                    {
-                        LoadScenes.Instance.LoadInsideMidLevel();
-                        alredyTP = true;
-                    }
-                    if (GlobalController.Instance.actualLevel == GlobalController.Level.INSIDE && alredyTP == false)
-                    {
-                        LoadScenes.Instance.LoadPrisonBegLevel();
-                        alredyTP = true;
-                    }
-                }
-                if (tpInfo.collider.tag == "Down")
-                {
-                    if (GlobalController.Instance.actualLevel == GlobalController.Level.INSIDE && alredyTP == false)
-                    {
-                        LoadScenes.Instance.LoadPrisonEndLevel();
-                        alredyTP = true;
-                    }
-
-                    if (GlobalController.Instance.actualLevel == GlobalController.Level.PRISON && alredyTP == false)
-                    {
-                        LoadScenes.Instance.LoadInsideDownLevel();
-                        alredyTP = true;
-                    }
-                }
-            }
-        }
     }
 }
