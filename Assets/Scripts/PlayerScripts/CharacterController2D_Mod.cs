@@ -58,7 +58,7 @@ public class CharacterController2D_Mod : MonoBehaviour
     public int LifeBar;             //Vida actual del PJ.
     public int hpRecovered = 1;     //Cantidad de vida que recupera cada cura.
     public int maxHeals = 3;        //numero máximo de curas.
-    private int healsAvalible;      //curas actuales disponibles.
+    public int healsAvalible;      //curas actuales disponibles.
     private float hurtforce = 15;        //potencia del knockback que recibe el PJ.
     private float h_AirResist = 50f;  // variable que controla la resistencia del aire en el eje horizontal.
     private float invencibleTime = 1.5f; //Tiempo para el timer lastTimeDamaged
@@ -86,7 +86,8 @@ public class CharacterController2D_Mod : MonoBehaviour
         lifeStars = GameObject.FindGameObjectsWithTag("LifeStar");
         if (GlobalController.Instance.fromBeginning == true)
         {
-            PCS.transform.position = GlobalController.Instance.actualPos;
+            if (PCS != null)
+                PCS.transform.position = GlobalController.Instance.actualPos;
 
             fullHP = GlobalController.Instance.maxHp;
             LifeBar = GlobalController.Instance.hp;
@@ -377,6 +378,8 @@ public class CharacterController2D_Mod : MonoBehaviour
                 {
                     healsAvalible = 0;
                 }
+
+
             }
         }
 
@@ -434,7 +437,7 @@ public class CharacterController2D_Mod : MonoBehaviour
             attack.enabled = true;
         }
 
-        if (Input.GetButtonDown("Heal"))
+        if (Input.GetButtonDown("Heal") && LifeBar != fullHP)
         {
             Heal();
         }

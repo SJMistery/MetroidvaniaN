@@ -12,6 +12,15 @@ TagManager:
   - potionCD
   - potion
   - LifeStar
+  - Shadow
+  - Beginning
+  - Up
+  - Middle
+  - Down
+  - Cave
+  - End
+  - CaveE
+  - ClockCD
   layers:
   - Default
   - TransparentFX
@@ -31,7 +40,7 @@ TagManager:
   - BackGround5
   - BackGround
   - Ladder
-  - 
+  - TPpoint
   - 
   - 
   - 

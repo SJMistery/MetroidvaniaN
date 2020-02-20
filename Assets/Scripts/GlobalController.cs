@@ -5,7 +5,7 @@ using UnityEngine;
 public class GlobalController : MonoBehaviour
 {
 
-    public enum Level {OUTSIDE, INSIDE, ROOF, PRISON };
+    public enum Level {OUTSIDE, INSIDE, ROOF, PRISON, CAVE, STORAGE };
 
     public int maxHp;//maximo vida
     public int hp;//vida de personaje que le queda
@@ -13,11 +13,19 @@ public class GlobalController : MonoBehaviour
     public int maxpotions;//pociones disponibles
     public int disp_potions;//pociones disponibles
     public Vector3 positionOutside;
+    public Vector3 positionOutsideBC;//Antes de entrar a la cueva
+    public Vector3 positionOutsideAC;//despues de salir de la cueva
+    public Vector3 positionCaveBeg;//despues de salir de la cueva
+    public Vector3 positionCaveEnd;//despues de salir de la cueva
     public Vector3 positionInsideBeg;
     public Vector3 positionInsideUp;
     public Vector3 positionInsideMid;
+    public Vector3 positionInsideUpST;//al salir del storage up
+    public Vector3 positionInsideMidST;//al salir del storage middle
     public Vector3 positionInsideLow;
     public Vector3 positionRoof;
+    public Vector3 positionStorageUp;
+    public Vector3 positionStorageMiddle;
     public Vector3 positionPrisonBeg;
     public Vector3 positionPrisonEnd;
     public Vector3 actualPos;

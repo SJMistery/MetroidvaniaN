@@ -283,6 +283,7 @@ MonoBehaviour:
   LifeBar: 5
   hpRecovered: 1
   maxHeals: 3
+  healsAvalible: 0
   OnLandEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -307,7 +308,7 @@ MonoBehaviour:
     m_Bits: 131072
   transitionPoint:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 262144
   isClimbing: 0
   canTP: 0
   alredyTP: 0

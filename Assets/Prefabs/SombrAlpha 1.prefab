@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3675043740726091120}
   m_Layer: 8
   m_Name: SombrAlpha 1
-  m_TagString: Untagged
+  m_TagString: Shadow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -117,9 +117,7 @@ MonoBehaviour:
   cooldnText: {fileID: 0}
   clockImage: {fileID: 0}
   respawnReset: 0
-  shadowObj: {fileID: 4557260234192179786}
   playerP: {fileID: 7337702074347501412, guid: 5e842ca8db63ae74d9bb63e1f806f677, type: 3}
+  count: 0
   frameRet: 180
   frameCoold: 90
-  playerBody: {fileID: 7337702074347501421, guid: 5e842ca8db63ae74d9bb63e1f806f677,
-    type: 3}

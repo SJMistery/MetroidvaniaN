@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask whatIsLadder;
     public LayerMask transitionPoint;
     public bool isClimbing;
+    public string TPpointName;
     [SerializeField] private bool canTP;
     [SerializeField] private bool alredyTP;
     [SerializeField] private float inputVertical;
@@ -132,5 +133,141 @@ public class PlayerMovement : MonoBehaviour
             playerBody.gravityScale = 4;
         }
 
+        //Para teleportarse, detecta si hay un punto de TP
+        RaycastHit2D tpInfo = Physics2D.Raycast(transform.position, Vector2.up, distance, transitionPoint);
+
+        if (tpInfo.collider != null)
+        {
+            canTP = true;
+            TPpointName = tpInfo.collider.name;
+        }
+        else
+        {
+            canTP = false;
+        }
+
+        if (canTP == true)
+        {
+            if (Input.GetButtonDown("Interact"))
+            {
+                if (tpInfo.collider.tag == "Beginning")//Para ir al principio del nivel
+                {
+
+                    if (GlobalController.Instance.actualLevel == GlobalController.Level.OUTSIDE && alredyTP == false)
+                    {
+                        LoadScenes.Instance.LoadInsideBegLevel();
+                        alredyTP = true;
+                    }
+                }
+
+                if (tpInfo.collider.tag == "Cave")//Para ir a la cueva
+                {
+
+                    if (GlobalController.Instance.actualLevel == GlobalController.Level.OUTSIDE && alredyTP == false)
+                    {
+                        LoadScenes.Instance.LoadCaveLevel();
+                        alredyTP = true;
+                    }
+                }
+
+                if (tpInfo.collider.tag == "CaveE")//Para ir a la cueva
+                {
+
+                    if (GlobalController.Instance.actualLevel == GlobalController.Level.OUTSIDE && alredyTP == false)
+                    {
+                        LoadScenes.Instance.LoadCaveEndLevel();
+                        alredyTP = true;
+                    }
+                }
+
+                if (tpInfo.collider.tag == "Beginning")//Para salir desde el principio de la cueva
+                {
+
+                    if (GlobalController.Instance.actualLevel == GlobalController.Level.CAVE && alredyTP == false)
+                    {
+                        LoadScenes.Instance.LoadBCOutsideLevel();
+                        alredyTP = true;
+                    }
+                }
+
+                if (tpInfo.collider.tag == "End")//Para ir a la cueva
+                {
+
+                    if (GlobalController.Instance.actualLevel == GlobalController.Level.CAVE && alredyTP == false)
+                    {
+                        LoadScenes.Instance.LoadACOutsideLevel();
+                        alredyTP = true;
+                    }
+                }
+
+                if (tpInfo.collider.tag == "Up")//Parte alta del nivel
+                {
+                    if (GlobalController.Instance.actualLevel == GlobalController.Level.ROOF && alredyTP == false)
+                    {
+                        LoadScenes.Instance.LoadInsideUpLevel();
+                        alredyTP = true;
+                    }
+                    if (GlobalController.Instance.actualLevel == GlobalController.Level.INSIDE && alredyTP == false)
+                    {
+                        if (tpInfo.collider.name == "TPpoint storage")
+                        {
+                            LoadScenes.Instance.LoadStorageUpLevel();
+                            alredyTP = true;
+                        }
+                        else
+                        {
+                            LoadScenes.Instance.LoadRoofLevel();
+                            alredyTP = true;
+                        }
+                    }
+                    if (GlobalController.Instance.actualLevel == GlobalController.Level.STORAGE && alredyTP == false)
+                    {
+                        LoadScenes.Instance.LoadInsideUpSTLevel();
+                        alredyTP = true;
+                    }
+
+                }
+                if (tpInfo.collider.tag == "Middle")
+                {
+                    if (GlobalController.Instance.actualLevel == GlobalController.Level.PRISON && alredyTP == false)
+                    {
+                        LoadScenes.Instance.LoadInsideMidLevel();
+                        alredyTP = true;
+                    }
+                    if (GlobalController.Instance.actualLevel == GlobalController.Level.INSIDE && alredyTP == false)
+                    {
+                        if(tpInfo.collider.name == "TPpoint storage")
+                        {
+                            LoadScenes.Instance.LoadStorageMiddleLevel();
+                            alredyTP = true;
+                        }
+                        else
+                        {
+                            LoadScenes.Instance.LoadPrisonBegLevel();
+                            alredyTP = true;
+                        }
+                    }
+                    if (GlobalController.Instance.actualLevel == GlobalController.Level.STORAGE && alredyTP == false)
+                    {
+                        LoadScenes.Instance.LoadInsideMidSTLevel();
+                        alredyTP = true;
+                    }
+                }
+                if (tpInfo.collider.tag == "Down")
+                {
+                    if (GlobalController.Instance.actualLevel == GlobalController.Level.INSIDE && alredyTP == false)
+                    {
+                        LoadScenes.Instance.LoadPrisonEndLevel();
+                        alredyTP = true;
+                    }
+
+                    if (GlobalController.Instance.actualLevel == GlobalController.Level.PRISON && alredyTP == false)
+                    {
+                        LoadScenes.Instance.LoadInsideDownLevel();
+                        alredyTP = true;
+                    }
+                }
+            }
+        }
     }
 }
