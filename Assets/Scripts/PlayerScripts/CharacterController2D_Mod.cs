@@ -24,6 +24,7 @@ public class CharacterController2D_Mod : MonoBehaviour
     private GameObject[] potionCDImage; //imagen para el cooldown de la pocion
     private GameObject[] potionUsedImage; //imagen para el cooldown de la pocion
     private GameObject[] lifeStars; //imagen para el cooldown de la pocion
+    private GameObject sombra; 
     private PlayerMovement playerMovement;
     const float k_GroundedRadius = 0.2f; // Radius of the overlap circle to determine if grounded
     private Rigidbody2D m_Rigidbody2D;
@@ -42,6 +43,7 @@ public class CharacterController2D_Mod : MonoBehaviour
     private bool m_FacingRight = true;  // For determining which way the player is currently facing.
     private bool m_AirControl = true;   // Whether or not a player can steer while jumping
     public bool canDoubleJump = false;
+    public bool bobinaDelTiempo = false;
 
     //TIMERS
     private float knockbackTimer = 3f;
@@ -77,6 +79,7 @@ public class CharacterController2D_Mod : MonoBehaviour
     private void Start()
     {
         PCS = GameObject.FindGameObjectWithTag("P-C-S");
+        sombra = GameObject.Find("SombrAlpha 1");
         playerMovement = GetComponent<PlayerMovement>();
         attack = GetComponent<PlayerAttack>();
         potionCDImage = new GameObject[maxHeals];
@@ -450,6 +453,9 @@ public class CharacterController2D_Mod : MonoBehaviour
         {
             DoubleJump();
         }
+
+        if (bobinaDelTiempo) { sombra.SetActive(true); }
+        else if(!bobinaDelTiempo) { sombra.SetActive(false); }
 
         AnimationState();
         anim.SetInteger("state", (int)state); //obtiene el valor del integer que tiene state para que las condiciones de las animaciones funcionen correctamente.

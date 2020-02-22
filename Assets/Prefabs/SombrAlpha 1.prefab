@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4557260234192179789}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 74.798, y: 10.1, z: -0.25}
+  m_LocalPosition: {x: -2.3, y: -3, z: 0}
   m_LocalScale: {x: 5.3343463, y: 5.3343463, z: 133.35867}
   m_Children: []
   m_Father: {fileID: 0}
@@ -116,6 +116,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldnText: {fileID: 0}
   clockImage: {fileID: 0}
+  cooldown: {fileID: 0}
   respawnReset: 0
   playerP: {fileID: 7337702074347501412, guid: 5e842ca8db63ae74d9bb63e1f806f677, type: 3}
   count: 0

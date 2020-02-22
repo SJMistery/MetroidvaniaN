@@ -67,10 +67,11 @@ public class LoadScenes : MonoBehaviour
     public void LoadBCOutsideLevel()
     {
         GlobalController.Instance.hp = player.GetComponent<CharacterController2D_Mod>().LifeBar;//Se guarda la vida que tiene el jugador
-        if (shadow.GetComponent<InverseTime>().count < 100)
+        /*if (shadow.GetComponent<InverseTime>().count < 100)
             GlobalController.Instance.cooldown = shadow.GetComponent<InverseTime>().count;
         else
             GlobalController.Instance.cooldown = 100;
+         */
 
         GlobalController.Instance.disp_potions = player.GetComponent<CharacterController2D_Mod>().healsAvalible;
         GlobalController.Instance.actualPos = GlobalController.Instance.positionOutsideBC;
@@ -81,11 +82,11 @@ public class LoadScenes : MonoBehaviour
     public void LoadACOutsideLevel()
     {
         GlobalController.Instance.hp = player.GetComponent<CharacterController2D_Mod>().LifeBar;//Se guarda la vida que tiene el jugador
-        if (shadow.GetComponent<InverseTime>().count < 100)
+        /*if (shadow.GetComponent<InverseTime>().count < 100)
             GlobalController.Instance.cooldown = shadow.GetComponent<InverseTime>().count;
         else
             GlobalController.Instance.cooldown = 100;
-
+         */
         GlobalController.Instance.disp_potions = player.GetComponent<CharacterController2D_Mod>().healsAvalible;
         GlobalController.Instance.actualPos = GlobalController.Instance.positionOutsideAC;
         GlobalController.Instance.actualLevel = GlobalController.Level.OUTSIDE;
@@ -95,11 +96,11 @@ public class LoadScenes : MonoBehaviour
     public void LoadInsideBegLevel()
     {
         GlobalController.Instance.hp = player.GetComponent<CharacterController2D_Mod>().LifeBar;//Se guarda la vida que tiene el jugador
-        if (shadow.GetComponent<InverseTime>().count < 100)
-            GlobalController.Instance.cooldown = shadow.GetComponent<InverseTime>().count;
-        else
-            GlobalController.Instance.cooldown = 100;
-
+        /*if (shadow.GetComponent<InverseTime>().count < 100)
+           GlobalController.Instance.cooldown = shadow.GetComponent<InverseTime>().count;
+       else
+           GlobalController.Instance.cooldown = 100;
+        */
         GlobalController.Instance.disp_potions = player.GetComponent<CharacterController2D_Mod>().healsAvalible;
         GlobalController.Instance.actualPos = GlobalController.Instance.positionInsideBeg;
         GlobalController.Instance.actualLevel = GlobalController.Level.INSIDE;
@@ -109,11 +110,11 @@ public class LoadScenes : MonoBehaviour
     public void LoadCaveLevel()
     {
         GlobalController.Instance.hp = player.GetComponent<CharacterController2D_Mod>().LifeBar;//Se guarda la vida que tiene el jugador
-        if (shadow.GetComponent<InverseTime>().count < 100)
-            GlobalController.Instance.cooldown = shadow.GetComponent<InverseTime>().count;
-        else
-            GlobalController.Instance.cooldown = 100;
-
+        /*if (shadow.GetComponent<InverseTime>().count < 100)
+           GlobalController.Instance.cooldown = shadow.GetComponent<InverseTime>().count;
+       else
+           GlobalController.Instance.cooldown = 100;
+        */
         GlobalController.Instance.disp_potions = player.GetComponent<CharacterController2D_Mod>().healsAvalible;
         GlobalController.Instance.actualPos = GlobalController.Instance.positionCaveBeg;
         GlobalController.Instance.actualLevel = GlobalController.Level.CAVE;
@@ -123,11 +124,11 @@ public class LoadScenes : MonoBehaviour
     public void LoadCaveEndLevel()
     {
         GlobalController.Instance.hp = player.GetComponent<CharacterController2D_Mod>().LifeBar;//Se guarda la vida que tiene el jugador
-        if (shadow.GetComponent<InverseTime>().count < 100)
-            GlobalController.Instance.cooldown = shadow.GetComponent<InverseTime>().count;
-        else
-            GlobalController.Instance.cooldown = 100;
-
+        /*if (shadow.GetComponent<InverseTime>().count < 100)
+           GlobalController.Instance.cooldown = shadow.GetComponent<InverseTime>().count;
+       else
+           GlobalController.Instance.cooldown = 100;
+        */
         GlobalController.Instance.disp_potions = player.GetComponent<CharacterController2D_Mod>().healsAvalible;
         GlobalController.Instance.actualPos = GlobalController.Instance.positionCaveEnd;
         GlobalController.Instance.actualLevel = GlobalController.Level.CAVE;
@@ -137,11 +138,11 @@ public class LoadScenes : MonoBehaviour
     public void LoadInsideUpLevel()
     {
         GlobalController.Instance.hp = player.GetComponent<CharacterController2D_Mod>().LifeBar;//Se guarda la vida que tiene el jugador
-        if (shadow.GetComponent<InverseTime>().count < 100)
-            GlobalController.Instance.cooldown = shadow.GetComponent<InverseTime>().count;
-        else
-            GlobalController.Instance.cooldown = 100;
-
+        /*if (shadow.GetComponent<InverseTime>().count < 100)
+           GlobalController.Instance.cooldown = shadow.GetComponent<InverseTime>().count;
+       else
+           GlobalController.Instance.cooldown = 100;
+        */
         GlobalController.Instance.disp_potions = player.GetComponent<CharacterController2D_Mod>().healsAvalible;
         GlobalController.Instance.actualPos = GlobalController.Instance.positionInsideUp;
         GlobalController.Instance.actualLevel = GlobalController.Level.INSIDE;
@@ -151,11 +152,11 @@ public class LoadScenes : MonoBehaviour
     public void LoadInsideMidLevel()
     {
         GlobalController.Instance.hp = player.GetComponent<CharacterController2D_Mod>().LifeBar;//Se guarda la vida que tiene el jugador
-        if (shadow.GetComponent<InverseTime>().count < 100)
-            GlobalController.Instance.cooldown = shadow.GetComponent<InverseTime>().count;
-        else
-            GlobalController.Instance.cooldown = 100;
-
+        /*if (shadow.GetComponent<InverseTime>().count < 100)
+           GlobalController.Instance.cooldown = shadow.GetComponent<InverseTime>().count;
+       else
+           GlobalController.Instance.cooldown = 100;
+        */
         GlobalController.Instance.disp_potions = player.GetComponent<CharacterController2D_Mod>().healsAvalible;
         GlobalController.Instance.actualPos = GlobalController.Instance.positionInsideMid;
         GlobalController.Instance.actualLevel = GlobalController.Level.INSIDE;
@@ -164,11 +165,11 @@ public class LoadScenes : MonoBehaviour
     public void LoadInsideUpSTLevel()
     {
         GlobalController.Instance.hp = player.GetComponent<CharacterController2D_Mod>().LifeBar;//Se guarda la vida que tiene el jugador
-        if (shadow.GetComponent<InverseTime>().count < 100)
-            GlobalController.Instance.cooldown = shadow.GetComponent<InverseTime>().count;
-        else
-            GlobalController.Instance.cooldown = 100;
-
+        /*if (shadow.GetComponent<InverseTime>().count < 100)
+           GlobalController.Instance.cooldown = shadow.GetComponent<InverseTime>().count;
+       else
+           GlobalController.Instance.cooldown = 100;
+        */
         GlobalController.Instance.disp_potions = player.GetComponent<CharacterController2D_Mod>().healsAvalible;
         GlobalController.Instance.actualPos = GlobalController.Instance.positionInsideUpST;
         GlobalController.Instance.actualLevel = GlobalController.Level.INSIDE;
@@ -178,11 +179,11 @@ public class LoadScenes : MonoBehaviour
     public void LoadInsideMidSTLevel()
     {
         GlobalController.Instance.hp = player.GetComponent<CharacterController2D_Mod>().LifeBar;//Se guarda la vida que tiene el jugador
-        if (shadow.GetComponent<InverseTime>().count < 100)
-            GlobalController.Instance.cooldown = shadow.GetComponent<InverseTime>().count;
-        else
-            GlobalController.Instance.cooldown = 100;
-
+        /*if (shadow.GetComponent<InverseTime>().count < 100)
+           GlobalController.Instance.cooldown = shadow.GetComponent<InverseTime>().count;
+       else
+           GlobalController.Instance.cooldown = 100;
+        */
         GlobalController.Instance.disp_potions = player.GetComponent<CharacterController2D_Mod>().healsAvalible;
         GlobalController.Instance.actualPos = GlobalController.Instance.positionInsideMidST;
         GlobalController.Instance.actualLevel = GlobalController.Level.INSIDE;
@@ -191,11 +192,11 @@ public class LoadScenes : MonoBehaviour
     public void LoadInsideDownLevel()
     {
         GlobalController.Instance.hp = player.GetComponent<CharacterController2D_Mod>().LifeBar;//Se guarda la vida que tiene el jugador
-        if (shadow.GetComponent<InverseTime>().count < 100)
-            GlobalController.Instance.cooldown = shadow.GetComponent<InverseTime>().count;
-        else
-            GlobalController.Instance.cooldown = 100;
-
+        /*if (shadow.GetComponent<InverseTime>().count < 100)
+           GlobalController.Instance.cooldown = shadow.GetComponent<InverseTime>().count;
+       else
+           GlobalController.Instance.cooldown = 100;
+        */
         GlobalController.Instance.disp_potions = player.GetComponent<CharacterController2D_Mod>().healsAvalible;
         GlobalController.Instance.actualPos = GlobalController.Instance.positionInsideLow;
         GlobalController.Instance.actualLevel = GlobalController.Level.INSIDE;
@@ -204,11 +205,11 @@ public class LoadScenes : MonoBehaviour
     public void LoadRoofLevel()
     {
         GlobalController.Instance.hp = player.GetComponent<CharacterController2D_Mod>().LifeBar;//Se guarda la vida que tiene el jugador
-        if (shadow.GetComponent<InverseTime>().count < 100)
-            GlobalController.Instance.cooldown = shadow.GetComponent<InverseTime>().count;
-        else
-            GlobalController.Instance.cooldown = 100;
-
+        /*if (shadow.GetComponent<InverseTime>().count < 100)
+           GlobalController.Instance.cooldown = shadow.GetComponent<InverseTime>().count;
+       else
+           GlobalController.Instance.cooldown = 100;
+        */
         GlobalController.Instance.disp_potions = player.GetComponent<CharacterController2D_Mod>().healsAvalible;
         GlobalController.Instance.actualLevel = GlobalController.Level.ROOF;
         GlobalController.Instance.actualPos = GlobalController.Instance.positionRoof;
@@ -218,11 +219,11 @@ public class LoadScenes : MonoBehaviour
     public void LoadStorageUpLevel()
     {
         GlobalController.Instance.hp = player.GetComponent<CharacterController2D_Mod>().LifeBar;//Se guarda la vida que tiene el jugador
-        if (shadow.GetComponent<InverseTime>().count < 100)
-            GlobalController.Instance.cooldown = shadow.GetComponent<InverseTime>().count;
-        else
-            GlobalController.Instance.cooldown = 100;
-
+        /*if (shadow.GetComponent<InverseTime>().count < 100)
+           GlobalController.Instance.cooldown = shadow.GetComponent<InverseTime>().count;
+       else
+           GlobalController.Instance.cooldown = 100;
+        */
         GlobalController.Instance.disp_potions = player.GetComponent<CharacterController2D_Mod>().healsAvalible;
         GlobalController.Instance.actualLevel = GlobalController.Level.STORAGE;
         GlobalController.Instance.actualPos = GlobalController.Instance.positionStorageUp;
@@ -232,11 +233,11 @@ public class LoadScenes : MonoBehaviour
     public void LoadStorageMiddleLevel()
     {
         GlobalController.Instance.hp = player.GetComponent<CharacterController2D_Mod>().LifeBar;//Se guarda la vida que tiene el jugador
-        if (shadow.GetComponent<InverseTime>().count < 100)
-            GlobalController.Instance.cooldown = shadow.GetComponent<InverseTime>().count;
-        else
-            GlobalController.Instance.cooldown = 100;
-
+        /*if (shadow.GetComponent<InverseTime>().count < 100)
+           GlobalController.Instance.cooldown = shadow.GetComponent<InverseTime>().count;
+       else
+           GlobalController.Instance.cooldown = 100;
+        */
         GlobalController.Instance.disp_potions = player.GetComponent<CharacterController2D_Mod>().healsAvalible;
         GlobalController.Instance.actualLevel = GlobalController.Level.STORAGE;
         GlobalController.Instance.actualPos = GlobalController.Instance.positionStorageMiddle;
@@ -246,11 +247,11 @@ public class LoadScenes : MonoBehaviour
     public void LoadPrisonBegLevel()
     {
         GlobalController.Instance.hp = player.GetComponent<CharacterController2D_Mod>().LifeBar;//Se guarda la vida que tiene el jugador
-        if (shadow.GetComponent<InverseTime>().count < 100)
-            GlobalController.Instance.cooldown = shadow.GetComponent<InverseTime>().count;
-        else
-            GlobalController.Instance.cooldown = 100;
-
+        /*if (shadow.GetComponent<InverseTime>().count < 100)
+           GlobalController.Instance.cooldown = shadow.GetComponent<InverseTime>().count;
+       else
+           GlobalController.Instance.cooldown = 100;
+        */
         GlobalController.Instance.disp_potions = player.GetComponent<CharacterController2D_Mod>().healsAvalible;
         GlobalController.Instance.actualPos = GlobalController.Instance.positionPrisonBeg;
         GlobalController.Instance.actualLevel = GlobalController.Level.PRISON;
@@ -259,11 +260,11 @@ public class LoadScenes : MonoBehaviour
     public void LoadPrisonEndLevel()
     {
         GlobalController.Instance.hp = player.GetComponent<CharacterController2D_Mod>().LifeBar;//Se guarda la vida que tiene el jugador
-        if (shadow.GetComponent<InverseTime>().count < 100)
+        /*if (shadow.GetComponent<InverseTime>().count < 100)
             GlobalController.Instance.cooldown = shadow.GetComponent<InverseTime>().count;
         else
             GlobalController.Instance.cooldown = 100;
-
+         */
         GlobalController.Instance.disp_potions = player.GetComponent<CharacterController2D_Mod>().healsAvalible;
         GlobalController.Instance.actualPos = GlobalController.Instance.positionPrisonEnd;
         GlobalController.Instance.actualLevel = GlobalController.Level.PRISON;

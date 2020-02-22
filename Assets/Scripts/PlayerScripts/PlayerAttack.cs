@@ -13,6 +13,9 @@ public class PlayerAttack : MonoBehaviour
     private Rigidbody2D m_Rigidbody2D;                          //Rigidbody del PJ para poder hacer el bounce después de golpear a un enemigo.
     private CharacterController2D_Mod characterController;      //referencia al script para poder coger el valor de Jumpforce y asi aplicar el bounce
     private Animator anim;
+    [SerializeField] private GameObject attackSound1;
+    [SerializeField] private GameObject attackSound2;
+    [SerializeField] private GameObject hitSound;
 
 
     private float attackRange = 0.4f;
@@ -39,6 +42,7 @@ public class PlayerAttack : MonoBehaviour
 
         nextAttackTimer = 0.40f;
         anim.SetTrigger("attackingDown");
+        Instantiate(attackSound2);
         attackPressed = true;
         //get all the enemies in range on the atack.
         StartCoroutine(DownAttack(0.10f));
@@ -55,12 +59,14 @@ public class PlayerAttack : MonoBehaviour
         {
             
             anim.SetTrigger("attacking1");
+            Instantiate(attackSound1);
 
         }
         if (noAttack == 2)
         {
             noAttack = 0;
             anim.SetTrigger("attacking2");
+            Instantiate(attackSound2);
 
         }
 
@@ -83,6 +89,7 @@ public class PlayerAttack : MonoBehaviour
             enemy.GetComponent<EnemyController2D>().hurtforceX = 2000f;
             enemy.GetComponent<EnemyController2D>().hurtforceY = 0f;
             enemy.GetComponent<EnemyController2D>().TakeDMG(attackDMG);
+            Instantiate(hitSound);
         }
 
     } //Coroutine que permite que las colision de ataque quede más ajustada a la animacion del PJ!
@@ -105,7 +112,7 @@ public class PlayerAttack : MonoBehaviour
             m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, 0);
             // se añade la fuerza de salto de nuevo i suena el sonido de salto.
             m_Rigidbody2D.AddForce(new Vector2(0f, characterController.m_JumpForce));
-            //Sword bounce sound.      Instantiate(JumpSound);
+            Instantiate(hitSound);
         }
 
     } //Coroutine que permite que las colision de ataque quede más ajustada a la animacion del PJ!
