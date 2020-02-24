@@ -21,6 +21,7 @@ TagManager:
   - End
   - CaveE
   - ClockCD
+  - SCMenu
   layers:
   - Default
   - TransparentFX

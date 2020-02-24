@@ -12,6 +12,9 @@ public class GlobalController : MonoBehaviour
     public int cooldown;
     public int maxpotions;//pociones disponibles
     public int disp_potions;//pociones disponibles
+
+    public bool inverseTimeActive;
+    public bool invencible;
     public Vector3 positionOutside;
     public Vector3 positionOutsideBC;//Antes de entrar a la cueva
     public Vector3 positionOutsideAC;//despues de salir de la cueva

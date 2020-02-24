@@ -273,7 +273,7 @@ public class CharacterController2D_Mod : MonoBehaviour
 
             }
         }
-        else if (state == State.dead)
+        else if (state == State.dead && GlobalController.Instance.invencible == false)
         {
             isDead = true;
             GetComponent<PlayerMovement>().enabled = false;
@@ -500,6 +500,11 @@ public class CharacterController2D_Mod : MonoBehaviour
                 UpdateHealFill(count, frameCoold, i);
             else
                 potionUsedImage[i].SetActive(true);
+        }
+
+        if (GlobalController.Instance.invencible)
+        {
+            LifeBar = fullHP;
         }
 
     }

@@ -48,6 +48,7 @@ public class LoadScenes : MonoBehaviour
         GlobalController.Instance.positionStorageMiddle = new Vector3(39.33f, 22.17f);
         GlobalController.Instance.positionPrisonBeg = new Vector3(42.02f, -13.01f);
         GlobalController.Instance.positionPrisonEnd = new Vector3(34.59f, -44.18f);
+        GlobalController.Instance.inverseTimeActive = false;
     }
 
     public void LoadLevel1()
@@ -160,7 +161,7 @@ public class LoadScenes : MonoBehaviour
         GlobalController.Instance.disp_potions = player.GetComponent<CharacterController2D_Mod>().healsAvalible;
         GlobalController.Instance.actualPos = GlobalController.Instance.positionInsideMid;
         GlobalController.Instance.actualLevel = GlobalController.Level.INSIDE;
-        SceneManager.LoadScene("1. Dentro del Castillo");
+        
     }
     public void LoadInsideUpSTLevel()
     {
@@ -281,5 +282,17 @@ public class LoadScenes : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         shadow = GameObject.FindGameObjectWithTag("Shadow");
+
+        if (GlobalController.Instance.inverseTimeActive == false)
+        {
+            shadow.GetComponent<SpriteRenderer>().enabled = false;
+            shadow.GetComponent<InverseTime>().enabled = false;
+        }
+        else
+        {
+            shadow.GetComponent<SpriteRenderer>().enabled = true;
+            shadow.GetComponent<InverseTime>().enabled = true;
+        }
+            
     }
 }

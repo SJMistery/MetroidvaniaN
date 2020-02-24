@@ -10,6 +10,7 @@ public class InverseTime : MonoBehaviour
 
 
     [SerializeField] private TextMeshProUGUI cooldnText;
+    [SerializeField] private GameObject clockBG;//el background de la imagen del clock
     [SerializeField] private GameObject clockImage;
     [SerializeField] private GameObject cooldown;
 
@@ -34,6 +35,7 @@ public class InverseTime : MonoBehaviour
         playerBody = GameObject.Find("SrBeta1").GetComponent<Rigidbody2D>();
         shadowObj = GetComponent<Transform>();
         cooldown = GameObject.FindGameObjectWithTag("ClockCD");
+        clockBG = GameObject.Find("Cooldown_background"); 
     }
 
     // Start is called before the first frame update
@@ -146,7 +148,14 @@ public class InverseTime : MonoBehaviour
                 count = 0;
             }
 
-
+            if(GlobalController.Instance.inverseTimeActive == false)
+            {
+                clockBG.SetActive(false);
+            }
+            else
+            {
+                clockBG.SetActive(true);
+            }
 
             if (frameCoold - count > 0)
             {
