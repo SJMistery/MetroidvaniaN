@@ -22,6 +22,11 @@ TagManager:
   - CaveE
   - ClockCD
   - SCMenu
+  - Page
+  - cursor
+  - CheatAdvisor
+  - Music
+  - Sound
   layers:
   - Default
   - TransparentFX
@@ -42,7 +47,7 @@ TagManager:
   - BackGround
   - Ladder
   - TPpoint
-  - 
+  - TPButton
   - 
   - 
   - 

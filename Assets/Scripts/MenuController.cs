@@ -9,12 +9,24 @@ public class MenuController : MonoBehaviour
 {
     public GameObject Menu;
 
+    public static MenuController Instance;
     // Start is called before the first frame update
     void Start()
     {
         Menu.SetActive(false);
     }
-
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            DontDestroyOnLoad(gameObject);
+            Instance = this;
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
     public void HideMenu()
     {
         Menu.SetActive(false);
@@ -32,7 +44,11 @@ public class MenuController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
+        GetComponent<Canvas>().worldCamera = Camera.main;
+        GetComponent<Canvas>().sortingLayerName = "Player";
+        GetComponent<Canvas>().sortingOrder = 21;
+
+        if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
         {
             Menu.SetActive(true);
             Time.timeScale = 0;

@@ -7,8 +7,6 @@ using TMPro;
 
 public class LoadScenes : MonoBehaviour
 {
-
-
     public GameObject player;
     [SerializeField] private GameObject shadow;
     public GameObject pcs;
@@ -36,7 +34,7 @@ public class LoadScenes : MonoBehaviour
         GlobalController.Instance.positionOutsideBC = new Vector3(144.1f, 0.4f);
         GlobalController.Instance.positionOutsideAC = new Vector3(162.84f, -0.6f);
         GlobalController.Instance.positionCaveBeg = new Vector3(35.35f, -0.38f);
-        GlobalController.Instance.positionCaveEnd = new Vector3(163.02f, 0.4f);
+        GlobalController.Instance.positionCaveEnd = new Vector3(189.69f, 8.37f);
         GlobalController.Instance.positionInsideBeg = new Vector3(-3.51f, -3.755696f, -2.21f);
         GlobalController.Instance.positionInsideUp = new Vector3(18.57f, 39.18f, -2.21f);
         GlobalController.Instance.positionInsideMid = new Vector3(28.91f, -21.83f, -2.21f);
@@ -60,9 +58,9 @@ public class LoadScenes : MonoBehaviour
         GlobalController.Instance.cooldown = 100;
         GlobalController.Instance.maxpotions = 3;
         GlobalController.Instance.disp_potions = 3;
+        GlobalController.Instance.fromBeginning = true;
         GlobalController.Instance.actualLevel = GlobalController.Level.OUTSIDE;
         GlobalController.Instance.actualPos = GlobalController.Instance.positionOutside;
-        GlobalController.Instance.fromBeginning = true;
     }
 
     public void LoadBCOutsideLevel()
@@ -161,7 +159,8 @@ public class LoadScenes : MonoBehaviour
         GlobalController.Instance.disp_potions = player.GetComponent<CharacterController2D_Mod>().healsAvalible;
         GlobalController.Instance.actualPos = GlobalController.Instance.positionInsideMid;
         GlobalController.Instance.actualLevel = GlobalController.Level.INSIDE;
-        
+        SceneManager.LoadScene("1. Dentro del Castillo");
+
     }
     public void LoadInsideUpSTLevel()
     {
@@ -214,7 +213,6 @@ public class LoadScenes : MonoBehaviour
         GlobalController.Instance.disp_potions = player.GetComponent<CharacterController2D_Mod>().healsAvalible;
         GlobalController.Instance.actualLevel = GlobalController.Level.ROOF;
         GlobalController.Instance.actualPos = GlobalController.Instance.positionRoof;
-
         SceneManager.LoadScene("1.5 Tejado y Prision");
     }
     public void LoadStorageUpLevel()
@@ -242,7 +240,6 @@ public class LoadScenes : MonoBehaviour
         GlobalController.Instance.disp_potions = player.GetComponent<CharacterController2D_Mod>().healsAvalible;
         GlobalController.Instance.actualLevel = GlobalController.Level.STORAGE;
         GlobalController.Instance.actualPos = GlobalController.Instance.positionStorageMiddle;
-
         SceneManager.LoadScene("1.5 Tejado y Prision");
     }
     public void LoadPrisonBegLevel()
@@ -283,15 +280,18 @@ public class LoadScenes : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         shadow = GameObject.FindGameObjectWithTag("Shadow");
 
-        if (GlobalController.Instance.inverseTimeActive == false)
+        if(shadow != null)
         {
-            shadow.GetComponent<SpriteRenderer>().enabled = false;
-            shadow.GetComponent<InverseTime>().enabled = false;
-        }
-        else
-        {
-            shadow.GetComponent<SpriteRenderer>().enabled = true;
-            shadow.GetComponent<InverseTime>().enabled = true;
+            if (GlobalController.Instance.inverseTimeActive == false)
+            {
+                shadow.GetComponent<SpriteRenderer>().enabled = false;
+                shadow.GetComponent<InverseTime>().enabled = false;
+            }
+            else
+            {
+                shadow.GetComponent<SpriteRenderer>().enabled = true;
+                shadow.GetComponent<InverseTime>().enabled = true;
+            }
         }
             
     }

@@ -19,7 +19,7 @@ public class CharacterController2D_Mod : MonoBehaviour
     [SerializeField] private Transform m_GroundCheck;                           // A position marking where to check if the player is grounded.
 
     private PlayerAttack attack;
-    [SerializeField] private GameObject PCS;
+    [SerializeField] private GameObject PCS; //player-camera-shadow
     //[SerializeField] private BoxCollider2D hitbox;
     private GameObject[] potionCDImage; //imagen para el cooldown de la pocion
     private GameObject[] potionUsedImage; //imagen para el cooldown de la pocion
@@ -454,8 +454,12 @@ public class CharacterController2D_Mod : MonoBehaviour
             DoubleJump();
         }
 
-        if (bobinaDelTiempo) { sombra.SetActive(true); }
-        else if(!bobinaDelTiempo) { sombra.SetActive(false); }
+        if (bobinaDelTiempo) { sombra.GetComponent<SpriteRenderer>().enabled = true;
+            sombra.GetComponent<InverseTime>().enabled = true;
+        }
+        else if(!bobinaDelTiempo) {
+            sombra.GetComponent<SpriteRenderer>().enabled = false;
+            sombra.GetComponent<InverseTime>().enabled = false; }
 
         AnimationState();
         anim.SetInteger("state", (int)state); //obtiene el valor del integer que tiene state para que las condiciones de las animaciones funcionen correctamente.
@@ -506,6 +510,8 @@ public class CharacterController2D_Mod : MonoBehaviour
         {
             LifeBar = fullHP;
         }
+
+        bobinaDelTiempo = GlobalController.Instance.inverseTimeActive;
 
     }
 

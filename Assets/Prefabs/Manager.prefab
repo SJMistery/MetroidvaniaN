@@ -44,6 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dc3fce73e6681342868a877da63f3a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  shadow: {fileID: 0}
+  pcs: {fileID: 0}
 --- !u!114 &6885474802406896111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,12 +64,22 @@ MonoBehaviour:
   cooldown: 0
   maxpotions: 0
   disp_potions: 0
+  inverseTimeActive: 0
+  invencible: 0
   positionOutside: {x: 0, y: 0, z: 0}
+  positionOutsideBC: {x: 0, y: 0, z: 0}
+  positionOutsideAC: {x: 0, y: 0, z: 0}
+  positionCaveBeg: {x: 0, y: 0, z: 0}
+  positionCaveEnd: {x: 0, y: 0, z: 0}
   positionInsideBeg: {x: 0, y: 0, z: 0}
   positionInsideUp: {x: 0, y: 0, z: 0}
   positionInsideMid: {x: 0, y: 0, z: 0}
+  positionInsideUpST: {x: 0, y: 0, z: 0}
+  positionInsideMidST: {x: 0, y: 0, z: 0}
   positionInsideLow: {x: 0, y: 0, z: 0}
   positionRoof: {x: 0, y: 0, z: 0}
+  positionStorageUp: {x: 0, y: 0, z: 0}
+  positionStorageMiddle: {x: 0, y: 0, z: 0}
   positionPrisonBeg: {x: 0, y: 0, z: 0}
   positionPrisonEnd: {x: 0, y: 0, z: 0}
   actualPos: {x: 0, y: 0, z: 0}

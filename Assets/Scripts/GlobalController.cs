@@ -5,13 +5,16 @@ using UnityEngine;
 public class GlobalController : MonoBehaviour
 {
 
-    public enum Level {OUTSIDE, INSIDE, ROOF, PRISON, CAVE, STORAGE };
+    public enum Level {TITLE, OUTSIDE, INSIDE, ROOF, PRISON, CAVE, STORAGE };
 
     public int maxHp;//maximo vida
     public int hp;//vida de personaje que le queda
     public int cooldown;
     public int maxpotions;//pociones disponibles
     public int disp_potions;//pociones disponibles
+
+    public float soundVolume;
+    public float musicVolume;
 
     public bool inverseTimeActive;
     public bool invencible;

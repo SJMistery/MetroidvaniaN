@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class TitleSceneScript : MonoBehaviour
 {
     public GameObject manager;
+    [SerializeField] private GameObject menu;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +26,11 @@ public class TitleSceneScript : MonoBehaviour
         GlobalController.Instance.fromBeginning = true;
     }
 
+    public void ActivateMenu()
+    {
+        menu.SetActive(true);
+    }
+
     public void QuitGame()
     {
         Application.Quit();
@@ -32,6 +38,6 @@ public class TitleSceneScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
