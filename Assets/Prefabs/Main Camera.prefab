@@ -179,7 +179,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   maxdistance: 5
-  rb: {fileID: 0}
   cam: {fileID: 1910435230794350716}
   player: {fileID: 0}
 --- !u!1 &2351889683906993955
@@ -499,7 +498,7 @@ GameObject:
   - component: {fileID: 3475632379412466716}
   m_Layer: 0
   m_Name: Musica
-  m_TagString: Untagged
+  m_TagString: Music
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

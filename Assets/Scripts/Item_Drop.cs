@@ -17,7 +17,7 @@ public class Item_Drop : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player" && Input.GetButton("Interact"))
         {
-            cc.bobinaDelTiempo = true;
+            GlobalController.Instance.inverseTimeActive = true;
         }
     }
 }
