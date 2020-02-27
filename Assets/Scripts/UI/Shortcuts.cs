@@ -118,6 +118,16 @@ public class Shortcuts : MonoBehaviour
         GlobalController.Instance.inverseTimeActive = false;
     }
 
+    public void ActivateDoorsON()
+    {
+        GlobalController.Instance.doorsActivated = true;
+    }
+
+    public void ActivateDoorsOFF()
+    {
+        GlobalController.Instance.doorsActivated = false;
+    }
+
     public void AutoInputScene()
     {
         switch (buttoninfo.collider.name)
@@ -532,14 +542,21 @@ public class Shortcuts : MonoBehaviour
         if (Input.GetKey(KeyCode.I) && Input.GetKey(KeyCode.D))
             GlobalController.Instance.inverseTimeActive = false;
 
+        if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.A))
+            GlobalController.Instance.doorsActivated = true;
+
+        if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.C))
+            GlobalController.Instance.doorsActivated = false;
 
         if (menu.activeSelf == true || shortcutMenu.activeSelf == true || numScene == 0)
         {
-            cursor.SetActive(true);
+            Cursor.visible = true;
+            //cursor.SetActive(true);
         }
         else
         {
-            cursor.SetActive(false);
+            Cursor.visible = false;
+            //cursor.SetActive(false);
         }
 
         if (cursor.activeSelf == true)
@@ -551,7 +568,7 @@ public class Shortcuts : MonoBehaviour
         {
             SceneText = GameObject.Find("SceneText");
             PartofScene = GameObject.Find("PartSceneText");
-            cursor = GameObject.FindGameObjectWithTag("cursor");
+            //cursor = GameObject.FindGameObjectWithTag("cursor");
 
             numSceneChanged = true;
             switch (numScene)
@@ -597,13 +614,16 @@ public class Shortcuts : MonoBehaviour
 
         cheatAdvisor.SetActive(GlobalController.Instance.invencible);
 
-        Cursor.visible = false;
+        //Cursor.visible = false;
 
         if (!numSceneChanged)
         {
             switch (GlobalController.Instance.actualLevel)
             {
                 case GlobalController.Level.TITLE:
+                    numScene = 0;
+                    break;
+                case GlobalController.Level.CREDIT:
                     numScene = 0;
                     break;
                 case GlobalController.Level.INTRO:

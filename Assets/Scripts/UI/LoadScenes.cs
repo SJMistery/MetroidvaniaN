@@ -31,7 +31,7 @@ public class LoadScenes : MonoBehaviour
         pcs = GameObject.FindGameObjectWithTag("P-C-S");
         //Posiciones donde el personaje debera aparecer
         GlobalController.Instance.positionOutside = new Vector3(56.51f, 20.22f);
-        GlobalController.Instance.positionOutsideBC = new Vector3(144.1f, 0.4f);
+        GlobalController.Instance.positionOutsideBC = new Vector3(142.12f, 0.4f);
         GlobalController.Instance.positionOutsideAC = new Vector3(164.45f, -0.6f);
         GlobalController.Instance.positionCaveBeg = new Vector3(35.35f, -0.38f);
         GlobalController.Instance.positionCaveEnd = new Vector3(189.69f, 8.37f);
@@ -40,8 +40,8 @@ public class LoadScenes : MonoBehaviour
         GlobalController.Instance.positionInsideMid = new Vector3(23.77f, -21.83f);
         GlobalController.Instance.positionInsideUpST = new Vector3(1.28f, 17.13f, -2.21f);
         GlobalController.Instance.positionInsideMidST = new Vector3(35.98f, -6.78f, -2.21f);
-        GlobalController.Instance.positionInsideLow = new Vector3(22.8f, -21.84f, -2.21f);
-        GlobalController.Instance.positionRoof = new Vector3(45.4f, 48.5f);
+        GlobalController.Instance.positionInsideLow = new Vector3(22.8f, -53.72f, -2.21f);
+        GlobalController.Instance.positionRoof = new Vector3(43.12f, 48.5f);
         GlobalController.Instance.positionStorageUp = new Vector3(-4.12f, 26.31f);
         GlobalController.Instance.positionStorageMiddle = new Vector3(43.7f, 22.17f);
         GlobalController.Instance.positionPrisonBeg = new Vector3(43.7f, -13.01f);

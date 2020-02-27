@@ -200,7 +200,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (tpInfo.collider.tag == "Up")//Parte alta del nivel
             {
-                if (GlobalController.Instance.actualLevel == GlobalController.Level.ROOF && alredyTP == false)
+                if (GlobalController.Instance.actualLevel == GlobalController.Level.ROOF && alredyTP == false && Input.GetButton("Interact"))
                 {
                     LoadScenes.Instance.LoadInsideUpLevel();
                     alredyTP = true;
@@ -212,11 +212,12 @@ public class PlayerMovement : MonoBehaviour
                         LoadScenes.Instance.LoadStorageUpLevel();
                         alredyTP = true;
                     }
-                    else
+                    if (Input.GetButton("Interact") && !(tpInfo.collider.name == "TPpoint storage"))
                     {
                         LoadScenes.Instance.LoadRoofLevel();
                         alredyTP = true;
                     }
+                    
                 }
                 if (GlobalController.Instance.actualLevel == GlobalController.Level.STORAGE && alredyTP == false)
                 {

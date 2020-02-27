@@ -8,6 +8,8 @@ public class ButtonDoor : MonoBehaviour
 
     DoorsController doorMidCastle, doorTopCastle;
 
+    public bool activated = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,22 +19,39 @@ public class ButtonDoor : MonoBehaviour
 
     private void Update()
     {
-
-    }
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        
-        if (this.gameObject.name == "MidDoorButton" && collision.gameObject.tag == "Player" && Input.GetButtonDown("Interact") && doorMidCastle.canMove)
+        if(GlobalController.Instance.doorsActivated == true && activated == false)
         {
-
+            if (this.gameObject.name == "MidDoorButton"  && doorMidCastle.canMove)
+            {
                 doorMidCastle.Move();
                 this.transform.Rotate(0, 0, 30);
+                activated = true;
+            }
+
+            if (this.gameObject.name == "TopDoorButton"  && doorTopCastle.canMove)
+            {
+                doorTopCastle.Move();
+                this.transform.Rotate(0, 0, 30);
+                activated = true;
+            }
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+
+        if (this.gameObject.name == "MidDoorButton" && collision.gameObject.tag == "Player" && Input.GetButtonDown("Interact") && doorMidCastle.canMove)
+        {
+            doorMidCastle.Move();
+            this.transform.Rotate(0, 0, 30);
+            activated = true;
         }
 
         if (this.gameObject.name == "TopDoorButton" && collision.gameObject.tag == "Player" && Input.GetButtonDown("Interact") && doorTopCastle.canMove)
         {
-                doorTopCastle.Move();
-                this.transform.Rotate(0, 0, 30);
+            doorTopCastle.Move();
+            this.transform.Rotate(0, 0, 30);
+            activated = true;
         }
     }
 }

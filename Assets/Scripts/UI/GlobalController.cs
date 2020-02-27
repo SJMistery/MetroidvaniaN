@@ -5,7 +5,7 @@ using UnityEngine;
 public class GlobalController : MonoBehaviour
 {
 
-    public enum Level {TITLE, INTRO, OUTSIDE, INSIDE, ROOF, PRISON, CAVE, STORAGE };
+    public enum Level {TITLE, INTRO, CREDIT, OUTSIDE, INSIDE, ROOF, PRISON, CAVE, STORAGE };
 
     public int maxHp;//maximo vida
     public int hp;//vida de personaje que le queda
@@ -35,8 +35,11 @@ public class GlobalController : MonoBehaviour
     public Vector3 positionPrisonBeg;
     public Vector3 positionPrisonEnd;
     public Vector3 actualPos;
+    public Vector3 UpDoorPos;
+    public Vector3 DownDoorPos;
     public Level actualLevel;
     public bool fromBeginning = false;
+    public bool doorsActivated = false;
     public static GlobalController Instance;//esto sirve para guardar los datos de posicion del jugador
 
     void Awake()

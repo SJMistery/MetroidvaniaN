@@ -10,11 +10,12 @@ public class TiempoDeVidaSonido : MonoBehaviour
     void Start()
     {
         Destroy(gameObject ,tiempoDeVida);
+        GetComponent<AudioSource>().volume = GlobalController.Instance.soundVolume;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        GetComponent<AudioSource>().volume = GlobalController.Instance.soundVolume;
     }
 }

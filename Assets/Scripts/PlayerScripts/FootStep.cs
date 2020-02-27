@@ -24,7 +24,7 @@ public class FootStep : MonoBehaviour
         {
             if (playerBody.velocity.x < -2f || playerBody.velocity.x > 2f)
             {
-                audioSource.volume = Random.Range(0.5f, 0.7f);
+                audioSource.volume = Random.Range(0.1f, GlobalController.Instance.soundVolume);
                 audioSource.pitch = Random.Range(0.9f, 1.1f);
                 audioSource.Play();
             }

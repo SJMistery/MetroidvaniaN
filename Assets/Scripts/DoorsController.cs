@@ -9,8 +9,21 @@ public class DoorsController : MonoBehaviour
     public Vector3 movement;
     public bool canMove = true;
 
-    // Start is called before the first frame update
+    public void Start()
+    {
+        if (name == "DoorTop")
+            transform.position = GlobalController.Instance.UpDoorPos;
+        else if(name == "DoorMid")
+            transform.position = GlobalController.Instance.DownDoorPos;
 
+    }
+
+    // Start is called before the first frame update
+    public void Update()
+    {
+        if (GlobalController.Instance.doorsActivated == false)
+            transform.position = new Vector3(0, 0);
+    }
 
     public void Move()
     {
@@ -18,6 +31,12 @@ public class DoorsController : MonoBehaviour
         {
             this.transform.position += movement;
             canMove = false;
+            if (name == "DoorTop")
+                GlobalController.Instance.UpDoorPos = transform.position;
+            else if (name == "DoorMid")
+                GlobalController.Instance.DownDoorPos = transform.position;
+
+            GlobalController.Instance.doorsActivated = true;
         }
     }
 }

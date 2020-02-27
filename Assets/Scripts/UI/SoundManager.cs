@@ -34,9 +34,13 @@ public class SoundManager : MonoBehaviour
             BackgroundMusic.volume = GlobalController.Instance.musicVolume;
 
         if (Time.timeScale < 1)
+        {
             BackgroundMusic.Stop();
+        }
         else
+        {
             if (!BackgroundMusic.isPlaying)
-            BackgroundMusic.Play();
+                BackgroundMusic.Play();
+        }
     }
 }

@@ -26,6 +26,11 @@ public class TitleSceneScript : MonoBehaviour
         GlobalController.Instance.fromBeginning = true;
     }
 
+    public void LoadCreditScene()
+    {
+        LoadingScreenScript.Instance.Show(SceneManager.LoadSceneAsync("CreditScene"));
+    }
+
     public void ActivateMenu()
     {
         menu.SetActive(true);
