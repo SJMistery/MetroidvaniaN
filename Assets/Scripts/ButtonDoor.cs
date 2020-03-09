@@ -19,7 +19,7 @@ public class ButtonDoor : MonoBehaviour
 
     private void Update()
     {
-        if(GlobalController.Instance.doorsActivated == true && activated == false)
+        if(GlobalController.Instance.doorMidActivated && activated == false)
         {
             if (this.gameObject.name == "MidDoorButton"  && doorMidCastle.canMove)
             {
@@ -27,12 +27,30 @@ public class ButtonDoor : MonoBehaviour
                 this.transform.Rotate(0, 0, 30);
                 activated = true;
             }
-
-            if (this.gameObject.name == "TopDoorButton"  && doorTopCastle.canMove)
+        }
+        if (GlobalController.Instance.doorUpActivated && activated == false)
+        {
+            if (this.gameObject.name == "TopDoorButton" && doorTopCastle.canMove)
             {
                 doorTopCastle.Move();
                 this.transform.Rotate(0, 0, 30);
                 activated = true;
+            }
+        }
+        if (GlobalController.Instance.doorMidActivated && activated == true)
+        {
+            if (this.gameObject.name == "MidDoorButton" && !doorMidCastle.canMove)
+            {
+                this.transform.Rotate(0, 0, 0);
+                activated = false;
+            }
+        }
+        if (GlobalController.Instance.doorUpActivated && activated == true)
+        {
+            if (this.gameObject.name == "TopDoorButton" && !doorTopCastle.canMove)
+            {
+                this.transform.Rotate(0, 0, 0);
+                activated = false;
             }
         }
     }

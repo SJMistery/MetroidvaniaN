@@ -513,6 +513,8 @@ public class CharacterController2D_Mod : MonoBehaviour
 
         bobinaDelTiempo = GlobalController.Instance.inverseTimeActive;
 
+        if (GlobalController.Instance.moveIT)
+            m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, 0);
     }
 
     private void FixedUpdate()

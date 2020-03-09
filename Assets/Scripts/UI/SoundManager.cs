@@ -6,6 +6,8 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
     [SerializeField]private AudioSource BackgroundMusic;
+    public int startingPitch = 4;
+    public int timeToDecrease = 5;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +43,15 @@ public class SoundManager : MonoBehaviour
         {
             if (!BackgroundMusic.isPlaying)
                 BackgroundMusic.Play();
+
+            if(GlobalController.Instance.moveIT == true)
+            {
+                BackgroundMusic.pitch -= Time.deltaTime * startingPitch / timeToDecrease;
+            }
+            else
+            {
+                BackgroundMusic.pitch = 1;
+            }
         }
     }
 }

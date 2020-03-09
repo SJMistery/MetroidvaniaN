@@ -23,24 +23,27 @@ public class PlayerMovement : MonoBehaviour
     private float distance = 0.1f; //distancia a la que el raycast detecta la escalera. ES VERTICAL, tiene que estar muy bajo.
     public LayerMask whatIsLadder;
     public LayerMask transitionPoint;
+    public LayerMask levelPart;
     public bool isClimbing;
     public string TPpointName;
     [SerializeField] private bool canTP;
     [SerializeField] private bool alredyTP;
     [SerializeField] private float inputVertical;
     [SerializeField] private float speed = 15;
+    public BoxCollider2D[] colliders;
 
     // Update is called once per frame
     private void Start()
     {
         unpaused = true;
         Control = GetComponent<CharacterController2D_Mod>();
+        colliders = GetComponents<BoxCollider2D>();
 
     }
     //Update with no physics, FixedUpdate with physics
     void Update()
     {
-        if (unpaused)
+        if (unpaused && !GlobalController.Instance.moveIT)
         {
             LHMov = HMov;
             HMov = Input.GetAxisRaw("Horizontal");
@@ -76,36 +79,47 @@ public class PlayerMovement : MonoBehaviour
 
                 }
             }
-        }
-        if (Input.GetButtonDown("Jump"))
-        {
-            Jump = true;
-            JumpStart = true;
+            if (Input.GetButtonDown("Jump"))
+            {
+                Jump = true;
+                JumpStart = true;
 
-        }
+            }
 
-        //assegura que el PC no es passi de rapid i no vagi cap enrera
-        if (HSpd > TopSpd)
-        {
-            HSpd = TopSpd;
-        }
-        if (HSpd < 0)
-        {
-            HSpd = 0;
+            //assegura que el PC no es passi de rapid i no vagi cap enrera
+            if (HSpd > TopSpd)
+            {
+                HSpd = TopSpd;
+            }
+            if (HSpd < 0)
+            {
+                HSpd = 0;
 
+            }
         }
+        else
+        {
+            GetComponent<Rigidbody2D>().simulated = false;
+            colliders[0].enabled = false;
+            colliders[1].enabled = false;
+        }
+        
     }
+
 
     void FixedUpdate()
     {
-        Control.Move(HMov * HSpd * Time.fixedDeltaTime, Crouch, JumpStart);
-        JumpStart = false;
-        if (Jump)
+        if (!GlobalController.Instance.moveIT)
         {
+            Control.Move(HMov * HSpd * Time.fixedDeltaTime, Crouch, JumpStart);
+            JumpStart = false;
+            if (Jump)
+            {
 
-            playerBody.AddForce(new Vector2(0f, -Drag));
-            Jump = false;
+                playerBody.AddForce(new Vector2(0f, -Drag));
+                Jump = false;
 
+            }
         }
         //para subir escaleras
         //detecta si hay una escalera donde el pj dibujando una linea que funciona de detector
@@ -268,5 +282,13 @@ public class PlayerMovement : MonoBehaviour
             }
         
         }
+
+        RaycastHit2D levelPartInfo = Physics2D.Raycast(transform.position, Vector2.up, distance, levelPart);
+
+        if (levelPartInfo.collider != null)
+        {
+            GlobalController.Instance.nameOfPartLevel = levelPartInfo.collider.name;
+        }
+
     }
 }

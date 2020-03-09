@@ -40,7 +40,7 @@ public class Shortcuts : MonoBehaviour
     void Start()
     {
         cam = Camera.main;
-        menu = GameObject.Find("Pause Menu").GetComponent<MenuController>().Menu;
+        menu = GameObject.Find("Pause Menu").GetComponent<MenuController>().menu;
         shortcutMenu = GameObject.FindGameObjectWithTag("SCMenu");
         SceneText = GameObject.Find("SceneText");
         PartofScene = GameObject.Find("PartSceneText");
@@ -120,12 +120,12 @@ public class Shortcuts : MonoBehaviour
 
     public void ActivateDoorsON()
     {
-        GlobalController.Instance.doorsActivated = true;
+        GlobalController.Instance.doorUpActivated = GlobalController.Instance.doorMidActivated = true;
     }
 
     public void ActivateDoorsOFF()
     {
-        GlobalController.Instance.doorsActivated = false;
+        GlobalController.Instance.doorUpActivated = GlobalController.Instance.doorMidActivated = false;
     }
 
     public void AutoInputScene()
@@ -543,10 +543,10 @@ public class Shortcuts : MonoBehaviour
             GlobalController.Instance.inverseTimeActive = false;
 
         if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.A))
-            GlobalController.Instance.doorsActivated = true;
+            GlobalController.Instance.doorUpActivated = GlobalController.Instance.doorMidActivated = true;
 
         if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.C))
-            GlobalController.Instance.doorsActivated = false;
+            GlobalController.Instance.doorUpActivated = GlobalController.Instance.doorMidActivated = false;
 
         if (menu.activeSelf == true || shortcutMenu.activeSelf == true || numScene == 0)
         {
@@ -561,7 +561,7 @@ public class Shortcuts : MonoBehaviour
 
         if (cursor.activeSelf == true)
         {
-            cursor.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x + 11, Input.mousePosition.y - 11, 87.54097f));
+            cursor.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 87.54097f));
         }
 
         if (shortcutMenu.activeSelf == true)

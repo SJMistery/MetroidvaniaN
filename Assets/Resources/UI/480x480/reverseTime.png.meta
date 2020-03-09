@@ -1,0 +1,583 @@
+fileFormatVersion: 2
+guid: 4f459c79c543b1e48bc1b3060e650e56
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3675719949082589169
+    second: reverseTime_0
+  - first:
+      213: 4506135597037144907
+    second: reverseTime_1
+  - first:
+      213: -4292962369668096324
+    second: reverseTime_2
+  - first:
+      213: 730889656932272652
+    second: reverseTime_3
+  - first:
+      213: -2875915152111111448
+    second: reverseTime_4
+  - first:
+      213: 3482061844803151745
+    second: reverseTime_5
+  - first:
+      213: -55068037971975951
+    second: reverseTime_6
+  - first:
+      213: 2714827696786033387
+    second: reverseTime_7
+  - first:
+      213: 5182260873080237252
+    second: reverseTime_8
+  - first:
+      213: 6859881246470395729
+    second: reverseTime_9
+  - first:
+      213: -2096386045734570906
+    second: reverseTime_10
+  - first:
+      213: 9197307048447680889
+    second: reverseTime_11
+  - first:
+      213: 3561531561134929430
+    second: reverseTime_12
+  - first:
+      213: -36670790440084589
+    second: reverseTime_13
+  - first:
+      213: -6216532969364012994
+    second: reverseTime_14
+  - first:
+      213: 6428296695008877997
+    second: reverseTime_15
+  - first:
+      213: -3603620254331776017
+    second: reverseTime_16
+  - first:
+      213: -6877498078149518915
+    second: reverseTime_17
+  - first:
+      213: 3104484859255944967
+    second: reverseTime_18
+  - first:
+      213: 6702401001437934247
+    second: reverseTime_19
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: reverseTime_0
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 1630
+        width: 99
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b721cb8070a79c9409aa4e490faefdaf
+      internalID: 3675719949082589169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reverseTime_1
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 1589
+        width: 180
+        height: 181
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6686ae770cc58d64a91c49a0a4112386
+      internalID: 4506135597037144907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reverseTime_2
+      rect:
+        serializedVersion: 2
+        x: 1070
+        y: 1550
+        width: 260
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 199ff882b314dd244b54ac63febc7529
+      internalID: -4292962369668096324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reverseTime_3
+      rect:
+        serializedVersion: 2
+        x: 1525
+        y: 1525
+        width: 310
+        height: 309
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5ba885eb35d1814f9314c687a53a1c0
+      internalID: 730889656932272652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reverseTime_4
+      rect:
+        serializedVersion: 2
+        x: 1979
+        y: 1500
+        width: 362
+        height: 360
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 306ee6d040a113946abfb030ef5feb84
+      internalID: -2875915152111111448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reverseTime_5
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 1008
+        width: 388
+        height: 385
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4fbbb4124b2b5ba48935cb0bc7185c03
+      internalID: 3482061844803151745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reverseTime_6
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 1001
+        width: 402
+        height: 399
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2c02f7034ee57d46be708b2e583f2a9
+      internalID: -55068037971975951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reverseTime_7
+      rect:
+        serializedVersion: 2
+        x: 998
+        y: 1001
+        width: 404
+        height: 399
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 206ff4fcdeb77aa428996f006787ab1f
+      internalID: 2714827696786033387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reverseTime_8
+      rect:
+        serializedVersion: 2
+        x: 1478
+        y: 1000
+        width: 405
+        height: 401
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1962b38d70be7f4b88430c007016bf1
+      internalID: 5182260873080237252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reverseTime_9
+      rect:
+        serializedVersion: 2
+        x: 1955
+        y: 998
+        width: 410
+        height: 405
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 456a35dbe362f1f4eb56b28df8fc6aae
+      internalID: 6859881246470395729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reverseTime_10
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 516
+        width: 413
+        height: 409
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6ca9d1ef5595784db54a72818f89385
+      internalID: -2096386045734570906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reverseTime_11
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 516
+        width: 413
+        height: 409
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4600918a2bf7ca94aba6b12e3e839c3f
+      internalID: 9197307048447680889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reverseTime_12
+      rect:
+        serializedVersion: 2
+        x: 994
+        y: 516
+        width: 412
+        height: 409
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 624ae5e702653134b88e9f38a899509a
+      internalID: 3561531561134929430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reverseTime_13
+      rect:
+        serializedVersion: 2
+        x: 1473
+        y: 516
+        width: 414
+        height: 408
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19c19b9473aea8249a642de353c89d02
+      internalID: -36670790440084589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reverseTime_14
+      rect:
+        serializedVersion: 2
+        x: 1954
+        y: 516
+        width: 413
+        height: 409
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ea3cdb97d216604cb2ad2243fbee03e
+      internalID: -6216532969364012994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reverseTime_15
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 35
+        width: 413
+        height: 409
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86e8f20359726e34d88372955be5d467
+      internalID: 6428296695008877997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reverseTime_16
+      rect:
+        serializedVersion: 2
+        x: 513
+        y: 35
+        width: 414
+        height: 409
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 835d9c2fb4e4b0947b2903ab85b8ac86
+      internalID: -3603620254331776017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reverseTime_17
+      rect:
+        serializedVersion: 2
+        x: 994
+        y: 35
+        width: 412
+        height: 409
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e624cea19058aa74d8f38d694fb886b4
+      internalID: -6877498078149518915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reverseTime_18
+      rect:
+        serializedVersion: 2
+        x: 1473
+        y: 35
+        width: 414
+        height: 409
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3ab8e3158455d440854c0d2fb0ddcfa
+      internalID: 3104484859255944967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reverseTime_19
+      rect:
+        serializedVersion: 2
+        x: 1954
+        y: 35
+        width: 413
+        height: 409
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be8da128ca79cd441a13b6b56b39a932
+      internalID: 6702401001437934247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

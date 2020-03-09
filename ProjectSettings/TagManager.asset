@@ -27,6 +27,8 @@ TagManager:
   - CheatAdvisor
   - Music
   - Sound
+  - MapPart
+  - LevelPart
   layers:
   - Default
   - TransparentFX
@@ -48,7 +50,7 @@ TagManager:
   - Ladder
   - TPpoint
   - TPButton
-  - 
+  - LevelPart
   - 
   - 
   - 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
+using UnityEngine.SceneManagement;
 public class TextManager : MonoBehaviour
 {
 
@@ -13,6 +13,7 @@ public class TextManager : MonoBehaviour
     public int numOfText = 1;
     public bool acabado = false;
     public bool start = false;
+    public bool skipScene = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,17 +30,33 @@ public class TextManager : MonoBehaviour
 
     }
 
+    public void SkipScene()
+    {
+
+        autoTyping.GetComponent<Autotyping_Text>().StopAllCoroutines();
+        autoTyping.GetComponent<Autotyping_Text>().parar = true;
+        GlobalController.Instance.maxHp = 5;
+        GlobalController.Instance.hp = 5;
+        GlobalController.Instance.cooldown = 100;
+        GlobalController.Instance.maxpotions = 3;
+        GlobalController.Instance.disp_potions = 3;
+        GlobalController.Instance.fromBeginning = true;
+        GlobalController.Instance.actualPos = GlobalController.Instance.positionOutside;
+        GlobalController.Instance.actualLevel = GlobalController.Level.OUTSIDE;
+        LoadingScreenScript.Instance.Show(SceneManager.LoadSceneAsync("0.Afueras de la Torre"));
+        
+    }
     public void ChangeText()
     {
         ++numOfText;
         autoTyping.GetComponent<TextMeshProUGUI>().text = "";
         if (numOfText == 2)
         {
-            Text = "La leyenda dice que si uno llega a la parte mas profunda de este lugar se le concedera un deseo, sin embargo nadie nunca ha podido demostrar la veracidad de esta leyenda ni la existencia del lugar mismo sin embargo todo el mundo sabe de su existencia...";
+            Text = "The legend says that if one reaches the deepest part of this place a wish will be granted, however no one has ever been able to prove the truth of this legend or the existence of the place itself however everyone knows about its existence...";
         }
         if (numOfText == 3)
         {
-            Text = "Ese mismo lugar es al que se dirige el protagonista de esta historia, quien, movido por conseguir su deseo mas ansiado, se dispone a lanzarse al lugar mas desconocido de su mundo donde todos pueden entrar, pero nadie ha salido. Solo el destino dira si es capaz de sobrevivir a esta aventura";
+            Text = "That same place is where the protagonist of this story is directed, who, moved to achieve his most desired desire, is preparing to jump into the most unknown place in his world where everyone can enter, but no one has left. Only fate will tell if it is able to survive this adventure";
         }
 
         if (numOfText == 4)
@@ -62,9 +79,15 @@ public class TextManager : MonoBehaviour
             button.SetActive(true);
         }
 
-        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.P))
+        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.I))
         {
-            LoadScenes.Instance.LoadLevel1();
+            
+            if (!skipScene)
+            {
+                SkipScene();
+                skipScene = true;
+            }
+            //button.SetActive(false);
         }
     }
 }

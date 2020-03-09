@@ -10,7 +10,7 @@ public class GlobalController : MonoBehaviour
     public int maxHp;//maximo vida
     public int hp;//vida de personaje que le queda
     public int cooldown;
-    public int maxpotions;//pociones disponibles
+    public int maxpotions;//maximo pociones
     public int disp_potions;//pociones disponibles
 
     public float soundVolume;
@@ -39,7 +39,11 @@ public class GlobalController : MonoBehaviour
     public Vector3 DownDoorPos;
     public Level actualLevel;
     public bool fromBeginning = false;
-    public bool doorsActivated = false;
+    public bool doorUpActivated = false;
+    public bool doorMidActivated = false;
+    public bool streamEnded = false;
+    public string nameOfPartLevel;
+    public bool moveIT = false;//para saber si el inverse time esta activo
     public static GlobalController Instance;//esto sirve para guardar los datos de posicion del jugador
 
     void Awake()

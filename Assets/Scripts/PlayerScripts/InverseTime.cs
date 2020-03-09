@@ -14,7 +14,7 @@ public class InverseTime : MonoBehaviour
     [SerializeField] private GameObject clockImage;
     [SerializeField] private GameObject cooldown;
 
-    float targetFill = 0.0f;            //valores para hacer los calculos del cooldown.
+    public float targetFill = 0.0f;            //valores para hacer los calculos del cooldown.
     float _maxValue = 25.0f;            //valores para hacer los calculos del cooldown.
     private float _currentFraction = 1.0f;
     public bool respawnReset;
@@ -27,7 +27,9 @@ public class InverseTime : MonoBehaviour
     private Rigidbody2D playerBody;
     private CharacterController2D_Mod characterController;
 
+    public GameObject inverseTimeMovement;
 
+    public float tempPercent, tempor;
 
     private void Awake()
     {
@@ -86,11 +88,11 @@ public class InverseTime : MonoBehaviour
        
         if(Time.timeScale > 0)
         {
-            if (count < frameRet)
+            if (count < frameRet && !GlobalController.Instance.moveIT)
             {
                 count++;
             }
-            else if ((count >= frameRet) && (count < frameCoold))
+            else if ((count >= frameRet) && (count < frameCoold) && !GlobalController.Instance.moveIT)
             {
 
                 count++;
@@ -98,7 +100,7 @@ public class InverseTime : MonoBehaviour
                 temp.z = -1;
                 shadowObj.position = temp;
             }
-            else if ((count >= frameRet) && (count >= frameCoold))
+            else if ((count >= frameRet) && (count >= frameCoold) && !GlobalController.Instance.moveIT)
             {
                 Vector3 temp = trackPos.Dequeue();
                 temp.z = -1;
@@ -141,7 +143,9 @@ public class InverseTime : MonoBehaviour
                     }
                 }*/
                 temp.z = -2;
-                playerP.transform.position = temp;
+                //playerP.transform.position = temp;
+                inverseTimeMovement.GetComponent<InverseTimeMovement>().StartMovingIT();
+                
                 trackPos.Clear();
                 // la variable can double jump se activa para que el jugador pueda aplicar el doble salto.
                 characterController.GetComponent<CharacterController2D_Mod>().canDoubleJump = true;
@@ -171,10 +175,38 @@ public class InverseTime : MonoBehaviour
                 clockImage.SetActive(true);
             else
                 clockImage.SetActive(false);
-            int tempor = frameCoold - count;
-            cooldnText.text = tempor.ToString();
 
+            /* tempor = count / frameCoold;
+
+             if (tempor < 0 || tempor > 1)
+                 tempor = tempor < 0 ? 0 : 1;
+
+             tempPercent = 1 - tempor;
+
+             cooldnText.text = tempPercent.ToString();*/
+
+            UpdateCDText(count, frameCoold);
             UpdateCDFill(count, frameCoold);
         }
     }
+
+    private void UpdateCDText(float currentValue, float maxValue)
+    {
+        // Fix the value to be a percentage.
+        _currentFraction = currentValue / maxValue;
+
+        // If the value is greater than 1 or less than 0, then fix the values to being min/max.
+        if (_currentFraction < 0 || _currentFraction > 1)
+            _currentFraction = _currentFraction < 0 ? 0 : 1;
+
+        // Store the target amount of fill according to the users options.
+        targetFill = _currentFraction;
+        int fill = Mathf.RoundToInt(targetFill * 100);
+
+        // Store the values so that other functions used can reference the maxValue.
+        _maxValue = maxValue;
+
+        // Then just apply the target fill amount.
+        cooldnText.text = fill.ToString();
+    } //funcion que controla como se rellena o se vacia la barra de vida.
 }

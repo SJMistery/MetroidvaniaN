@@ -10,6 +10,7 @@ public class Autotyping_Text : MonoBehaviour
     public string chain; //Text to show.
     public float velocity = 0.02f; //Velocity between each letter.
     public bool acabado = false;
+    public bool parar = false;
 
     void Start()
     {
@@ -23,15 +24,19 @@ public class Autotyping_Text : MonoBehaviour
 
     void Update()
     {
-        if (chain.Length > 0)
+        if (chain.Length > 0 && !parar)
             acabado = false;
+        else
+            acabado = true;
     }
 
-    IEnumerator WriteChain(string chain)
+    public IEnumerator WriteChain(string chain)
     {
-        while (chain.Length > 0)
+        Interface.text = chain;
+        Interface.maxVisibleCharacters = 0;
+        while (chain.Length > 0 && !parar)
         {
-            Interface.text += chain.Substring(0, 1); //Write first letter in chain.
+            Interface.maxVisibleCharacters += 1; //Write first letter in chain.
             chain = chain.Substring(1, chain.Length - 1); //We take the rest in chain, less the first letter.
             yield return new WaitForSeconds(velocity);
         }

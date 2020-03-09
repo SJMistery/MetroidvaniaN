@@ -53,6 +53,10 @@ public class LoadScenes : MonoBehaviour
     {
         LoadingScreenScript.Instance.Show(SceneManager.LoadSceneAsync("IntroductionScene"));
     }
+    public void LoadTitleScene()
+    {
+        LoadingScreenScript.Instance.Show(SceneManager.LoadSceneAsync("IntroductionScene"));
+    }
 
     public void LoadLevel1()
     {
