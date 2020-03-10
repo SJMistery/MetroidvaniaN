@@ -8,6 +8,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private Transform m_AttackPoint;
     [SerializeField] private Transform m_AttackPointDown;
     [SerializeField] private LayerMask m_WhatIsEnemies;
+    [SerializeField] private LayerMask m_WhatIsBoss;
 
 
     private Rigidbody2D m_Rigidbody2D;                          //Rigidbody del PJ para poder hacer el bounce después de golpear a un enemigo.
@@ -57,7 +58,7 @@ public class PlayerAttack : MonoBehaviour
         noAttack++;
         if (noAttack == 1)
         {
-            
+
             anim.SetTrigger("attacking1");
             Instantiate(attackSound1);
 
@@ -86,10 +87,15 @@ public class PlayerAttack : MonoBehaviour
         foreach (Collider2D enemy in damageEnemies)
         {
             //Debug.Log("We hit: " + enemy);
-            enemy.GetComponent<EnemyController2D>().hurtforceX = 2000f;
+
             enemy.GetComponent<EnemyController2D>().hurtforceY = 0f;
             enemy.GetComponent<EnemyController2D>().TakeDMG(attackDMG);
             Instantiate(hitSound);
+        }
+        Collider2D[] damageBoss = Physics2D.OverlapCircleAll(m_AttackPoint.position, attackRange, m_WhatIsBoss);
+        foreach (Collider2D boss in damageBoss)
+        {
+            boss.GetComponent<BossController2D>().TakeDMG(attackDMG);
         }
 
     } //Coroutine que permite que las colision de ataque quede más ajustada a la animacion del PJ!
@@ -111,7 +117,17 @@ public class PlayerAttack : MonoBehaviour
             //make the character bounce up.
             m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, 0);
             // se añade la fuerza de salto de nuevo i suena el sonido de salto.
-            m_Rigidbody2D.AddForce(new Vector2(0f, characterController.m_JumpForce));
+            m_Rigidbody2D.AddForce(new Vector2(0f, characterController.m_JumpForce * 1.2f));
+            Instantiate(hitSound);
+        }
+        Collider2D[] damageBoss = Physics2D.OverlapCircleAll(m_AttackPoint.position, attackRange, m_WhatIsBoss);
+        foreach (Collider2D boss in damageBoss)
+        {
+            boss.GetComponent<BossController2D>().TakeDMG(attackDMG);
+            //make the character bounce up.
+            m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, 0);
+            // se añade la fuerza de salto de nuevo i suena el sonido de salto.
+            m_Rigidbody2D.AddForce(new Vector2(0f, characterController.m_JumpForce * 1.2f));
             Instantiate(hitSound);
         }
 
@@ -137,22 +153,45 @@ public class PlayerAttack : MonoBehaviour
     void Update()
     {
         Timers();
-        if (Input.GetButtonUp("Attack"))
+        if (characterController.controller)
         {
-            attackPressed = false;
-        }
-
-        if (Input.GetButton("Attack") && Input.GetButton("Down") && !attackPressed && nextAttackTimer <= 0)
-        {
-            if (characterController.m_Grounded == false)
+            if (Input.GetButtonUp("Attack MANDO"))
             {
-                DownAttack();
+                attackPressed = false;
+            }
+
+            if (Input.GetButton("Attack MANDO") && (Input.GetAxis("Vertical MANDO") < -0.7) && !attackPressed && nextAttackTimer <= 0)
+            {
+                if (characterController.m_Grounded == false)
+                {
+                    DownAttack();
+                }
+            }
+
+            else if (Input.GetButton("Attack MANDO") && !attackPressed && nextAttackTimer <= 0)
+            {
+                Attack();
             }
         }
-
-        else if (Input.GetButton("Attack") && !attackPressed && nextAttackTimer <= 0)
+        if (!characterController.controller)
         {
-            Attack();
+            if (Input.GetButtonUp("Attack"))
+            {
+                attackPressed = false;
+            }
+
+            if (Input.GetButton("Attack") && Input.GetButton("Down") && !attackPressed && nextAttackTimer <= 0)
+            {
+                if (characterController.m_Grounded == false)
+                {
+                    DownAttack();
+                }
+            }
+
+            else if (Input.GetButton("Attack") && !attackPressed && nextAttackTimer <= 0)
+            {
+                Attack();
+            }
         }
     }
 }

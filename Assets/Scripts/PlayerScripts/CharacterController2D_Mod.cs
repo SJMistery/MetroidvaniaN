@@ -24,7 +24,7 @@ public class CharacterController2D_Mod : MonoBehaviour
     private GameObject[] potionCDImage; //imagen para el cooldown de la pocion
     private GameObject[] potionUsedImage; //imagen para el cooldown de la pocion
     private GameObject[] lifeStars; //imagen para el cooldown de la pocion
-    private GameObject sombra; 
+    private GameObject sombra;
     private PlayerMovement playerMovement;
     const float k_GroundedRadius = 0.2f; // Radius of the overlap circle to determine if grounded
     private Rigidbody2D m_Rigidbody2D;
@@ -75,6 +75,10 @@ public class CharacterController2D_Mod : MonoBehaviour
     public UnityEvent OnLandEvent;
     [System.Serializable]
     public class BoolEvent : UnityEvent<bool> { }
+
+
+    public bool controller = false; //detecta si hay un mando conectado
+    //public bool controLock = true; // bloquea los controles de PC cuando hay mandos conectados
 
     private void Start()
     {
@@ -155,7 +159,7 @@ public class CharacterController2D_Mod : MonoBehaviour
             Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);
             // And then smoothing it out and applying it to the character
             m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
-            
+
             if (!playerMovement.isClimbing && !anim.GetCurrentAnimatorStateInfo(0).IsName("Attack1") && !anim.GetCurrentAnimatorStateInfo(0).IsName("Attack2")) //El PJ no se puede girar cuando esta atacando o subiendo escaleras.
             {
                 // If the input is moving the player right and the player is facing left...
@@ -179,6 +183,7 @@ public class CharacterController2D_Mod : MonoBehaviour
             OnLandEvent.Invoke();
             m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
             Instantiate(JumpSound);
+            //Debug.Log("estoy usando el script de jump");
         }
         if (m_Grounded)
         {
@@ -193,9 +198,7 @@ public class CharacterController2D_Mod : MonoBehaviour
         m_FacingRight = !m_FacingRight;
 
         // Multiply the player's x local scale by -1.
-        Vector3 theScale = transform.localScale;
-        theScale.x *= -1;
-        transform.localScale = theScale;
+        transform.Rotate(0f, 180f, 0f);
 
     }
 
@@ -203,20 +206,9 @@ public class CharacterController2D_Mod : MonoBehaviour
     {
         if (collision.collider.tag == "Enemy" && !isDamaged)
         {
-            LifeBar -= 1;
-
-
-            if (LifeBar <= 0)
+            TakeDMG();
+            if (LifeBar > 0)
             {
-                state = State.dead;
-
-            }
-            else
-            {
-                isDamaged = true;
-                canAttack = false ;
-                anim.SetTrigger("isHurt");
-
                 if (collision.gameObject.transform.position.x <= transform.position.x)
                 {
                     // enemy is at right so PJ should move to left
@@ -230,11 +222,7 @@ public class CharacterController2D_Mod : MonoBehaviour
                     GetComponent<PlayerMovement>().enabled = false;
                     knockbackTimer = 0.25f;
                 }
-
-                lastTimeDamaged = invencibleTime;
-                cantAttackTimer = cantAttackValue;
             }
-
         }
         else if (collision.collider.tag == "DeathTrap")
         {
@@ -244,17 +232,69 @@ public class CharacterController2D_Mod : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.tag == "SavePoint" && Input.GetButton("Interact"))
+        if (other.gameObject.tag == "SavePoint" && ((controller & Input.GetButton("Interact MANDO")) || (!controller && Input.GetButton("Interact"))))
         {
-            Debug.Log("saved");
+            //Debug.Log("saved");
             isResting = true;
             RespawnPoint = other.gameObject.transform.position;
             LifeBar = fullHP;
             state = State.resting;
             healsAvalible = maxHeals;
-
         }
-    } //NEW Y MOVIDO
+        if (other.gameObject.tag == "Enemy" && !isDamaged)
+        {
+            TakeDMG();
+            if (other.gameObject.transform.position.x <= transform.position.x)
+            {
+                // enemy is at right so PJ should move to left
+                m_Rigidbody2D.velocity = new Vector2(hurtforce, hurtforce);
+                GetComponent<PlayerMovement>().enabled = false;
+                knockbackTimer = 0.25f;
+            }
+            else
+            {
+                m_Rigidbody2D.velocity = new Vector2(-hurtforce, hurtforce);
+                GetComponent<PlayerMovement>().enabled = false;
+                knockbackTimer = 0.25f;
+            }
+        }
+        if (other.gameObject.tag == "Boss" && !isDamaged)
+        {
+            TakeDMG();
+            if (other.gameObject.transform.position.x <= transform.position.x)
+            {
+                // enemy is at right so PJ should move to left
+                m_Rigidbody2D.velocity = new Vector2(hurtforce, hurtforce);
+                GetComponent<PlayerMovement>().enabled = false;
+                knockbackTimer = 0.25f;
+            }
+            else
+            {
+                m_Rigidbody2D.velocity = new Vector2(-hurtforce, hurtforce);
+                GetComponent<PlayerMovement>().enabled = false;
+                knockbackTimer = 0.25f;
+            }
+        }
+        if (other.gameObject.tag == "Mace" && !isDamaged)
+        {
+            TakeDMG();
+            if (other.gameObject.transform.position.x <= transform.position.x)
+            {
+                // enemy is at right so PJ should move to left
+                m_Rigidbody2D.velocity = new Vector2(hurtforce, hurtforce);
+                GetComponent<PlayerMovement>().enabled = false;
+                knockbackTimer = 0.25f;
+            }
+            else
+            {
+                m_Rigidbody2D.velocity = new Vector2(-hurtforce, hurtforce);
+                GetComponent<PlayerMovement>().enabled = false;
+                knockbackTimer = 0.25f;
+            }
+        }
+    }
+
+    //NEW Y MOVIDO
 
     private void AnimationState() //NEEW Permite controlar los estados y logica de las animaciones
     {
@@ -265,7 +305,7 @@ public class CharacterController2D_Mod : MonoBehaviour
             m_Rigidbody2D.velocity = new Vector2(0, 0);
             isResting = true;
             isDead = false;
-            if (Input.GetButton("Cancel"))
+            if (Input.anyKeyDown)
             {
                 GetComponent<PlayerMovement>().enabled = true;
                 isResting = false;
@@ -289,11 +329,12 @@ public class CharacterController2D_Mod : MonoBehaviour
                 shadowReset.transform.position = RespawnPoint;
                 respawnReset = true;
                 LifeBar = fullHP;
+                m_Rigidbody2D.velocity = new Vector2(0, 0);
                 GetComponent<PlayerMovement>().enabled = true;
                 state = State.resting;
                 healsAvalible = maxHeals;
             }
-        }   
+        }
         else if (state == State.climb)
         {
             if (!playerMovement.isClimbing)
@@ -354,6 +395,26 @@ public class CharacterController2D_Mod : MonoBehaviour
         }
     }
 
+    public void TakeDMG()
+    {
+        LifeBar -= 1;
+
+        if (LifeBar <= 0)
+        {
+            state = State.dead;
+        }
+        else
+        {
+            isDamaged = true;
+            canAttack = false;
+            anim.SetTrigger("isHurt");
+
+            lastTimeDamaged = invencibleTime;
+            cantAttackTimer = cantAttackValue;
+        }
+
+    }
+
     private void Heal()
     {
 
@@ -362,7 +423,7 @@ public class CharacterController2D_Mod : MonoBehaviour
         {
             count++;
         }
-        if (Input.GetButtonDown("Heal") && (count > frameCoold))
+        if ((controller && Input.GetButtonDown("Heal MANDO") || ((!controller) && Input.GetButtonDown("Heal"))) && (count > frameCoold))
         {
             count = 0;
 
@@ -403,6 +464,7 @@ public class CharacterController2D_Mod : MonoBehaviour
         m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, 0);
         // se añade la fuerza de salto de nuevo i suena el sonido de salto.
         m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+        //Debug.Log("estoy haciendo dobles saltos");
         Instantiate(JumpSound);
 
     } //funcion que permite al jugador saltar una segunda vez en el aire.
@@ -412,13 +474,13 @@ public class CharacterController2D_Mod : MonoBehaviour
         knockbackTimer -= Time.deltaTime;
         lastTimeDamaged -= Time.deltaTime;
         cantAttackTimer -= Time.deltaTime;
-        
+
 
         if (lastTimeDamaged <= 0f)
         {
             isDamaged = false;
         }
-        if(cantAttackTimer <= 0f)
+        if (cantAttackTimer <= 0f)
         {
             canAttack = true;
         }
@@ -430,6 +492,36 @@ public class CharacterController2D_Mod : MonoBehaviour
 
     private void Update()
     {
+
+        //Get Joystick Names
+        string[] temp = Input.GetJoystickNames();
+
+        //Check whether array contains anything
+        if (temp.Length > 0)
+        {
+            //Iterate over every element
+            for (int i = 0; i < temp.Length; ++i)
+            {
+                //Check if the string is empty or not
+                if (!string.IsNullOrEmpty(temp[i]))
+                {
+                    //Not empty, controller temp[i] is connected
+
+                    //Debug.Log("Controller " + i + " is connected using: " + temp[i]);
+                    controller = true;
+                }
+                else
+                {
+                    //If it is empty, controller i is disconnected
+                    //where i indicates the controller number
+                    //Debug.Log("Controller: " + i + " is disconnected.");
+                    controller = false;
+
+                }
+            }
+        }
+        else controller = false;
+
         //HACER QUE CUANDO EL PJ RECIBA DAÑO NO PUEDA ATACAR. PARA ESO SE TIENE QUE MOVER EL CODIGO DE ATAQUE EN UN NUEVO SCRIPT.
         if (!canAttack)
         {
@@ -440,26 +532,28 @@ public class CharacterController2D_Mod : MonoBehaviour
             attack.enabled = true;
         }
 
-        if (Input.GetButtonDown("Heal") && LifeBar != fullHP)
+        if ((controller && Input.GetButtonDown("Heal MANDO") || ((!controller) && Input.GetButtonDown("Heal"))) && LifeBar != fullHP)
         {
             Heal();
         }
-        if (Input.GetButton("Jump") && m_Rigidbody2D.velocity.y > Mathf.Abs(Mathf.Epsilon))
+        if ((Input.GetButton("Jump") || Input.GetButton("Jump MANDO")) && m_Rigidbody2D.velocity.y > Mathf.Abs(Mathf.Epsilon))
         {
             state = State.jumping;
 
         }
-        if (Input.GetButton("Jump") && canDoubleJump)
+        if (((controller && Input.GetButtonDown("Jump MANDO")) || ((!controller) && Input.GetButtonDown("Jump"))) && canDoubleJump)
         {
             DoubleJump();
         }
 
-        if (bobinaDelTiempo) { sombra.GetComponent<SpriteRenderer>().enabled = true;
+        /*if (bobinaDelTiempo) { 
+            sombra.GetComponent<SpriteRenderer>().enabled = true;
             sombra.GetComponent<InverseTime>().enabled = true;
         }
-        else if(!bobinaDelTiempo) {
+        else if (!bobinaDelTiempo) {
             sombra.GetComponent<SpriteRenderer>().enabled = false;
-            sombra.GetComponent<InverseTime>().enabled = false; }
+            sombra.GetComponent<InverseTime>().enabled = false; 
+        }*/
 
         AnimationState();
         anim.SetInteger("state", (int)state); //obtiene el valor del integer que tiene state para que las condiciones de las animaciones funcionen correctamente.
@@ -513,8 +607,6 @@ public class CharacterController2D_Mod : MonoBehaviour
 
         bobinaDelTiempo = GlobalController.Instance.inverseTimeActive;
 
-        if (GlobalController.Instance.moveIT)
-            m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, 0);
     }
 
     private void FixedUpdate()
@@ -538,8 +630,20 @@ public class CharacterController2D_Mod : MonoBehaviour
             }
         }
 
-        //Air resist in the horizontal way
-        if (Input.GetButton("Horizontal"))
+        //Air resist in the horizontal wa
+        if ((controller && (Mathf.Abs(Input.GetAxis("Horizontal MANDO")) > 0.3)) || ((!controller) && Input.GetButtonDown("Horizontal")))//detecta si esta pulsando hacia arriba/abajo con el mando
+        {
+            if (!m_Grounded && m_FacingRight)
+            {
+                m_Rigidbody2D.AddForce(Vector2.left * h_AirResist, 0);
+            }
+            else if (!m_Grounded && !m_FacingRight)
+            {
+                m_Rigidbody2D.AddForce(Vector2.right * h_AirResist, 0);
+            }
+        }
+
+        if (Input.GetButton("Horizontal") || Input.GetButton("Horizontal MANDO"))
         {
             if (!m_Grounded && m_FacingRight)
             {
@@ -551,6 +655,4 @@ public class CharacterController2D_Mod : MonoBehaviour
             }
         }
     }
-
-
 }

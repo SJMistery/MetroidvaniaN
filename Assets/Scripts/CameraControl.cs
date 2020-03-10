@@ -13,7 +13,7 @@ using UnityEngine;
 public class CameraControl : MonoBehaviour
 {
     public float speed;
-    public float maxdistance;
+    public float maxdistance = 6;
     private Rigidbody2D rb;
     [SerializeField] private GameObject cam;
     [SerializeField] private GameObject player;
@@ -23,6 +23,7 @@ public class CameraControl : MonoBehaviour
     private float posY;
     private float newposY;
 
+    private CharacterController2D_Mod cc;
     // hacer que la camara siga al jugador de manera por defecto.
     void Start()
     {
@@ -30,6 +31,8 @@ public class CameraControl : MonoBehaviour
         offset = transform.position - player.transform.position;
         followPlayer = true;
         rb = GameObject.Find("SrBeta1").GetComponent<Rigidbody2D>();
+
+        cc = GameObject.Find("SrBeta1").GetComponent<CharacterController2D_Mod>();
     }
 
     // LateUpdate is called after Update each frame
@@ -37,7 +40,7 @@ public class CameraControl : MonoBehaviour
     {
         // Set the position of the camera's transform to be the same as the player's, but offset by the calculated offset distance.
         // Si el jugador decide empezar a moverse mientras esta manipulando la camara automaticamente se redirije a su posicion.
-        if (followPlayer || Input.GetButton("Horizontal"))
+        if (followPlayer || Mathf.Abs(rb.velocity.x) > 1 || Mathf.Abs(rb.velocity.y) > 1)
         {
             transform.position = player.transform.position + offset;
         }
@@ -48,49 +51,48 @@ public class CameraControl : MonoBehaviour
     {
         //Si el jugador esta en movimiento, no se activa el movimiento de la camara.  
         //Si se activa la camara y posteriormente se empieza a andar, la cámara se queda bloqueada durante un rato.
-        if (rb.velocity.x < 1)
+        if (Mathf.Abs(rb.velocity.x) < 1 || Mathf.Abs(rb.velocity.y) < 1)
         {
             newposY = transform.position.y;
             //al pulsar el las flechas abajo y arriba la camara del PJ se desplaza hacia dicha dirección.
-            if (Input.GetKey(KeyCode.DownArrow))
+            if (cc.controller && (Mathf.Abs(Input.GetAxis("Flechas MANDO")) > 0.3))
             {
+
+                float moveCam = Input.GetAxisRaw("Flechas MANDO");
                 followPlayer = false;
-                cam.transform.Translate(new Vector2(0, -speed * Time.deltaTime));
+                float temp = moveCam * speed * Time.deltaTime;
+                cam.transform.Translate(new Vector2(0, temp));
 
             }
-            if (Input.GetKey(KeyCode.UpArrow))
+            else if ((!cc.controller) && Input.GetButton("Flechas"))
             {
+                float moveCam = Input.GetAxisRaw("Flechas");
                 followPlayer = false;
-                cam.transform.Translate(new Vector2(0, speed * Time.deltaTime));
+                float temp = moveCam * speed * Time.deltaTime;
+                cam.transform.Translate(new Vector2(0, temp));
             }
 
             //En cuanto se pulsa alguna de ambas flechas, se almacena la posicion de la camara.
-            if (Input.GetButtonDown("Flechas"))
+            if ((cc.controller) && (Mathf.Abs(Input.GetAxis("Flechas MANDO")) > 0.5) || ((!cc.controller) && Input.GetButtonDown("Flechas")))
             {
-                posY = cam.transform.position.y;
+                followPlayer = false;
             }
 
 
             //hacer que cuando se suelta el tecla Up Arrow/DownArrow la camara vuelva a la poscion 0,0,0.
-            if (Input.GetButtonUp("Flechas"))
+            if ((cc.controller) && (Mathf.Abs(Input.GetAxis("Flechas MANDO")) <= 0.5) || ((!cc.controller) && Input.GetButtonUp("Flechas")))
             {
                 followPlayer = true;
+                posY = cam.transform.position.y;
+                speed = 10;
             }
 
-
             //hacer que cuando la camara llegue a la distancia máxima se quede ahí y no se mueva.
-            if (posY - newposY >= maxdistance || posY - newposY <= -maxdistance)
+            if (Mathf.Abs(posY - newposY) > maxdistance)
             {
                 speed = 0;
             }
-            if (Input.GetKeyUp(KeyCode.DownArrow))
-            {
-                speed = 10;
-            }
-            if (Input.GetKeyUp(KeyCode.UpArrow))
-            {
-                speed = 10;
-            }
+
         }
         else
             transform.position = player.transform.position + offset;

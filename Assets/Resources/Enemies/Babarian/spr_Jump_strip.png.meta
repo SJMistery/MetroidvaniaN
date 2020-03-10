@@ -1,0 +1,727 @@
+fileFormatVersion: 2
+guid: cf02df2d97700d54c8745a082599b120
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5033355998570655535
+    second: spr_Jump_strip_0
+  - first:
+      213: 8384687500285727627
+    second: spr_Jump_strip_1
+  - first:
+      213: 910712865859469242
+    second: spr_Jump_strip_2
+  - first:
+      213: 7626053384615889786
+    second: spr_Jump_strip_3
+  - first:
+      213: 9201327406484873547
+    second: spr_Jump_strip_4
+  - first:
+      213: 6430739369252088490
+    second: spr_Jump_strip_5
+  - first:
+      213: 2733191792301085845
+    second: spr_Jump_strip_6
+  - first:
+      213: -8071763574201851366
+    second: spr_Jump_strip_7
+  - first:
+      213: 7757952364939701212
+    second: spr_Jump_strip_8
+  - first:
+      213: -1041200040377829697
+    second: spr_Jump_strip_9
+  - first:
+      213: -1883290520428100293
+    second: spr_Jump_strip_14
+  - first:
+      213: -8398110323096491061
+    second: spr_Jump_strip_15
+  - first:
+      213: 5706335533333980913
+    second: spr_Jump_strip_16
+  - first:
+      213: 4253204572654070537
+    second: spr_Jump_strip_17
+  - first:
+      213: 557313735701983078
+    second: spr_Jump_strip_18
+  - first:
+      213: 37080318688410838
+    second: spr_Jump_strip_19
+  - first:
+      213: -4651144942532531485
+    second: spr_Jump_strip_20
+  - first:
+      213: -581042388528866511
+    second: spr_Jump_strip_21
+  - first:
+      213: 5192490428358983364
+    second: spr_Jump_strip_22
+  - first:
+      213: -907780394099202316
+    second: spr_Jump_strip_23
+  - first:
+      213: 2671070509705863400
+    second: spr_Jump_strip_24
+  - first:
+      213: -7803934980646180871
+    second: spr_Jump_strip_25
+  - first:
+      213: -1007427329473470930
+    second: spr_Jump_strip_26
+  - first:
+      213: 5892564097073737432
+    second: spr_Jump_strip_27
+  - first:
+      213: -2366140581324618728
+    second: spr_Jump_strip_28
+  - first:
+      213: 4228590297967869469
+    second: spr_Jump_strip_29
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: spr_Jump_strip_0
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 448
+        width: 35
+        height: 35
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08757b3d92c016348ad144c9654ae124
+      internalID: 5033355998570655535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Jump_strip_1
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 448
+        width: 35
+        height: 35
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1caddb2dbe2f9204a82f5021127d1752
+      internalID: 8384687500285727627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Jump_strip_2
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 448
+        width: 35
+        height: 35
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c60e683a6054c3049b4db7049a4a3d77
+      internalID: 910712865859469242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Jump_strip_3
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 448
+        width: 36
+        height: 33
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 535b12c801720d74f9a23a3970e227a1
+      internalID: 7626053384615889786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Jump_strip_4
+      rect:
+        serializedVersion: 2
+        x: 344
+        y: 448
+        width: 40
+        height: 29
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efeeb1a9c9159e5408aebdffeb0a22cb
+      internalID: 9201327406484873547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Jump_strip_5
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 363
+        width: 40
+        height: 29
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64ec379b24a0def42952ca0797cccd21
+      internalID: 6430739369252088490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Jump_strip_6
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 363
+        width: 40
+        height: 29
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51d2ab062e8e0a54d8306b5a65a1c894
+      internalID: 2733191792301085845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Jump_strip_7
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 363
+        width: 41
+        height: 30
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e5edd1190082814697fcd7dec73c741
+      internalID: -8071763574201851366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Jump_strip_8
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 377
+        width: 42
+        height: 42
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9d4f162f1afcfc41bf6db72daf2a3d5
+      internalID: 7757952364939701212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Jump_strip_9
+      rect:
+        serializedVersion: 2
+        x: 358
+        y: 391
+        width: 50
+        height: 21
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5514cbb452dbee444a1c4a713c9aaee1
+      internalID: -1041200040377829697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Jump_strip_14
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 307
+        width: 51
+        height: 26
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78eeef58adf34484a938875bf61885c7
+      internalID: -1883290520428100293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Jump_strip_15
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 298
+        width: 31
+        height: 29
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 104dc7370e379ca4e8765d1113dcf1c7
+      internalID: -8398110323096491061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Jump_strip_16
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 302
+        width: 42
+        height: 21
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 420e4ffbebb63e8489cebaaac901f672
+      internalID: 5706335533333980913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Jump_strip_17
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 286
+        width: 26
+        height: 41
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c28972321f52dcc48b1f56e066869680
+      internalID: 4253204572654070537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Jump_strip_18
+      rect:
+        serializedVersion: 2
+        x: 379
+        y: 290
+        width: 24
+        height: 41
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4cf2e939f3adb964f9c7430fe3b94a38
+      internalID: 557313735701983078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Jump_strip_19
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 193
+        width: 44
+        height: 25
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d807ba5842ddca4bb03e8ba9741584c
+      internalID: 37080318688410838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Jump_strip_20
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 193
+        width: 47
+        height: 29
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4fab77fe0c19d140aaa99100e7c6a36
+      internalID: -4651144942532531485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Jump_strip_21
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 193
+        width: 47
+        height: 28
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c606b6d419f9404880f0253b7aaadd0
+      internalID: -581042388528866511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Jump_strip_22
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 193
+        width: 47
+        height: 28
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f3a2d81622fb8d458fcf1fb8175c03b
+      internalID: 5192490428358983364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Jump_strip_23
+      rect:
+        serializedVersion: 2
+        x: 371
+        y: 193
+        width: 43
+        height: 29
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d38c7be63b698a4a85585a7e673fe82
+      internalID: -907780394099202316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Jump_strip_24
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 108
+        width: 39
+        height: 31
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f851c5ae8f5255458c646936f69678a
+      internalID: 2671070509705863400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Jump_strip_25
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 108
+        width: 33
+        height: 44
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57ca67b8e7f20694190a23178f236828
+      internalID: -7803934980646180871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Jump_strip_26
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 108
+        width: 33
+        height: 44
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 651f5f0406ff91a45946ffb4ee3fd0bb
+      internalID: -1007427329473470930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Jump_strip_27
+      rect:
+        serializedVersion: 2
+        x: 286
+        y: 108
+        width: 35
+        height: 34
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5b14b8cc2afe294fb4c3f1e3dcad9ac
+      internalID: 5892564097073737432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Jump_strip_28
+      rect:
+        serializedVersion: 2
+        x: 371
+        y: 108
+        width: 35
+        height: 35
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b394e68f3a8c2504583adac642faa1b9
+      internalID: -2366140581324618728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_Jump_strip_29
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 23
+        width: 35
+        height: 35
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a909f944d81b5c045b5e5528259793e4
+      internalID: 4228590297967869469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

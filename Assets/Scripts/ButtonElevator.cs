@@ -8,11 +8,13 @@ public class ButtonElevator : MonoBehaviour
     public bool isMoving = false;
     public int speed;
     ElevatorController elevator;
+    private CharacterController2D_Mod cc;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        cc = GameObject.Find("SrBeta1").GetComponent<CharacterController2D_Mod>();
         elevator = GameObject.Find("Elevator").GetComponent<ElevatorController>();
     }
 
@@ -20,7 +22,7 @@ public class ButtonElevator : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Player" && Input.GetButton("Interact"))
+        if (other.gameObject.tag == "Player" && ((cc.controller && Input.GetButton("Interact MANDO")) || ((!cc.controller) && Input.GetButton("Interact"))))
         {
             
             elevator.isMoving = true;

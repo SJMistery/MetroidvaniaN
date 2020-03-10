@@ -21,15 +21,11 @@ public class DoorsController : MonoBehaviour
     // Start is called before the first frame update
     public void Update()
     {
-        if (name == "DoorTop")
+        if (GlobalController.Instance.doorUpActivated == false)
+            transform.position = new Vector3(0, 0);
+        else if (GlobalController.Instance.doorMidActivated == false)
         {
-            if (GlobalController.Instance.doorUpActivated == false)
-                transform.position = new Vector3(0, 0);
-        }
-        else if (name == "DoorMid")
-        {
-            if (GlobalController.Instance.doorMidActivated == false)
-                transform.position = new Vector3(0, 0);
+            transform.position = new Vector3(0, 0);
         }
     }
 
@@ -40,14 +36,15 @@ public class DoorsController : MonoBehaviour
             this.transform.position += movement;
             canMove = false;
             if (name == "DoorTop")
+            {
                 GlobalController.Instance.UpDoorPos = transform.position;
-            else if (name == "DoorMid")
-                GlobalController.Instance.DownDoorPos = transform.position;
-
-            if (name == "DoorTop")
                 GlobalController.Instance.doorUpActivated = true;
+            }
             else if (name == "DoorMid")
-               GlobalController.Instance.doorMidActivated = true;
+            {
+                GlobalController.Instance.DownDoorPos = transform.position;
+                GlobalController.Instance.doorMidActivated = true;
+            }
         }
     }
 }

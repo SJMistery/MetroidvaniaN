@@ -29,6 +29,8 @@ TagManager:
   - Sound
   - MapPart
   - LevelPart
+  - Boss
+  - Mace
   layers:
   - Default
   - TransparentFX
@@ -51,7 +53,7 @@ TagManager:
   - TPpoint
   - TPButton
   - LevelPart
-  - 
+  - Boss
   - 
   - 
   - 
