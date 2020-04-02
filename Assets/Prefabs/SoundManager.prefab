@@ -43,5 +43,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2ad58e79600ec94cadf87a37aca6603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mixer: {fileID: 24100000, guid: 2d6e5aceb214f9240b352688a8dc0c73, type: 2}
+  pausedSnapshot: {fileID: -6701973642404317184, guid: 2d6e5aceb214f9240b352688a8dc0c73,
+    type: 2}
+  resumeSnapshot: {fileID: 24500006, guid: 2d6e5aceb214f9240b352688a8dc0c73, type: 2}
+  OutputMixer: 
+  paused: 0
   BackgroundMusic: {fileID: 0}
-  Sound: {fileID: 0}
+  startingPitch: 4
+  timeToDecrease: 5

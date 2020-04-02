@@ -139,6 +139,11 @@ public class EnemyController2D : MonoBehaviour
         }
 
     }
+   
+    public void StopMovement()
+    {
+        enemyAnim.SetBool("Moving", false);
+    }
 
     void Die()
     {

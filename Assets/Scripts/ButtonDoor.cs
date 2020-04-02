@@ -15,13 +15,19 @@ public class ButtonDoor : MonoBehaviour
     void Start()
     {
         cc = GameObject.Find("SrBeta1").GetComponent<CharacterController2D_Mod>();
-        doorMidCastle = GameObject.Find("DoorMid").GetComponent<DoorsController>(); //referencia a la puerta del ascensor del castillo.
-        doorTopCastle = GameObject.Find("DoorTop").GetComponent<DoorsController>(); //referencia a puerta del boss del castillo.
+        if (GlobalController.Instance.actualLevel == GlobalController.Level.INTRO)
+        {
+
+            doorMidCastle = GameObject.Find("DoorMid").GetComponent<DoorsController>(); //referencia a la puerta del ascensor del castillo.
+            doorTopCastle = GameObject.Find("DoorTop").GetComponent<DoorsController>(); //referencia a puerta del boss del castillo.
+        }
     }
 
     private void Update()
     {
-        if(GlobalController.Instance.doorUpActivated == true && activated == false)        {            if (this.gameObject.name == "TopDoorButton" && doorTopCastle.canMove)
+        if(GlobalController.Instance.doorUpActivated == true && activated == false)
+        {
+            if (this.gameObject.name == "TopDoorButton" && doorTopCastle.canMove)
             {
                 doorTopCastle.Move();
                 this.transform.Rotate(0, 0, 30);               

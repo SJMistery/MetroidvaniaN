@@ -172,7 +172,7 @@ SpriteRenderer:
   m_SortingLayer: 5
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 262366ac5f376da43be0c7c7adf77e3d, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6886792, g: 0.6886792, b: 0.6886792, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -243,6 +243,7 @@ MonoBehaviour:
   shadowReset: {fileID: 0}
   respawnReset: 0
   m_Grounded: 0
+  alredy_Jumped: 0
   canDoubleJump: 0
   bobinaDelTiempo: 0
   LifeBar: 5
@@ -277,14 +278,16 @@ MonoBehaviour:
     m_Bits: 262144
   levelPart:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1048576
+  shadowRadius:
+    serializedVersion: 2
+    m_Bits: 4194304
   isClimbing: 0
   TPpointName: 
   canTP: 0
   alredyTP: 0
   inputVertical: 0
   speed: 15
-  colliders: []
 --- !u!95 &6140360905554585647
 Animator:
   serializedVersion: 3
@@ -333,6 +336,9 @@ MonoBehaviour:
   m_WhatIsEnemies:
     serializedVersion: 2
     m_Bits: 1024
+  m_WhatIsBoss:
+    serializedVersion: 2
+    m_Bits: 2097152
   attackSound1: {fileID: 4047954389666745019, guid: a4ab46498d7e8f64a8baae502b0266af,
     type: 3}
   attackSound2: {fileID: 6889000860393621606, guid: 81ecb91227256a54fa2415bf8d6729d5,
@@ -349,7 +355,8 @@ AudioSource:
   m_GameObject: {fileID: 6140360905554585636}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 417319446939217915, guid: 2d6e5aceb214f9240b352688a8dc0c73,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 29f103f9279d08341acbf031135f68e7, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -448,3 +455,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59afccfd62c659e4995008b444e7e4b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OutputMixer: 
+  mixer: {fileID: 24100000, guid: 2d6e5aceb214f9240b352688a8dc0c73, type: 2}

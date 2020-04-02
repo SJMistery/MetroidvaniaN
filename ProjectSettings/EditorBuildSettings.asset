@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/1. Dentro del castillo.unity
     guid: 01346ad0fda61d646896408b2b91f995
   - enabled: 1
+    path: Assets/Scenes/1.5 BossFight.unity
+    guid: 3c06ef42610bb554786bb9b9bca2d203
+  - enabled: 1
     path: Assets/Scenes/1.5 Tejado y Prision.unity
     guid: ba05e28e78f25ea409fdaf39edfe2601
   - enabled: 1

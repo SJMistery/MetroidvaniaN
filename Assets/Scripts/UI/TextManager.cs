@@ -10,10 +10,14 @@ public class TextManager : MonoBehaviour
     public string Text = "Desde tiempos inmemoriales ha existido una leyenda entre la gente de cierto país, dicho rumor habla sobre cierto lugar inhóspito lleno de monstruos que no deberían existir, un lugar donde ni tiempo ni lugar importaban, dicho lugar era llamado “El abismo” que existe debajo de un castillo...";
     public GameObject autoTyping;
     public GameObject button;
+    public GameObject canvas;
+    public GameObject noticeBox;
+    public GameObject noticeText;
     public int numOfText = 1;
     public bool acabado = false;
     public bool start = false;
     public bool skipScene = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -69,11 +73,86 @@ public class TextManager : MonoBehaviour
         StartText();
     }
 
+    public void SkipText()
+    {
+        autoTyping.GetComponent<Autotyping_Text>().StopAllCoroutines();
+        GlobalController.Instance.stopAll = false;
+        canvas.SetActive(false);
+        button.SetActive(false);
+    }
+
+    public void ChangeTextFirstCutscene()
+    {
+        ++numOfText;
+        autoTyping.GetComponent<TextMeshProUGUI>().text = "";
+        if (numOfText == 2)
+        {
+            Text = "I hope the information is right, I guess I'll give it a try.";
+        }
+        if (numOfText == 3)
+        {
+            Text = "If it's right... it'll only be a matter of time.";
+        }
+
+        if (numOfText == 4)
+        {
+            autoTyping.GetComponent<Autotyping_Text>().StopAllCoroutines();
+            GlobalController.Instance.stopAll = false;
+            canvas.SetActive(false);
+            button.SetActive(false);
+        }
+        else
+        {
+
+            autoTyping.GetComponent<Autotyping_Text>().chain = Text;
+            button.SetActive(false);
+            StartText();
+        }
+    }
+
+    public void ChangeTextStorageScene()
+    {
+        ++numOfText;
+        autoTyping.GetComponent<TextMeshProUGUI>().text = "";
+        if (numOfText == 2)
+        {
+            noticeBox.SetActive(true);
+            noticeText.GetComponent<TextMeshProUGUI>().text = "You've obtained:" + "'Ancient Journal'";
+            //Text = "";
+        }
+        if (numOfText == 3)
+        {
+            Text = "This looks like a journal, but it's very bruised. Maybe is from someone who got here before me?";
+        }
+
+        if (numOfText == 4)
+        {
+            autoTyping.GetComponent<Autotyping_Text>().StopAllCoroutines();
+            GlobalController.Instance.stopAll = false;
+            canvas.SetActive(false);
+            button.SetActive(false);
+            Cursor.visible = false;
+        }
+        else
+        {
+
+            autoTyping.GetComponent<Autotyping_Text>().chain = Text;
+            button.SetActive(false);
+            StartText();
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
+        if(canvas!= null)
+        {
+            if (canvas.activeSelf)
+                GlobalController.Instance.stopAll = true;
+        }
 
         acabado = autoTyping.GetComponent<Autotyping_Text>().acabado;
+
         if (autoTyping.GetComponent<Autotyping_Text>().acabado)
         {
             button.SetActive(true);

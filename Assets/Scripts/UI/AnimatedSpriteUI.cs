@@ -21,6 +21,7 @@ public class AnimatedSpriteUI : MonoBehaviour
     public float _CurrentFrame = 0;
     public bool ended = false;
     public float valorOfOpacity = 155;
+    public bool started = false;
     [SerializeField] private bool loop = false;
     // Start is called before the first frame update
     void Start()
@@ -61,16 +62,17 @@ public class AnimatedSpriteUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(sprite != SpriteToLoad.BLUEFLAME)
+        if(sprite == SpriteToLoad.REVERSETIME)
         {
             canvas.GetComponent<Canvas>().worldCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
             canvas.GetComponent<Canvas>().sortingLayerName = "Player";
-            canvas.GetComponent<Canvas>().sortingOrder = 3;
+            canvas.GetComponent<Canvas>().sortingOrder = 5;
         }
         mElapsedTime += Time.deltaTime * _speed;
 
         if (mElapsedTime >= mTimeperFrame)
         {
+            started = true;
             //++mCurrentFrame;
             _CurrentFrame += 1f * _speed;
             mCurrentFrame = (int)_CurrentFrame;
@@ -81,6 +83,7 @@ public class AnimatedSpriteUI : MonoBehaviour
                     _CurrentFrame = 0;
                 else
                 {
+                    started = false;
                     ended = true;
                     enabled = false;
                     if (sprite != SpriteToLoad.BLUEFLAME)

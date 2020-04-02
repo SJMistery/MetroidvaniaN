@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
-
+using TMPro;
 public class PlayerMovement : MonoBehaviour
 {
 
     private CharacterController2D_Mod Control;
+    [SerializeField] private GameObject cutscene;
+    [SerializeField] private GameObject cutsceneText;
     float HMov = 0f;
     private float Accel = 7f;
     private float Brake = 100f;
@@ -24,26 +26,36 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask whatIsLadder;
     public LayerMask transitionPoint;
     public LayerMask levelPart;
+    public LayerMask shadowRadius;
+    public LayerMask interactiveEffect;
     public bool isClimbing;
     public string TPpointName;
     [SerializeField] private bool canTP;
     [SerializeField] private bool alredyTP;
     [SerializeField] private float inputVertical;
     [SerializeField] private float speed = 15;
-    public BoxCollider2D[] colliders;
 
     // Update is called once per frame
     private void Start()
     {
         unpaused = true;
         Control = GetComponent<CharacterController2D_Mod>();
-        colliders = GetComponents<BoxCollider2D>();
+        if(GlobalController.Instance.actualLevel != GlobalController.Level.TITLE ||
+            GlobalController.Instance.actualLevel != GlobalController.Level.INTRO ||
+            GlobalController.Instance.actualLevel != GlobalController.Level.CREDIT)
+        {
+            cutscene = GameObject.FindGameObjectWithTag("cutscene");
+            cutsceneText = GameObject.Find("CutsceneText");
+            cutscene.SetActive(false);
+        }
 
     }
     //Update with no physics, FixedUpdate with physics
     void Update()
     {
-        if (unpaused && !GlobalController.Instance.moveIT)
+        unpaused = !GlobalController.Instance.stopAll;
+
+        if (unpaused && !GlobalController.Instance.moveIT )
         {
             LHMov = HMov;
             HMov = Input.GetAxisRaw("Horizontal");
@@ -99,9 +111,13 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            GetComponent<Rigidbody2D>().simulated = false;
-            colliders[0].enabled = false;
-            colliders[1].enabled = false;
+            //GetComponent<Rigidbody2D>().simulated = false;
+            RaycastHit2D shadowActivationRadius = Physics2D.Raycast(transform.position, Vector2.up, distance, levelPart);
+
+            if (shadowActivationRadius.collider != null)
+            {
+                //GetComponent<Rigidbody2D>().simulated = true;
+            }
         }
         
     }
@@ -109,7 +125,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!GlobalController.Instance.moveIT)
+        if (!GlobalController.Instance.moveIT || !GlobalController.Instance.stopAll)
         {
             Control.Move(HMov * HSpd * Time.fixedDeltaTime, Crouch, JumpStart);
             JumpStart = false;
@@ -290,5 +306,15 @@ public class PlayerMovement : MonoBehaviour
             GlobalController.Instance.nameOfPartLevel = levelPartInfo.collider.name;
         }
 
+        RaycastHit2D interactableEffectInfo = Physics2D.Raycast(transform.position, Vector2.down, distance, interactiveEffect);
+
+        if (((Control.controller & Input.GetButton("Interact MANDO")) || (!Control.controller && Input.GetButton("Interact")))&& interactableEffectInfo.collider != null)
+        {
+            GlobalController.Instance.stopAll = true;
+            Cursor.visible = true;
+            cutscene.SetActive(true);
+            cutsceneText.GetComponent<TextMeshProUGUI>().text = "What's this?";
+            cutsceneText.GetComponent<Autotyping_Text>().start = true;
+        }
     }
 }

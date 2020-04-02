@@ -40,6 +40,7 @@ public class CharacterController2D_Mod : MonoBehaviour
     private bool isResting = false;
     public bool respawnReset;
     public bool m_Grounded;            // Whether or not the player is grounded.
+    public bool alredy_Jumped;
     private bool m_FacingRight = true;  // For determining which way the player is currently facing.
     private bool m_AirControl = true;   // Whether or not a player can steer while jumping
     public bool canDoubleJump = false;
@@ -180,15 +181,24 @@ public class CharacterController2D_Mod : MonoBehaviour
         if (m_Grounded && jump)
         {
             m_Grounded = false;
+            alredy_Jumped = true;
             OnLandEvent.Invoke();
             m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
             Instantiate(JumpSound);
             //Debug.Log("estoy usando el script de jump");
         }
-        if (m_Grounded)
+        else
+        {
+            alredy_Jumped = false;
+        }
+        if (m_Grounded || alredy_Jumped)
         {
             //si el jugador esta en contacto con el suelo, la varible can double jump, se vuelve false, por que sino el PJ salta el doble de alto cuando esta en contacto con  el suelo después de haber hecho el recall.
             canDoubleJump = false;
+        }
+        if(GlobalController.Instance.moveIT || GlobalController.Instance.infiniteJump)
+        {
+            canDoubleJump = true;
         }
 
     }
@@ -523,27 +533,32 @@ public class CharacterController2D_Mod : MonoBehaviour
         else controller = false;
 
         //HACER QUE CUANDO EL PJ RECIBA DAÑO NO PUEDA ATACAR. PARA ESO SE TIENE QUE MOVER EL CODIGO DE ATAQUE EN UN NUEVO SCRIPT.
-        if (!canAttack)
+       if(!GlobalController.Instance.stopAll)
         {
-            attack.enabled = false;
-        }
-        else
-        {
-            attack.enabled = true;
-        }
+            if (!canAttack)
+            {
+                attack.enabled = false;
+            }
+            else
+            {
+                attack.enabled = true;
+            }
 
-        if ((controller && Input.GetButtonDown("Heal MANDO") || ((!controller) && Input.GetButtonDown("Heal"))) && LifeBar != fullHP)
-        {
-            Heal();
-        }
-        if ((Input.GetButton("Jump") || Input.GetButton("Jump MANDO")) && m_Rigidbody2D.velocity.y > Mathf.Abs(Mathf.Epsilon))
-        {
-            state = State.jumping;
+            if ((controller && Input.GetButtonDown("Heal MANDO") || ((!controller) && Input.GetButtonDown("Heal"))) && LifeBar != fullHP)
+            {
+                Heal();
+            }
+            if ((Input.GetButton("Jump") || Input.GetButton("Jump MANDO")) && m_Rigidbody2D.velocity.y > Mathf.Abs(Mathf.Epsilon))
+            {
+                state = State.jumping;
+                //alredy_Jumped = true;
+            }
 
-        }
-        if (((controller && Input.GetButtonDown("Jump MANDO")) || ((!controller) && Input.GetButtonDown("Jump"))) && canDoubleJump)
-        {
-            DoubleJump();
+            if (((controller && Input.GetButtonDown("Jump MANDO")) || ((!controller) && Input.GetButtonDown("Jump"))) && canDoubleJump)
+            {
+                DoubleJump();
+            }
+
         }
 
         /*if (bobinaDelTiempo) { 

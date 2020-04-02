@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class FootStep : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class FootStep : MonoBehaviour
     CharacterController2D_Mod characterController;
     Rigidbody2D playerBody;
     AudioSource audioSource;
+    [SerializeField] private string OutputMixer;
+    [SerializeField] private AudioMixer mixer;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +23,9 @@ public class FootStep : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        OutputMixer = "SFX";
+        audioSource.outputAudioMixerGroup = mixer.FindMatchingGroups(OutputMixer)[0];
+
         if (characterController.m_Grounded && !audioSource.isPlaying)
         {
             if (playerBody.velocity.x < -2f || playerBody.velocity.x > 2f)

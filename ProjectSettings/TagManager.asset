@@ -31,6 +31,8 @@ TagManager:
   - LevelPart
   - Boss
   - Mace
+  - effect
+  - cutscene
   layers:
   - Default
   - TransparentFX
@@ -54,8 +56,8 @@ TagManager:
   - TPButton
   - LevelPart
   - Boss
-  - 
-  - 
+  - Shadow
+  - InteractiveEffect
   - 
   - 
   - 
@@ -82,4 +84,10 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 2431104901
+    locked: 0
+  - name: AnimatedEffects
+    uniqueID: 3425615581
+    locked: 0
+  - name: UI
+    uniqueID: 2498168877
     locked: 0

@@ -11,10 +11,13 @@ public class Autotyping_Text : MonoBehaviour
     public float velocity = 0.02f; //Velocity between each letter.
     public bool acabado = false;
     public bool parar = false;
+    public bool start = true;
+    public int lenght = 0;
 
     void Start()
     {
-        StartCoroutine(WriteChain(chain));
+        if (start == true)
+            StartCoroutine(WriteChain(chain));
     }
 
     public void StartRoutine()
@@ -24,7 +27,9 @@ public class Autotyping_Text : MonoBehaviour
 
     void Update()
     {
-        if (chain.Length > 0 && !parar)
+        lenght = chain.Length;
+
+        if (Interface.maxVisibleCharacters < chain.Length && parar == false)
             acabado = false;
         else
             acabado = true;
@@ -34,10 +39,10 @@ public class Autotyping_Text : MonoBehaviour
     {
         Interface.text = chain;
         Interface.maxVisibleCharacters = 0;
-        while (chain.Length > 0 && !parar)
+        while (Interface.maxVisibleCharacters <= chain.Length && parar == false)
         {
             Interface.maxVisibleCharacters += 1; //Write first letter in chain.
-            chain = chain.Substring(1, chain.Length - 1); //We take the rest in chain, less the first letter.
+            //chain = chain.Substring(1, chain.Length - 1); //We take the rest in chain, less the first letter.
             yield return new WaitForSeconds(velocity);
         }
         acabado = true;

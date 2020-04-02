@@ -42,7 +42,9 @@ public class GlobalController : MonoBehaviour
     public bool doorUpActivated = false;
     public bool doorMidActivated = false;
     public bool streamEnded = false;
+    public bool stopAll = false;
     public string nameOfPartLevel;
+    public bool infiniteJump = false;
     public bool moveIT = false;//para saber si el inverse time esta activo
     public static GlobalController Instance;//esto sirve para guardar los datos de posicion del jugador
 

@@ -128,6 +128,16 @@ public class Shortcuts : MonoBehaviour
         GlobalController.Instance.doorUpActivated = GlobalController.Instance.doorMidActivated = false;
     }
 
+    public void InfiniteJumpON()
+    {
+        GlobalController.Instance.infiniteJump = true;
+    }
+
+    public void InfiniteJumpOFF()
+    {
+        GlobalController.Instance.infiniteJump = false;
+    }
+
     public void AutoInputScene()
     {
         switch (buttoninfo.collider.name)
@@ -418,7 +428,7 @@ public class Shortcuts : MonoBehaviour
                 if (GlobalController.Instance.actualLevel != GlobalController.Level.ROOF)
                 {
                     GlobalController.Instance.actualLevel = GlobalController.Level.ROOF;
-                    LoadingScreenScript.Instance.Show(SceneManager.LoadSceneAsync("1.5 Tejado y Prision"));
+                    LoadingScreenScript.Instance.Show(SceneManager.LoadSceneAsync("1.5 BossFight"));
                 }
                 else
                 {
@@ -542,13 +552,19 @@ public class Shortcuts : MonoBehaviour
         if (Input.GetKey(KeyCode.I) && Input.GetKey(KeyCode.D))
             GlobalController.Instance.inverseTimeActive = false;
 
+        if (Input.GetKey(KeyCode.I) && Input.GetKey(KeyCode.J))
+            GlobalController.Instance.infiniteJump = true;
+
+        if (Input.GetKey(KeyCode.N) && Input.GetKey(KeyCode.J))
+            GlobalController.Instance.infiniteJump = false;
+
         if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.A))
             GlobalController.Instance.doorUpActivated = GlobalController.Instance.doorMidActivated = true;
 
         if (Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.C))
             GlobalController.Instance.doorUpActivated = GlobalController.Instance.doorMidActivated = false;
 
-        if (menu.activeSelf == true || shortcutMenu.activeSelf == true || numScene == 0)
+        if (menu.activeSelf == true || shortcutMenu.activeSelf == true || numScene == 0 || GlobalController.Instance.stopAll)
         {
             Cursor.visible = true;
             //cursor.SetActive(true);

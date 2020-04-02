@@ -27,6 +27,7 @@ public class CameraControl : MonoBehaviour
     // hacer que la camara siga al jugador de manera por defecto.
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         //Calculate and store the offset value by getting the distance between the player's position and camera's position.
         offset = transform.position - player.transform.position;
         followPlayer = true;

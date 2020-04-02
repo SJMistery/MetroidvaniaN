@@ -9,10 +9,10 @@ public class InverseTime : MonoBehaviour
 {
 
 
-    [SerializeField] private TextMeshProUGUI cooldnText;
-    [SerializeField] private GameObject clockBG;//el background de la imagen del clock
-    [SerializeField] private GameObject clockImage;
-    [SerializeField] private GameObject cooldown;
+    public TextMeshProUGUI cooldnText;
+    public GameObject clockBG;//el background de la imagen del clock
+    public GameObject clockImage;
+    public GameObject cooldown;
 
     public float targetFill = 0.0f;            //valores para hacer los calculos del cooldown.
     float _maxValue = 25.0f;            //valores para hacer los calculos del cooldown.
@@ -31,6 +31,8 @@ public class InverseTime : MonoBehaviour
 
     public float tempPercent, tempor;
 
+    public Canvas canvas;
+
     private void Awake()
     {
         characterController = GameObject.Find("SrBeta1").GetComponent<CharacterController2D_Mod>();
@@ -43,6 +45,7 @@ public class InverseTime : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerP = GameObject.FindGameObjectWithTag("Player");
         respawnReset = false;
         trackPos = new Queue<Vector2>();
         Vector3 temp = playerP.transform.position;
@@ -77,6 +80,9 @@ public class InverseTime : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (canvas != null)
+            canvas.worldCamera = Camera.main;
+
         if (respawnReset)
         {
             count = 0;
@@ -150,15 +156,6 @@ public class InverseTime : MonoBehaviour
                 // la variable can double jump se activa para que el jugador pueda aplicar el doble salto.
                 characterController.GetComponent<CharacterController2D_Mod>().canDoubleJump = true;
                 count = 0;
-            }
-
-            if(GlobalController.Instance.inverseTimeActive == false)
-            {
-                clockBG.SetActive(false);
-            }
-            else
-            {
-                clockBG.SetActive(true);
             }
 
             if (frameCoold - count > 0)

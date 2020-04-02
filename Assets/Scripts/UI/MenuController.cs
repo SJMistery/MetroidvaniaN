@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class MenuController : MonoBehaviour
 {
@@ -14,7 +17,7 @@ public class MenuController : MonoBehaviour
     public GameObject confirmattionPanel;
 
     public GameObject player;
-
+    [SerializeField] private bool dontActiveMenu;
     [SerializeField] private TextMeshProUGUI potionText;
     [SerializeField] private bool pageChanged = false;
     [SerializeField] private bool menuON = false;
@@ -29,6 +32,7 @@ public class MenuController : MonoBehaviour
         secondPage.SetActive(false);
         thirdPage.SetActive(false);
         confirmattionPanel.SetActive(false);
+        menuON = false;
     }
     void Awake()
     {
@@ -111,53 +115,63 @@ public class MenuController : MonoBehaviour
 
     public void QuitGame()
     {
+#if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+#else
         Application.Quit();
+#endif
     }
     // Update is called once per frame
     void Update()
     {
-        GetComponent<Canvas>().worldCamera = Camera.main;
-        GetComponent<Canvas>().sortingLayerName = "Player";
-        GetComponent<Canvas>().sortingOrder = 21;
-        potionText.text = GlobalController.Instance.disp_potions.ToString();
-        if(!changingStateMenu)
+        if(GlobalController.Instance.actualLevel == GlobalController.Level.TITLE || GlobalController.Instance.actualLevel == GlobalController.Level.INTRO || GlobalController.Instance.actualLevel == GlobalController.Level.CREDIT)
         {
-            if ((Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
-                && (GlobalController.Instance.actualLevel != GlobalController.Level.TITLE 
-                || GlobalController.Instance.actualLevel != GlobalController.Level.INTRO
-                || GlobalController.Instance.actualLevel != GlobalController.Level.CREDIT))
-            {
-                if (!menuON)
-                {
-                    menu.SetActive(true);
-                    Time.timeScale = 0;
-                    menuON = true;
-                }
-                else
-                {
-                    menu.SetActive(false);
-                    Time.timeScale = 1;
-                    menuON = false;
-                    firstPage.SetActive(true);
-                    secondPage.SetActive(false);
-                    thirdPage.SetActive(false);
-                    confirmattionPanel.SetActive(false);
-                }
-                changingStateMenu = true;
-            }
+            dontActiveMenu = true;
         }
-        if(!((Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))))
+        else
         {
-            changingStateMenu = false;
+            dontActiveMenu = false;
         }
 
-        if (GlobalController.Instance.actualLevel != GlobalController.Level.CREDIT ||
-            GlobalController.Instance.actualLevel != GlobalController.Level.INSIDE ||
-            GlobalController.Instance.actualLevel != GlobalController.Level.TITLE)
+        if (!dontActiveMenu)
+        {
+            GetComponent<Canvas>().worldCamera = Camera.main;
+            GetComponent<Canvas>().sortingLayerName = "Player";
+            GetComponent<Canvas>().sortingOrder = 21;
+            potionText.text = GlobalController.Instance.disp_potions.ToString();
+            if (!changingStateMenu)
+            {
+                if ((Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape)))
+                {
+                    if (!menuON)
+                    {
+                        menu.SetActive(true);
+                        Time.timeScale = 0;
+                        menuON = true;
+                    }
+                    else
+                    {
+                        menu.SetActive(false);
+                        Time.timeScale = 1;
+                        menuON = false;
+                        firstPage.SetActive(true);
+                        secondPage.SetActive(false);
+                        thirdPage.SetActive(false);
+                        confirmattionPanel.SetActive(false);
+                    }
+                    changingStateMenu = true;
+                }
+            }
+            if (!((Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))))
+            {
+                changingStateMenu = false;
+            }
+
             player = GameObject.FindGameObjectWithTag("Player");
 
-        GetComponent<Canvas>().worldCamera = Camera.main;
-        GetComponent<Canvas>().sortingLayerName = "Player";
-        GetComponent<Canvas>().sortingOrder = 22;
+            GetComponent<Canvas>().worldCamera = Camera.main;
+            GetComponent<Canvas>().sortingLayerName = "Player";
+            GetComponent<Canvas>().sortingOrder = 22;
+        }
     }
 }

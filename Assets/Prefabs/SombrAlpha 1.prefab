@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 6345796497040653985}
   - component: {fileID: 8196884636111378273}
   - component: {fileID: 3675043740726091120}
-  m_Layer: 8
+  - component: {fileID: 6528412210892470526}
+  m_Layer: 22
   m_Name: SombrAlpha 1
   m_TagString: Shadow
   m_Icon: {fileID: 0}
@@ -147,6 +148,22 @@ MonoBehaviour:
   inverseTimeMovement: {fileID: 4557260234192179789}
   tempPercent: 0
   tempor: 0
+--- !u!58 &6528412210892470526
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4557260234192179789}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.004851374, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.8042024
 --- !u!1 &6215377082968083173
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,7 +176,7 @@ GameObject:
   - component: {fileID: 987652338235360864}
   - component: {fileID: 8086211396910613979}
   - component: {fileID: 7514728118186991431}
-  m_Layer: 5
+  m_Layer: 22
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -220,7 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -259,7 +276,7 @@ GameObject:
   - component: {fileID: 875443378615709094}
   - component: {fileID: 1727930103515062097}
   - component: {fileID: 989521432419829452}
-  m_Layer: 5
+  m_Layer: 22
   m_Name: Clock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -340,6 +357,7 @@ MonoBehaviour:
   _frameRate: 30
   mImage: {fileID: 1727930103515062097}
   canvas: {fileID: 6215377082968083173}
+  sprite: 0
   mSprites: []
   mTimeperFrame: 0
   mElapsedTime: 0
@@ -359,7 +377,7 @@ GameObject:
   - component: {fileID: 2437350020183545938}
   - component: {fileID: 3889808650131760978}
   - component: {fileID: 798335134358474475}
-  m_Layer: 5
+  m_Layer: 22
   m_Name: BackGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -227,7 +227,7 @@ public class LoadScenes : MonoBehaviour
         GlobalController.Instance.disp_potions = player.GetComponent<CharacterController2D_Mod>().healsAvalible;
         GlobalController.Instance.actualLevel = GlobalController.Level.ROOF;
         GlobalController.Instance.actualPos = GlobalController.Instance.positionRoof;
-        LoadingScreenScript.Instance.Show(SceneManager.LoadSceneAsync("1.5 Tejado y Prision"));
+        LoadingScreenScript.Instance.Show(SceneManager.LoadSceneAsync("1.5 BossFight"));
     }
     public void LoadStorageUpLevel()
     {
