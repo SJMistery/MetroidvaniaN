@@ -345,7 +345,8 @@ public class CharacterController2D_Mod : MonoBehaviour
                 GetComponent<PlayerMovement>().enabled = true;
                 state = State.resting;
                 healsAvalible = maxHeals;
-                shadowReset.transform.position = RespawnPoint;
+                if (shadowReset != null)
+                    shadowReset.transform.position = RespawnPoint;
             }
         }
         else if (state == State.climb)

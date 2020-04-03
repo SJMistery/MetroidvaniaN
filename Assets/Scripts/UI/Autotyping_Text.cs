@@ -11,11 +11,18 @@ public class Autotyping_Text : MonoBehaviour
     public float velocity = 0.02f; //Velocity between each letter.
     public bool acabado = false;
     public bool parar = false;
-    public bool start = true;
+    public bool start = false;
     public int lenght = 0;
 
     void Start()
     {
+        if (GlobalController.Instance.actualLevel == GlobalController.Level.OUTSIDE && !GlobalController.Instance.firstCutsceneEnded)
+        {
+            start = true;
+        }
+        else if(GlobalController.Instance.actualLevel == GlobalController.Level.INTRO)
+            start = true;
+
         if (start == true)
             StartCoroutine(WriteChain(chain));
     }
@@ -30,7 +37,10 @@ public class Autotyping_Text : MonoBehaviour
         lenght = chain.Length;
 
         if (Interface.maxVisibleCharacters < chain.Length && parar == false)
+        {
+            GlobalController.Instance.cutsceneActive = true;
             acabado = false;
+        }
         else
             acabado = true;
     }

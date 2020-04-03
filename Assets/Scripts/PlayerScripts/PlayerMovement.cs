@@ -40,11 +40,15 @@ public class PlayerMovement : MonoBehaviour
     {
         unpaused = true;
         Control = GetComponent<CharacterController2D_Mod>();
-        if(GlobalController.Instance.actualLevel != GlobalController.Level.TITLE ||
-            GlobalController.Instance.actualLevel != GlobalController.Level.INTRO ||
-            GlobalController.Instance.actualLevel != GlobalController.Level.CREDIT)
+        if(GlobalController.Instance.actualLevel == GlobalController.Level.STORAGE || GlobalController.Instance.actualLevel == GlobalController.Level.PRISON)
         {
             cutscene = GameObject.FindGameObjectWithTag("cutscene");
+            cutsceneText = GameObject.Find("CutsceneText");
+            cutscene.SetActive(false);
+        }
+        if (GlobalController.Instance.actualLevel == GlobalController.Level.OUTSIDE && GlobalController.Instance.firstCutsceneEnded)
+        {
+            cutscene = GameObject.Find("Cutscene");
             cutsceneText = GameObject.Find("CutsceneText");
             cutscene.SetActive(false);
         }
@@ -306,7 +310,7 @@ public class PlayerMovement : MonoBehaviour
             GlobalController.Instance.nameOfPartLevel = levelPartInfo.collider.name;
         }
 
-        RaycastHit2D interactableEffectInfo = Physics2D.Raycast(transform.position, Vector2.down, distance, interactiveEffect);
+        /*RaycastHit2D interactableEffectInfo = Physics2D.Raycast(transform.position, Vector2.down, distance, interactiveEffect);
 
         if (((Control.controller & Input.GetButton("Interact MANDO")) || (!Control.controller && Input.GetButton("Interact")))&& interactableEffectInfo.collider != null)
         {
@@ -315,6 +319,6 @@ public class PlayerMovement : MonoBehaviour
             cutscene.SetActive(true);
             cutsceneText.GetComponent<TextMeshProUGUI>().text = "What's this?";
             cutsceneText.GetComponent<Autotyping_Text>().start = true;
-        }
+        }*/
     }
 }

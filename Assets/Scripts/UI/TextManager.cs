@@ -47,6 +47,7 @@ public class TextManager : MonoBehaviour
         GlobalController.Instance.fromBeginning = true;
         GlobalController.Instance.actualPos = GlobalController.Instance.positionOutside;
         GlobalController.Instance.actualLevel = GlobalController.Level.OUTSIDE;
+        GlobalController.Instance.cutsceneActive = false;
         LoadingScreenScript.Instance.Show(SceneManager.LoadSceneAsync("0.Afueras de la Torre"));
         
     }
@@ -65,6 +66,7 @@ public class TextManager : MonoBehaviour
 
         if (numOfText == 4)
         {
+            GlobalController.Instance.cutsceneActive = false;
             LoadScenes.Instance.LoadLevel1();
         }
 
@@ -79,6 +81,8 @@ public class TextManager : MonoBehaviour
         GlobalController.Instance.stopAll = false;
         canvas.SetActive(false);
         button.SetActive(false);
+        GlobalController.Instance.cutsceneActive = false;
+        GlobalController.Instance.firstCutsceneEnded = true;
     }
 
     public void ChangeTextFirstCutscene()
@@ -100,6 +104,8 @@ public class TextManager : MonoBehaviour
             GlobalController.Instance.stopAll = false;
             canvas.SetActive(false);
             button.SetActive(false);
+            GlobalController.Instance.cutsceneActive = false;
+            GlobalController.Instance.firstCutsceneEnded = true;
         }
         else
         {
@@ -132,6 +138,7 @@ public class TextManager : MonoBehaviour
             canvas.SetActive(false);
             button.SetActive(false);
             Cursor.visible = false;
+            GlobalController.Instance.cutsceneActive = false;
         }
         else
         {

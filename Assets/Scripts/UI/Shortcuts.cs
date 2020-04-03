@@ -70,7 +70,7 @@ public class Shortcuts : MonoBehaviour
 
     public void addToNumScene()
     {
-        if (numScene <= 5)
+        if (numScene <= 6)
             numScene++;
     }
 
@@ -209,6 +209,10 @@ public class Shortcuts : MonoBehaviour
             case "Storage - Middle":
                 numScene = 4;
                 partOfLevel = PartOfLevel.MIDDLE;
+                break;
+            case "Boss Fight":
+                numScene = 6;
+                partOfLevel = PartOfLevel.START;
                 break;
             case "NONE":
                 partOfLevel = PartOfLevel.NONE;
@@ -422,7 +426,7 @@ public class Shortcuts : MonoBehaviour
                 alredyTP = true;
 
             }
-            if (numScene == 5 && alredyTP == false)//tejado
+            if (numScene == 6 && alredyTP == false)//tejado
             {
                 GlobalController.Instance.actualPos = GlobalController.Instance.positionRoof;
                 if (GlobalController.Instance.actualLevel != GlobalController.Level.ROOF)
@@ -499,6 +503,22 @@ public class Shortcuts : MonoBehaviour
             }
             alredyTP = true;
         }
+
+        if (numScene == 6 && partOfLevel == PartOfLevel.START && alredyTP == false)
+        {
+            GlobalController.Instance.actualPos = GlobalController.Instance.positionRoof;
+            if (GlobalController.Instance.actualLevel != GlobalController.Level.ROOF)
+            {
+                GlobalController.Instance.actualLevel = GlobalController.Level.ROOF;
+                LoadingScreenScript.Instance.Show(SceneManager.LoadSceneAsync("1.5 BossFight"));
+            }
+            else
+            {
+                player.transform.position = GlobalController.Instance.positionRoof;
+            }
+            alredyTP = true;
+        }
+
 
         //Estos tres le dan los valores iniciales al jugador
         if (GlobalController.Instance.fromBeginning == false || actualNumScene == 0)
@@ -593,19 +613,22 @@ public class Shortcuts : MonoBehaviour
                     SceneText.GetComponent<TextMeshProUGUI>().text = "Title Scene";
                     break;
                 case 1:
-                    SceneText.GetComponent<TextMeshProUGUI>().text = "Afueras de la Torre";
+                    SceneText.GetComponent<TextMeshProUGUI>().text = "Outside of the Tower";
                     break;
                 case 2:
-                    SceneText.GetComponent<TextMeshProUGUI>().text = "Cueva";
+                    SceneText.GetComponent<TextMeshProUGUI>().text = "Cave";
                     break;
                 case 3:
-                    SceneText.GetComponent<TextMeshProUGUI>().text = "Dentro del Castillo";
+                    SceneText.GetComponent<TextMeshProUGUI>().text = "Inside of the Castle";
                     break;
                 case 4:
-                    SceneText.GetComponent<TextMeshProUGUI>().text = "Almacén";
+                    SceneText.GetComponent<TextMeshProUGUI>().text = "Storage";
                     break;
                 case 5:
-                    SceneText.GetComponent<TextMeshProUGUI>().text = "Tejado y Prisión";
+                    SceneText.GetComponent<TextMeshProUGUI>().text = "Roof and Prison";
+                    break;
+                case 6:
+                    SceneText.GetComponent<TextMeshProUGUI>().text = "Boss Fight";
                     break;
             }
 

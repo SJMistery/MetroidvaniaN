@@ -19,7 +19,7 @@ public class StopEverything : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GlobalController.Instance.stopAll)
+       /* if (GlobalController.Instance.stopAll)
         {
             for (int i = 0; i < enemies.Length; i++)
             {
@@ -32,6 +32,6 @@ public class StopEverything : MonoBehaviour
 
             if (GlobalController.Instance.inverseTimeActive)
                 shadow.GetComponent<InverseTime>().enabled = false;
-        }
+        }*/
     }
 }
