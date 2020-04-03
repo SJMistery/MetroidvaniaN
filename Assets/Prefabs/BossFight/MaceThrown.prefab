@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2283663826098161751
+--- !u!1 &5767381011221567987
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,13 +8,14 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2283663826098161758}
-  - component: {fileID: 2283663826098161757}
-  - component: {fileID: 2283663826098161756}
-  - component: {fileID: 2283663826098161755}
-  - component: {fileID: 2283663826098161754}
-  - component: {fileID: 2283663826098161753}
-  - component: {fileID: 2283663826098161752}
+  - component: {fileID: 5767381011221567947}
+  - component: {fileID: 5767381011221567944}
+  - component: {fileID: 5767381011221567945}
+  - component: {fileID: 5767381011221567990}
+  - component: {fileID: 5767381011221567991}
+  - component: {fileID: 5767381011221567988}
+  - component: {fileID: 5767381011221567989}
+  - component: {fileID: 5767381011221567986}
   m_Layer: 0
   m_Name: MaceThrown
   m_TagString: Mace
@@ -22,27 +23,27 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2283663826098161758
+--- !u!4 &5767381011221567947
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2283663826098161751}
+  m_GameObject: {fileID: 5767381011221567987}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 23, y: 58, z: 0}
+  m_LocalPosition: {x: 25.09, y: 47.77, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &2283663826098161757
+--- !u!212 &5767381011221567944
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2283663826098161751}
+  m_GameObject: {fileID: 5767381011221567987}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -86,14 +87,14 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &2283663826098161756
+--- !u!95 &5767381011221567945
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2283663826098161751}
+  m_GameObject: {fileID: 5767381011221567987}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 24ac8649bb794464ab47b2ac0fe27396, type: 2}
@@ -105,13 +106,13 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!58 &2283663826098161755
+--- !u!58 &5767381011221567990
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2283663826098161751}
+  m_GameObject: {fileID: 5767381011221567987}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -121,14 +122,14 @@ CircleCollider2D:
   m_Offset: {x: -0.016867638, y: 0.85}
   serializedVersion: 2
   m_Radius: 0.6582098
---- !u!50 &2283663826098161754
+--- !u!50 &5767381011221567991
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2283663826098161751}
+  m_GameObject: {fileID: 5767381011221567987}
   m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -142,33 +143,54 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &2283663826098161753
+--- !u!114 &5767381011221567988
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2283663826098161751}
+  m_GameObject: {fileID: 5767381011221567987}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6cdef920aa9308140bbb6a37299ef961, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2283663826098161752
+--- !u!114 &5767381011221567989
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2283663826098161751}
+  m_GameObject: {fileID: 5767381011221567987}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a8f410f8676d61a409aabdff0f5289fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mace: {fileID: 2283663826098161751}
+  mace: {fileID: 5767381011221567987}
   grounded: 0
   boss: {fileID: 8510682468074066778, guid: 727ce120349a63c46b5fff8644e1ea01, type: 3}
   speed: 120
   move: 0
   target: {x: 0, y: 0}
+--- !u!114 &5767381011221567986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5767381011221567987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b5400efcc2cd4846a9be2a55fcdac08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swordsound: {fileID: 0}
+  walksound: {fileID: 0}
+  dashsound: {fileID: 0}
+  hammerattack: {fileID: 469479470868651150, guid: 15056af661865a7419659a494fc0d10f,
+    type: 3}
+  hammerslam: {fileID: 6824712937126016622, guid: 2172e4bbab474d8428a2af9c8bbfa7bd,
+    type: 3}
+  skyattack: {fileID: 4900602504671491761, guid: 2ebcadf8702359643bf5bf9e82811752,
+    type: 3}

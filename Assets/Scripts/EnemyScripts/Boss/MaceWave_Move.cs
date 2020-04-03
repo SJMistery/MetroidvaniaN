@@ -15,7 +15,7 @@ public class MaceWave_Move : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if(collision.gameObject.name == "Ground&Walls" || collision.gameObject.name == "SrBeta1")
+        if(collision.gameObject.name == "Walls" || collision.gameObject.name == "SrBeta1")
         {
             Destroy(this.gameObject);
         }

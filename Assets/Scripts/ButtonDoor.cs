@@ -6,7 +6,7 @@ using UnityEngine;
 public class ButtonDoor : MonoBehaviour
 {
 
-    DoorsController doorMidCastle, doorTopCastle;
+    public DoorsController doorMidCastle, doorTopCastle;
     private CharacterController2D_Mod cc;
 
     public bool activated = false;
@@ -15,7 +15,7 @@ public class ButtonDoor : MonoBehaviour
     void Start()
     {
         cc = GameObject.Find("SrBeta1").GetComponent<CharacterController2D_Mod>();
-        if (GlobalController.Instance.actualLevel == GlobalController.Level.INTRO)
+        if (GlobalController.Instance.actualLevel == GlobalController.Level.INSIDE)
         {
 
             doorMidCastle = GameObject.Find("DoorMid").GetComponent<DoorsController>(); //referencia a la puerta del ascensor del castillo.
@@ -27,7 +27,7 @@ public class ButtonDoor : MonoBehaviour
     {
         if(GlobalController.Instance.doorUpActivated == true && activated == false)
         {
-            if (this.gameObject.name == "TopDoorButton" && doorTopCastle.canMove)
+            if (this.gameObject.name == "TopDoorButton" && doorTopCastle.canMove == true)
             {
                 doorTopCastle.Move();
                 this.transform.Rotate(0, 0, 30);               
@@ -36,7 +36,7 @@ public class ButtonDoor : MonoBehaviour
         }
         else if(GlobalController.Instance.doorMidActivated == true && activated == false)
         {
-            if (this.gameObject.name == "MidDoorButton" && doorMidCastle.canMove)
+            if (this.gameObject.name == "MidDoorButton" && doorMidCastle.canMove == true)
             {
                 doorMidCastle.Move();
                 this.transform.Rotate(0, 0, 30);

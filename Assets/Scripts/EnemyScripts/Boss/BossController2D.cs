@@ -34,7 +34,7 @@ public class BossController2D : MonoBehaviour
     public GameObject mace;
     public GameObject maceWave;
     public GameObject throwMace;
-    public float jumpForce = 20f;
+    public float jumpForce = 500f;
     public float fallMultiplier = 7;
     public bool jumping = false;
     // bool que se utiliza en el script Boss_Taut i detecta si el enemigo ya ha generado los martillos, para no generarlos de manera infinita, 
@@ -47,13 +47,30 @@ public class BossController2D : MonoBehaviour
 
     Vector2 targetAttack; //Vector para hacer el ataque normal.;
     Vector2 targetDash;
-    Vector2 targetSkyAttack;
+    public Vector2 targetSkyAttack;
     public float attackSpeed = 400f;
     public float dashSpeed = 2000f;
     public float skyAttackSpeed = 2000f;
 
     public bool enrage = false;
+    private GlobalController globalController;
 
+
+    //SOUNDS
+    public GameObject swordsound;
+    public GameObject attackready;
+    public GameObject dashsound;
+    public GameObject hammerattack;
+    public GameObject hammerslam;
+    public GameObject tauntscream;
+    public GameObject walkingsound1;
+    public GameObject walkingsound2;
+    public GameObject skyattack;
+    public GameObject jumpsound;
+    public GameObject swordfall;
+    public GameObject macefall;
+    public GameObject deathscream;
+    public GameObject fallbody;
 
     private void Awake()
     {
@@ -64,6 +81,10 @@ public class BossController2D : MonoBehaviour
         m_Collider = GetComponent<Collider2D>();
         macePoint = GameObject.Find("Macepoint").GetComponent<Transform>();
         currentHP = maxHP;
+        if (globalController.bossDeafeted == true)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     private void Update()
@@ -101,7 +122,9 @@ public class BossController2D : MonoBehaviour
         anim.SetBool("Die", true);
         m_Rigidbody2D.constraints = RigidbodyConstraints2D.FreezeAll;    //Congela todas las direcciones para que al morir, para que el PJ no salga disparado
         GetComponent<Collider2D>().enabled = false;                 //Desactiva el boxcollider para que se posible atravessar el cuerpo.
-        StartCoroutine(waitToDestroy(3f));
+        
+        globalController.bossDeafeted = true;
+        StartCoroutine(waitToDestroy(5f));
     }
 
     IEnumerator waitToDestroy(float time)
@@ -109,6 +132,7 @@ public class BossController2D : MonoBehaviour
         //The attack animation runs from AnimationState()
         //Esperar un breve periodo de tiempo antes de que salte el codigo, i hacer desaparecer al enemigo.
         yield return new WaitForSeconds(time);
+        globalController.bossDeafeted = true;
         Destroy(this.gameObject);
     }
 
@@ -261,7 +285,7 @@ public class BossController2D : MonoBehaviour
 
     public void Jump()
     {
-        m_Rigidbody2D.velocity = new Vector2(0, Mathf.Sqrt(-2.0f * Physics2D.gravity.y * jumpForce));
+        m_Rigidbody2D.AddForce(new Vector2(0,jumpForce));
     }
 
     public void DestroyMace()
@@ -270,5 +294,75 @@ public class BossController2D : MonoBehaviour
         maceController.DetroyThis();
     }
 
+    public void StayStatick()
+    {
+        m_Rigidbody2D.bodyType = RigidbodyType2D.Static;
+    }
+    public void StayDinamic()
+    {
+        m_Rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
+    }
 
+
+    public void SoundSwordAttack()
+    {
+        Debug.Log("i'm using the sound");
+        Instantiate(swordsound);
+    }
+    public void SoundAttackReady()
+    {
+        Instantiate(attackready);
+    }
+    public void SoundDash()
+    {
+        Instantiate(dashsound);
+    }
+
+    public void SoundHammerAttack()
+    {
+        Instantiate(hammerattack);
+    }
+    public void SoundHammerSlam()
+    {
+        Instantiate(hammerslam);
+    }
+    public void SoundTauntScream()
+    {
+        Instantiate(tauntscream);
+    }
+    public void SoundWalking1()
+    {
+        Instantiate(walkingsound1);
+    }
+    public void SoundWalking2()
+    {
+        Instantiate(walkingsound2);
+    }
+    private void SoundJump()
+    {
+        Instantiate(jumpsound);
+    }
+    private void SoundSwordDrop()
+    {
+        Instantiate(swordfall);
+    }
+    private void SoundMaceDrop()
+    {
+        Instantiate(macefall);
+    }
+    private void SoundDeathScream()
+    {
+        Instantiate(deathscream);
+    }
+    private void SoundFallBody()
+    {
+        Instantiate(fallbody);
+    }
+
+    private void MusicStop()
+    {
+
+    }
 }
+
+

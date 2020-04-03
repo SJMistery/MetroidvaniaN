@@ -616,13 +616,11 @@ public class Shortcuts : MonoBehaviour
             if (buttoninfo.collider != null)
             {
                 Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.up) * buttoninfo.distance, Color.yellow);
-                Debug.Log("Did Hit");
                 nameOfButton = buttoninfo.collider.name;
             }
             else
             {
                 Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.white);
-                Debug.Log("Did not Hit");
                 nameOfButton = "NONE";
             }
 

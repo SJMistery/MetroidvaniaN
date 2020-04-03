@@ -14,6 +14,7 @@ public class MaceController : MonoBehaviour
     private Transform ground;
     public bool move = false;
     public Vector2 target;
+    BossController2D bossController;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +22,7 @@ public class MaceController : MonoBehaviour
         anim = GetComponent<Animator>();
         player = GameObject.Find("SrBeta1");
         ground = GameObject.Find("GroundPoint").GetComponent<Transform>();
+        bossController = GameObject.Find("BOSS").GetComponent<BossController2D>();
     }
 
     // Update is called once per frame
@@ -40,12 +42,17 @@ public class MaceController : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         //cuando la maza toca el suelo, se deja de mover 
-        if (collision.name == "Ground&Walls")
+        if (collision.name == "GroundPoint")
         {
             grounded = true;
         }
-        if (grounded && collision.name == "BOSS"){
+        if (grounded && collision.name == "BOSS" ){
             Destroy(this.gameObject);
+        }
+        else if (collision.name == "Walls")
+        {
+            Destroy(this.gameObject);
+            bossController.targetSkyAttack = new Vector2(player.transform.position.x, ground.position.y);
         }
     }
     public void GetTarget()

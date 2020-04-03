@@ -47,6 +47,7 @@ public class GlobalController : MonoBehaviour
     public bool infiniteJump = false;
     public bool moveIT = false;//para saber si el inverse time esta activo
     public static GlobalController Instance;//esto sirve para guardar los datos de posicion del jugador
+    public bool bossDeafeted = false;
 
     void Awake()
     {
