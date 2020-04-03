@@ -95,6 +95,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   taken: 0
+  creatplatformsound: {fileID: 4525930866285772101, guid: f61e046ff35ba094d8936a80118fd59c,
+    type: 3}
+  platform: {fileID: 2923141212488846262, guid: 01ddf1003d6b506459cd75c3078c6705,
+    type: 3}
+  message: {fileID: 6320631199248500253, guid: 0f1b7130f30402d498808d1f2833e228, type: 3}
 --- !u!61 &6470048364835415903
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -85,5 +85,16 @@ MonoBehaviour:
   positionPrisonBeg: {x: 0, y: 0, z: 0}
   positionPrisonEnd: {x: 0, y: 0, z: 0}
   actualPos: {x: 0, y: 0, z: 0}
-  actualLevel: 0
+  UpDoorPos: {x: 0, y: 0, z: 0}
+  DownDoorPos: {x: 0, y: 0, z: 0}
+  actualLevel: 4
   fromBeginning: 0
+  doorUpActivated: 0
+  doorMidActivated: 0
+  streamEnded: 0
+  stopAll: 0
+  nameOfPartLevel: 
+  infiniteJump: 0
+  moveIT: 0
+  bossDeafeted: 0
+  musica: {fileID: 0}

@@ -54,6 +54,9 @@ public class BossController2D : MonoBehaviour
 
     public bool enrage = false;
     private GlobalController globalController;
+    public GameObject bobinaDelTiempo;
+    public GameObject platform;
+
 
 
     //SOUNDS
@@ -71,6 +74,7 @@ public class BossController2D : MonoBehaviour
     public GameObject macefall;
     public GameObject deathscream;
     public GameObject fallbody;
+    public GameObject creatplatformsound;
 
     private void Awake()
     {
@@ -81,6 +85,7 @@ public class BossController2D : MonoBehaviour
         m_Collider = GetComponent<Collider2D>();
         macePoint = GameObject.Find("Macepoint").GetComponent<Transform>();
         currentHP = maxHP;
+        globalController = GameObject.Find("Manager").GetComponent<GlobalController>();
         if (globalController.bossDeafeted == true)
         {
             Destroy(this.gameObject);
@@ -89,6 +94,7 @@ public class BossController2D : MonoBehaviour
 
     private void Update()
     {
+        
         hpBar.value = currentHP; //Relaciona la barra de vida del boss con su vida actual.
         anim.SetInteger("State", (int)estado); //obtiene el valor del integer que tiene state para que las condiciones de las animaciones funcionen correctamente.
         if (jumping)
@@ -101,6 +107,8 @@ public class BossController2D : MonoBehaviour
         }
 
     }
+
+
 
     public void TakeDMG(int dmg)
     {
@@ -122,7 +130,7 @@ public class BossController2D : MonoBehaviour
         anim.SetBool("Die", true);
         m_Rigidbody2D.constraints = RigidbodyConstraints2D.FreezeAll;    //Congela todas las direcciones para que al morir, para que el PJ no salga disparado
         GetComponent<Collider2D>().enabled = false;                 //Desactiva el boxcollider para que se posible atravessar el cuerpo.
-        
+        Instantiate(bobinaDelTiempo, new Vector3(this.transform.position.x , this.transform.position.y + 2 , this.transform.position.z), Quaternion.identity);
         globalController.bossDeafeted = true;
         StartCoroutine(waitToDestroy(5f));
     }
@@ -306,7 +314,6 @@ public class BossController2D : MonoBehaviour
 
     public void SoundSwordAttack()
     {
-        Debug.Log("i'm using the sound");
         Instantiate(swordsound);
     }
     public void SoundAttackReady()
@@ -357,6 +364,10 @@ public class BossController2D : MonoBehaviour
     private void SoundFallBody()
     {
         Instantiate(fallbody);
+    }
+    private void SoundSkyAttack()
+    {
+        Instantiate(skyattack);
     }
 
     private void MusicStop()

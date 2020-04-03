@@ -8,6 +8,12 @@ public class Item_Drop : MonoBehaviour
     private InverseTime inverseTime;
     private CharacterController2D_Mod cc;
     private GameObject sombra;
+
+
+    public GameObject creatplatformsound;
+    public GameObject platform;
+    public GameObject message;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +24,11 @@ public class Item_Drop : MonoBehaviour
         if(collision.gameObject.tag == "Player" && Input.GetButton("Interact"))
         {
             GlobalController.Instance.inverseTimeActive = true;
+            Instantiate(message);
+
+            Instantiate(platform, new Vector3(26.97f, 51.64f, 0), Quaternion.identity);
+            Instantiate(creatplatformsound);
+            Destroy(this.gameObject);
         }
     }
 }

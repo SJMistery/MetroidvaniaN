@@ -6,7 +6,6 @@ public class Mace_Falling : StateMachineBehaviour
 {
     Rigidbody2D rb;
     Collider2D collider;
-    public float gravity;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -18,10 +17,9 @@ public class Mace_Falling : StateMachineBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         // cambia el rigidbody a dinamico para que el objeto empiece a caer.
-        rb.bodyType = RigidbodyType2D.Kinematic; 
+        rb.bodyType = RigidbodyType2D.Dynamic; 
         // Se activa el Collider para que se le aplique el daño al Pj.
         collider.enabled = true;
-        rb.velocity += new Vector2(0, gravity);
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

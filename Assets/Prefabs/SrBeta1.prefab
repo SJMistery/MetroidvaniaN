@@ -240,6 +240,12 @@ MonoBehaviour:
   PCS: {fileID: 0}
   JumpSound: {fileID: 7737127159439314253, guid: 85edfb0c8fc44804792264afcc3f2d34,
     type: 3}
+  DamageSound: {fileID: 3574138615153356396, guid: 07e78d626fdd7ab4dbe8ba989d56a509,
+    type: 3}
+  HealSound: {fileID: 866806024144368997, guid: 2a0e08f70f590a548936033019d71551,
+    type: 3}
+  HealParticles: {fileID: 4643673480076291106, guid: fb96f8f7b92aeb54f92c92609aad1431,
+    type: 3}
   shadowReset: {fileID: 0}
   respawnReset: 0
   m_Grounded: 0
@@ -268,6 +274,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20ec82ba3c0a01b45b16afd94e624184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cutscene: {fileID: 0}
+  cutsceneText: {fileID: 0}
   unpaused: 1
   playerBody: {fileID: 6140360905554585644}
   whatIsLadder:
@@ -282,6 +290,9 @@ MonoBehaviour:
   shadowRadius:
     serializedVersion: 2
     m_Bits: 4194304
+  interactiveEffect:
+    serializedVersion: 2
+    m_Bits: 0
   isClimbing: 0
   TPpointName: 
   canTP: 0

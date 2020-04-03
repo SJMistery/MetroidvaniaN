@@ -30,6 +30,9 @@ public class CharacterController2D_Mod : MonoBehaviour
     private Rigidbody2D m_Rigidbody2D;
     private Vector3 m_Velocity = Vector3.zero;
     public GameObject JumpSound; //gameobject que contiene el sonido cuando el Pj salta y otra funcion que lo destruye poco después.
+    public GameObject DamageSound; //
+    public GameObject HealSound;
+    public GameObject HealParticles;
     private Vector3 RespawnPoint;
     [SerializeField] private GameObject shadowReset; //objeto que manipula la "sombra del pj".
 
@@ -336,13 +339,13 @@ public class CharacterController2D_Mod : MonoBehaviour
             {
                 deadTimer = 3f;
                 transform.position = RespawnPoint;
-                shadowReset.transform.position = RespawnPoint;
                 respawnReset = true;
                 LifeBar = fullHP;
                 m_Rigidbody2D.velocity = new Vector2(0, 0);
                 GetComponent<PlayerMovement>().enabled = true;
                 state = State.resting;
                 healsAvalible = maxHeals;
+                shadowReset.transform.position = RespawnPoint;
             }
         }
         else if (state == State.climb)
@@ -408,6 +411,7 @@ public class CharacterController2D_Mod : MonoBehaviour
     public void TakeDMG()
     {
         LifeBar -= 1;
+        Instantiate(DamageSound);
 
         if (LifeBar <= 0)
         {
@@ -427,7 +431,6 @@ public class CharacterController2D_Mod : MonoBehaviour
 
     private void Heal()
     {
-
         //potion system
         if (count < frameRet)
         {
@@ -441,6 +444,8 @@ public class CharacterController2D_Mod : MonoBehaviour
             {
                 if (healsAvalible > 0 && state != State.dead)
                 {
+                    Instantiate(HealSound);
+                    Instantiate(HealParticles, this.transform.position, Quaternion.identity);
                     LifeBar += hpRecovered;
                     if (LifeBar >= fullHP)
                     {

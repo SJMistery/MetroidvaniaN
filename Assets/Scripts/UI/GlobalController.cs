@@ -49,6 +49,9 @@ public class GlobalController : MonoBehaviour
     public static GlobalController Instance;//esto sirve para guardar los datos de posicion del jugador
     public bool bossDeafeted = false;
 
+    private AudioSource musica;
+    public Collider2D doorBoss;
+
     void Awake()
     {
         if (Instance == null)
@@ -59,6 +62,22 @@ public class GlobalController : MonoBehaviour
         else if (Instance != this)
         {
             Destroy(gameObject);
+        }
+    }
+    private void Update()
+    {
+        musica = GameObject.Find("Musica").GetComponent<AudioSource>();
+        doorBoss = GameObject.Find("TPpoint Up").GetComponent <BoxCollider2D>();
+        if (bossDeafeted && Instance.actualLevel == Level.ROOF)
+        {
+            musica.Stop();
+            doorBoss.enabled = true;
+            Destroy(GameObject.Find("Slider").gameObject);
+
+        }
+        else if (!bossDeafeted && Instance.actualLevel == Level.ROOF)
+        {
+            doorBoss.enabled = false;
         }
     }
 }

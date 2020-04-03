@@ -337,19 +337,54 @@ MonoBehaviour:
   hpBar: {fileID: 0}
   throwSpeed: 500
   distanceWalls: 5.5
-  maxHP: 11
+  maxHP: 20
   currentHP: 0
   growSize: 0.25
   dashDistance: 1.5
-  mace: {fileID: 5473310379744235604, guid: 130a9579735a8c648b02c373c4507f40, type: 3}
+  mace: {fileID: 6809021546653676810, guid: 130a9579735a8c648b02c373c4507f40, type: 3}
   maceWave: {fileID: 293092268044305545, guid: 9a35242b28f511b47a39c4b0d5a05b88, type: 3}
-  throwMace: {fileID: 0}
-  jumpForce: 10
+  throwMace: {fileID: 5767381011221567987, guid: f97b81c8cac44574497661f56ca54299,
+    type: 3}
+  jumpForce: 3500
+  fallMultiplier: 9
   jumping: 0
   maceIsSpawned: 0
   spawnPoint: {x: 0, y: 0, z: 0}
   possibleSpaw: []
-  attackSpeed: 300
-  dashSpeed: 2000
-  skyAttackSpeed: 2000
+  targetSkyAttack: {x: 0, y: 0}
+  attackSpeed: 2000
+  dashSpeed: 4000
+  skyAttackSpeed: 8000
   enrage: 0
+  bobinaDelTiempo: {fileID: 6470048364835415899, guid: 689c5315e808d48478d2a4e71cd87a74,
+    type: 3}
+  platform: {fileID: 0}
+  swordsound: {fileID: 6611218755909935006, guid: d1b912cae2814d24e8cf7a4420abb18e,
+    type: 3}
+  attackready: {fileID: 8564968321539595351, guid: 1fb2a7f51b849344db541f23402df743,
+    type: 3}
+  dashsound: {fileID: 1695194349304464563, guid: cecb1a023bc402547a11747a8d55dacf,
+    type: 3}
+  hammerattack: {fileID: 469479470868651150, guid: 15056af661865a7419659a494fc0d10f,
+    type: 3}
+  hammerslam: {fileID: 6824712937126016622, guid: 2172e4bbab474d8428a2af9c8bbfa7bd,
+    type: 3}
+  tauntscream: {fileID: 787982679542951404, guid: a9fafab5426608443810448e20baf02f,
+    type: 3}
+  walkingsound1: {fileID: 8324266873759451721, guid: 88d8bb58c88278c46b99bb3de23a90b3,
+    type: 3}
+  walkingsound2: {fileID: 286267619388503843, guid: d23dd75efce623f439672eabc1685336,
+    type: 3}
+  skyattack: {fileID: 4900602504671491761, guid: 2ebcadf8702359643bf5bf9e82811752,
+    type: 3}
+  jumpsound: {fileID: 8095896938894246884, guid: 835a255eb7991a848b3c28fec1014c05,
+    type: 3}
+  swordfall: {fileID: 6470769620732304407, guid: b5a2a7853c6af4648911d2abf2eaca3b,
+    type: 3}
+  macefall: {fileID: 4498891168407575447, guid: 461fb55575d35544ba9eeddae941b440,
+    type: 3}
+  deathscream: {fileID: 853832965296561324, guid: 6b760b226b29bb743b7689da0a305da9,
+    type: 3}
+  fallbody: {fileID: 4059828657649593924, guid: aa4ce10a8c570054e85d52cdab5a7ac9,
+    type: 3}
+  creatplatformsound: {fileID: 0}

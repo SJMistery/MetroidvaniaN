@@ -50,7 +50,6 @@ public class ButtonDoor : MonoBehaviour
         
         if (this.gameObject.name == "MidDoorButton" && collision.gameObject.tag == "Player" && ((cc.controller && Input.GetButton("Interact MANDO")) || ((!cc.controller) && Input.GetButton("Interact"))) && doorMidCastle.canMove)
         {
-
                 doorMidCastle.Move();
                 this.transform.Rotate(0, 0, 30);
         }

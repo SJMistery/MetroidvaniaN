@@ -170,7 +170,7 @@ MonoBehaviour:
   mace: {fileID: 5767381011221567987}
   grounded: 0
   boss: {fileID: 8510682468074066778, guid: 727ce120349a63c46b5fff8644e1ea01, type: 3}
-  speed: 120
+  speed: 700
   move: 0
   target: {x: 0, y: 0}
 --- !u!114 &5767381011221567986

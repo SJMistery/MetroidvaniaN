@@ -96,6 +96,7 @@ public class PlayerAttack : MonoBehaviour
         foreach (Collider2D boss in damageBoss)
         {
             boss.GetComponent<BossController2D>().TakeDMG(attackDMG);
+            Instantiate(hitSound);
         }
 
     } //Coroutine que permite que las colision de ataque quede más ajustada a la animacion del PJ!
