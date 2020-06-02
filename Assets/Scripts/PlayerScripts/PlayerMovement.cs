@@ -31,11 +31,12 @@ public class PlayerMovement : MonoBehaviour
     public bool isClimbing;
     public string TPpointName;
     [SerializeField] private bool canTP;
-    [SerializeField] private bool alredyTP;
     [SerializeField] private float inputVertical;
     [SerializeField] private float speed = 15;
 
     // Update is called once per frame
+    
+    
     private void Start()
     {
         unpaused = true;
@@ -167,158 +168,128 @@ public class PlayerMovement : MonoBehaviour
             playerBody.gravityScale = 4;
         }
 
-        //Para teleportarse, detecta si hay un punto de TP
-        RaycastHit2D tpInfo = Physics2D.Raycast(transform.position, Vector2.up, distance, transitionPoint);
-
-        if (tpInfo.collider != null)
-        {
-            canTP = true;
-            TPpointName = tpInfo.collider.name;
-        }
-        else
-        {
-            canTP = false;
-        }
-
-        if (canTP == true)
-        {
-            if (tpInfo.collider.tag == "Beginning")//Para ir al principio del nivel
-            {
-
-                if (GlobalController.Instance.actualLevel == GlobalController.Level.OUTSIDE && alredyTP == false)
-                {
-                    LoadScenes.Instance.LoadInsideBegLevel();
-                    alredyTP = true;
-                }
-            }
-
-            if (tpInfo.collider.tag == "Cave")//Para ir a la cueva
-            {
-
-                if (GlobalController.Instance.actualLevel == GlobalController.Level.OUTSIDE && alredyTP == false)
-                {
-                    LoadScenes.Instance.LoadCaveLevel();
-                    alredyTP = true;
-                }
-            }
-
-            if (tpInfo.collider.tag == "CaveE")//Para ir a la cueva
-            {
-
-                if (GlobalController.Instance.actualLevel == GlobalController.Level.OUTSIDE && alredyTP == false)
-                {
-                    LoadScenes.Instance.LoadCaveEndLevel();
-                    alredyTP = true;
-                }
-            }
-
-            if (tpInfo.collider.tag == "Beginning")//Para salir desde el principio de la cueva
-            {
-
-                if (GlobalController.Instance.actualLevel == GlobalController.Level.CAVE && alredyTP == false)
-                {
-                    LoadScenes.Instance.LoadBCOutsideLevel();
-                    alredyTP = true;
-                }
-            }
-
-            if (tpInfo.collider.tag == "End")//Para ir a la cueva
-            {
-
-                if (GlobalController.Instance.actualLevel == GlobalController.Level.CAVE && alredyTP == false)
-                {
-                    LoadScenes.Instance.LoadACOutsideLevel();
-                    alredyTP = true;
-                }
-            }
-
-            if (tpInfo.collider.tag == "Up")//Parte alta del nivel
-            {
-                if (GlobalController.Instance.actualLevel == GlobalController.Level.ROOF && alredyTP == false && Input.GetButton("Interact"))
-                {
-                    LoadScenes.Instance.LoadInsideUpLevel();
-                    alredyTP = true;
-                }
-                if (GlobalController.Instance.actualLevel == GlobalController.Level.INSIDE && alredyTP == false)
-                {
-                    if (tpInfo.collider.name == "TPpoint storage")
-                    {
-                        LoadScenes.Instance.LoadStorageUpLevel();
-                        alredyTP = true;
-                    }
-                    if (Input.GetButton("Interact") && !(tpInfo.collider.name == "TPpoint storage"))
-                    {
-                        LoadScenes.Instance.LoadRoofLevel();
-                        alredyTP = true;
-                    }
-                    
-                }
-                if (GlobalController.Instance.actualLevel == GlobalController.Level.STORAGE && alredyTP == false)
-                {
-                    LoadScenes.Instance.LoadInsideUpSTLevel();
-                    alredyTP = true;
-                }
-
-            }
-            if (tpInfo.collider.tag == "Middle")
-            {
-                if (GlobalController.Instance.actualLevel == GlobalController.Level.PRISON && alredyTP == false)
-                {
-                    LoadScenes.Instance.LoadInsideMidLevel();
-                    alredyTP = true;
-                }
-                if (GlobalController.Instance.actualLevel == GlobalController.Level.INSIDE && alredyTP == false)
-                {
-                    if (tpInfo.collider.name == "TPpoint storage")
-                    {
-                        LoadScenes.Instance.LoadStorageMiddleLevel();
-                        alredyTP = true;
-                    }
-                    else
-                    {
-                        LoadScenes.Instance.LoadPrisonBegLevel();
-                        alredyTP = true;
-                    }
-                }
-                if (GlobalController.Instance.actualLevel == GlobalController.Level.STORAGE && alredyTP == false)
-                {
-                    LoadScenes.Instance.LoadInsideMidSTLevel();
-                    alredyTP = true;
-                }
-            }
-            if (tpInfo.collider.tag == "Down")
-            {
-                if (GlobalController.Instance.actualLevel == GlobalController.Level.INSIDE && alredyTP == false)
-                {
-                    LoadScenes.Instance.LoadPrisonEndLevel();
-                    alredyTP = true;
-                }
-
-                if (GlobalController.Instance.actualLevel == GlobalController.Level.PRISON && alredyTP == false)
-                {
-                    LoadScenes.Instance.LoadInsideDownLevel();
-                    alredyTP = true;
-                }
-            }
-        
-        }
-
         RaycastHit2D levelPartInfo = Physics2D.Raycast(transform.position, Vector2.up, distance, levelPart);
 
         if (levelPartInfo.collider != null)
         {
             GlobalController.Instance.nameOfPartLevel = levelPartInfo.collider.name;
         }
+    }
 
-        /*RaycastHit2D interactableEffectInfo = Physics2D.Raycast(transform.position, Vector2.down, distance, interactiveEffect);
-
-        if (((Control.controller & Input.GetButton("Interact MANDO")) || (!Control.controller && Input.GetButton("Interact")))&& interactableEffectInfo.collider != null)
+    //Para teleportarse, detecta si hay un punto de TP
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+         if (collision.tag == "Beginning")//Para ir al principio del nivel
         {
-            GlobalController.Instance.stopAll = true;
-            Cursor.visible = true;
-            cutscene.SetActive(true);
-            cutsceneText.GetComponent<TextMeshProUGUI>().text = "What's this?";
-            cutsceneText.GetComponent<Autotyping_Text>().start = true;
-        }*/
+
+            if (GlobalController.Instance.actualLevel == GlobalController.Level.OUTSIDE  )
+            {
+                LoadScenes.Instance.LoadInsideBegLevel();
+                 
+            }
+            if (GlobalController.Instance.actualLevel == GlobalController.Level.CAVE  )
+            {
+                LoadScenes.Instance.LoadBCOutsideLevel();
+                 
+            }
+        }
+
+        if (collision.tag == "Cave")//Para ir a la cueva
+        {
+
+            if (GlobalController.Instance.actualLevel == GlobalController.Level.OUTSIDE  )
+            {
+                LoadScenes.Instance.LoadCaveLevel();
+                 
+            }
+        }
+
+        if (collision.tag == "CaveE")//Para ir a la cueva
+        {
+
+            if (GlobalController.Instance.actualLevel == GlobalController.Level.OUTSIDE  )
+            {
+                LoadScenes.Instance.LoadCaveEndLevel();
+                 
+            }
+        }
+
+        if (collision.tag == "End")//Para ir a la cueva
+        {
+
+            if (GlobalController.Instance.actualLevel == GlobalController.Level.CAVE  )
+            {
+                LoadScenes.Instance.LoadACOutsideLevel();
+                 
+            }
+        }
+
+        if (collision.tag == "Up")//Parte alta del nivel
+        {
+            if (GlobalController.Instance.actualLevel == GlobalController.Level.ROOF  )
+            {
+                LoadScenes.Instance.LoadInsideUpLevel();
+                 
+            }
+            if (GlobalController.Instance.actualLevel == GlobalController.Level.INSIDE  )
+            {
+                if (collision.name == "TPpoint storage")
+                {
+                    LoadScenes.Instance.LoadStorageUpLevel();
+                     
+                }
+                else
+                {
+                    LoadScenes.Instance.LoadRoofLevel();
+                     
+                }
+            }
+            if (GlobalController.Instance.actualLevel == GlobalController.Level.STORAGE  )
+            {
+                LoadScenes.Instance.LoadInsideUpSTLevel();
+                 
+            }
+
+        }
+        if (collision.tag == "Middle")
+        {
+            if (GlobalController.Instance.actualLevel == GlobalController.Level.PRISON  )
+            {
+                LoadScenes.Instance.LoadInsideMidLevel();
+                 
+            }
+            if (GlobalController.Instance.actualLevel == GlobalController.Level.INSIDE  )
+            {
+                if (collision.name == "TPpoint storage")
+                {
+                    LoadScenes.Instance.LoadStorageMiddleLevel();
+                     
+                }
+                else
+                {
+                    LoadScenes.Instance.LoadPrisonBegLevel();
+                     
+                }
+            }
+            if (GlobalController.Instance.actualLevel == GlobalController.Level.STORAGE  )
+            {
+                LoadScenes.Instance.LoadInsideMidSTLevel();
+                 
+            }
+        }
+        if (collision.tag == "Down")
+        {
+            if (GlobalController.Instance.actualLevel == GlobalController.Level.INSIDE  )
+            {
+                LoadScenes.Instance.LoadPrisonEndLevel();
+                 
+            }
+
+            if (GlobalController.Instance.actualLevel == GlobalController.Level.PRISON  )
+            {
+                LoadScenes.Instance.LoadInsideDownLevel();
+                 
+            }
+        }
     }
 }

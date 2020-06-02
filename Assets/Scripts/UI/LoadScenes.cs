@@ -11,6 +11,7 @@ public class LoadScenes : MonoBehaviour
     [SerializeField] private GameObject shadow;
     public GameObject pcs;
     public static LoadScenes Instance;
+
     void Awake()
     {
         if (Instance == null)
@@ -33,8 +34,8 @@ public class LoadScenes : MonoBehaviour
         GlobalController.Instance.positionOutside = new Vector3(56.51f, 20.22f);
         GlobalController.Instance.positionOutsideBC = new Vector3(142.12f, 0.4f);
         GlobalController.Instance.positionOutsideAC = new Vector3(164.45f, -0.6f);
-        GlobalController.Instance.positionCaveBeg = new Vector3(35.35f, -0.38f);
-        GlobalController.Instance.positionCaveEnd = new Vector3(189.69f, 8.37f);
+        GlobalController.Instance.positionCaveBeg = new Vector3(0f, -0.38f);
+        GlobalController.Instance.positionCaveEnd = new Vector3(141.3f, 8.37f);
         GlobalController.Instance.positionInsideBeg = new Vector3(-3.51f, -3.755696f, -2.21f);
         GlobalController.Instance.positionInsideUp = new Vector3(22.01f, 39.18f, -2.21f);
         GlobalController.Instance.positionInsideMid = new Vector3(23.77f, -21.83f);
@@ -65,7 +66,7 @@ public class LoadScenes : MonoBehaviour
         GlobalController.Instance.actualLevel = GlobalController.Level.OUTSIDE;
         LoadingScreenScript.Instance.Show(SceneManager.LoadSceneAsync("0.Afueras de la Torre"));
         GlobalController.Instance.maxHp = 5;
-        GlobalController.Instance.hp = 5;
+        GlobalController.Instance.hp = GlobalController.Instance.maxHp;
         GlobalController.Instance.cooldown = 100;
         GlobalController.Instance.maxpotions = 3;
         GlobalController.Instance.disp_potions = 3;
@@ -88,6 +89,7 @@ public class LoadScenes : MonoBehaviour
         GlobalController.Instance.actualPos = GlobalController.Instance.positionOutsideBC;
         GlobalController.Instance.actualLevel = GlobalController.Level.OUTSIDE;
         LoadingScreenScript.Instance.Show(SceneManager.LoadSceneAsync("0.Afueras de la Torre"));
+
     }
 
     public void LoadACOutsideLevel()

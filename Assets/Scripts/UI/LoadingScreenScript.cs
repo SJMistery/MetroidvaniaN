@@ -94,6 +94,7 @@ public class LoadingScreenScript : MonoBehaviour
     public void Show(AsyncOperation loadingOperation)
     {
         // Enable the loading screen:
+        GameObject.Find("GameOver").SetActive(false);
         gameObject.SetActive(true);
         // Store the reference:
         currentLoadingOperation = loadingOperation;

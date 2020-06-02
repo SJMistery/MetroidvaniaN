@@ -1,14 +1,17 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using UnityEngine.UI;
 using TMPro;
 
+using UnityEditor;
 
 public class CharacterController2D_Mod : MonoBehaviour
 {
-
+    private GameObject gameover;
     private Animator anim;
+    private GlobalController globalController;
     public enum State { idle, running, jumping, falling, dead, resting, climb }
     public State state = State.idle;
 
@@ -95,6 +98,7 @@ public class CharacterController2D_Mod : MonoBehaviour
         potionCDImage = GameObject.FindGameObjectsWithTag("potionCD");
         potionUsedImage = GameObject.FindGameObjectsWithTag("potion");
         lifeStars = GameObject.FindGameObjectsWithTag("LifeStar");
+        gameover = GameObject.Find("GameOver");
         if (GlobalController.Instance.fromBeginning == true)
         {
             if (PCS != null)
@@ -109,6 +113,15 @@ public class CharacterController2D_Mod : MonoBehaviour
         {
             fullHP = LifeBar;
         }
+        if (GlobalController.Instance.Dead == true)
+        {
+            PCS.transform.position = GlobalController.Instance.currentSafepoint;
+        }
+        else
+        {
+            PCS.transform.position = GlobalController.Instance.actualPos;
+        }
+        gameover.SetActive(false);
     }
 
     private void Awake()
@@ -124,6 +137,7 @@ public class CharacterController2D_Mod : MonoBehaviour
         RespawnPoint = transform.position;
         fullHP = LifeBar;
         healsAvalible = maxHeals;
+
     }
 
     private void UpdateHealFill(float currentValue, float maxValue, int i)
@@ -248,6 +262,8 @@ public class CharacterController2D_Mod : MonoBehaviour
         if (other.gameObject.tag == "SavePoint" && ((controller & Input.GetButton("Interact MANDO")) || (!controller && Input.GetButton("Interact"))))
         {
             //Debug.Log("saved");
+
+            GlobalController.Instance.currentSafepoint = new Vector3 (other.gameObject.transform.position.x, other.gameObject.transform.position.y, 0);
             isResting = true;
             RespawnPoint = other.gameObject.transform.position;
             LifeBar = fullHP;
@@ -315,6 +331,7 @@ public class CharacterController2D_Mod : MonoBehaviour
         if (state == State.resting)
         {
             GetComponent<PlayerMovement>().enabled = false;
+            GlobalController.Instance.savedLevel = SceneManager.GetActiveScene().name;
             m_Rigidbody2D.velocity = new Vector2(0, 0);
             isResting = true;
             isDead = false;
@@ -334,19 +351,31 @@ public class CharacterController2D_Mod : MonoBehaviour
 
             healsAvalible = 0;
             LifeBar = 0;
+            GlobalController.Instance.Dead = true;
 
+            if (deadTimer <= 1.5 && isDead)
+            {
+                gameover.gameObject.SetActive(true);
+            }
             if (deadTimer <= 0 && isDead) //Contador de 3 segundos que controla que el PJ no haga respawn hasta que se haya finalizado este tiempo.
             {
                 deadTimer = 3f;
-                transform.position = RespawnPoint;
-                respawnReset = true;
-                LifeBar = fullHP;
-                m_Rigidbody2D.velocity = new Vector2(0, 0);
-                GetComponent<PlayerMovement>().enabled = true;
-                state = State.resting;
-                healsAvalible = maxHeals;
-                if (shadowReset != null)
-                    shadowReset.transform.position = RespawnPoint;
+                SceneManager.LoadScene(GlobalController.Instance.savedLevel);
+                if (GlobalController.Instance.savedLevel == "0.Afueras de la Torre")
+                {
+                    GlobalController.Instance.actualLevel = GlobalController.Level.OUTSIDE;
+                }
+                else if (GlobalController.Instance.savedLevel == "1. Dentro del castillo")
+                {
+                    GlobalController.Instance.actualLevel = GlobalController.Level.INSIDE;
+                }
+                else if (GlobalController.Instance.savedLevel == "1.5 Tejado y Prision")
+                {
+                    GlobalController.Instance.actualLevel = GlobalController.Level.PRISON;
+                }
+                GlobalController.Instance.hp = GlobalController.Instance.maxHp;
+                GlobalController.Instance.disp_potions = 3;
+                GlobalController.Instance.cutsceneActive = false;
             }
         }
         else if (state == State.climb)
@@ -398,6 +427,7 @@ public class CharacterController2D_Mod : MonoBehaviour
         {
             //Standing
             state = State.idle;
+            GlobalController.Instance.Dead = false;
             if (!m_Grounded && m_Rigidbody2D.velocity.y < 0)
             {
                 state = State.falling;
@@ -412,7 +442,6 @@ public class CharacterController2D_Mod : MonoBehaviour
     public void TakeDMG()
     {
         LifeBar -= 1;
-        Instantiate(DamageSound);
 
         if (LifeBar <= 0)
         {
@@ -420,6 +449,7 @@ public class CharacterController2D_Mod : MonoBehaviour
         }
         else
         {
+            Instantiate(DamageSound);
             isDamaged = true;
             canAttack = false;
             anim.SetTrigger("isHurt");
