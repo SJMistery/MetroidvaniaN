@@ -9,52 +9,28 @@ public class ButtonDoor : MonoBehaviour
     public DoorsController doorMidCastle, doorTopCastle;
     private CharacterController2D_Mod cc;
 
-    public bool activated = false;
-
     // Start is called before the first frame update
     void Start()
     {
         cc = GameObject.Find("SrBeta1").GetComponent<CharacterController2D_Mod>();
         if (GlobalController.Instance.actualLevel == GlobalController.Level.INSIDE)
         {
-
-            doorMidCastle = GameObject.Find("DoorMid").GetComponent<DoorsController>(); //referencia a la puerta del ascensor del castillo.
-            doorTopCastle = GameObject.Find("DoorTop").GetComponent<DoorsController>(); //referencia a puerta del boss del castillo.
+            doorMidCastle = GameObject.Find("DoorMidCastle").GetComponent<DoorsController>(); //referencia a la puerta del ascensor del castillo.
+            doorTopCastle = GameObject.Find("DoorTopCastle").GetComponent<DoorsController>(); //referencia a puerta del boss del castillo.
         }
     }
 
-    private void Update()
-    {
-        if(GlobalController.Instance.doorUpActivated == true && activated == false)
-        {
-            if (this.gameObject.name == "TopDoorButton" && doorTopCastle.canMove == true)
-            {
-                doorTopCastle.Move();
-                this.transform.Rotate(0, 0, 30);               
-                activated = true;
-            }
-        }
-        else if(GlobalController.Instance.doorMidActivated == true && activated == false)
-        {
-            if (this.gameObject.name == "MidDoorButton" && doorMidCastle.canMove == true)
-            {
-                doorMidCastle.Move();
-                this.transform.Rotate(0, 0, 30);
-                activated = true;
-            }
-        }
-    }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
         
-        if (this.gameObject.name == "MidDoorButton" && collision.gameObject.tag == "Player" && ((cc.controller && Input.GetButton("Interact MANDO")) || ((!cc.controller) && Input.GetButton("Interact"))) && doorMidCastle.canMove)
+        if (this.gameObject.name == "MidDoorButton" && collision.gameObject.tag == "Player" && ((cc.controller && Input.GetButton("Interact MANDO")) || ((!cc.controller) && Input.GetButton("Interact"))) && !GlobalController.Instance.doorMidActivated)
         {
                 doorMidCastle.Move();
                 this.transform.Rotate(0, 0, 30);
         }
 
-        if (this.gameObject.name == "TopDoorButton" && collision.gameObject.tag == "Player" && ((cc.controller && Input.GetButtonDown("Interact MANDO")) || ((!cc.controller) && Input.GetButtonDown("Interact"))) && doorTopCastle.canMove)
+        if (this.gameObject.name == "TopDoorButton" && collision.gameObject.tag == "Player" && ((cc.controller && Input.GetButtonDown("Interact MANDO")) || ((!cc.controller) && Input.GetButtonDown("Interact"))) && !GlobalController.Instance.doorUpActivated)
         {
                 doorTopCastle.Move();
                 this.transform.Rotate(0, 0, 30);

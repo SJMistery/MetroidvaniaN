@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class LoadingScreenScript : MonoBehaviour
 {
+    public GameObject gameover;
     public static LoadingScreenScript Instance;
     // Make sure the loading screen shows for at least 1 second:
     private const float MIN_TIME_TO_SHOW = 1f;
@@ -46,6 +47,7 @@ public class LoadingScreenScript : MonoBehaviour
         }
         Configure();
         Hide();
+        gameover = GameObject.Find("GameOver");
     }
     private void Configure()
     {
@@ -94,7 +96,6 @@ public class LoadingScreenScript : MonoBehaviour
     public void Show(AsyncOperation loadingOperation)
     {
         // Enable the loading screen:
-        GameObject.Find("GameOver").SetActive(false);
         gameObject.SetActive(true);
         // Store the reference:
         currentLoadingOperation = loadingOperation;

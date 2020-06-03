@@ -36,8 +36,8 @@ public class GlobalController : MonoBehaviour
     public Vector3 positionPrisonBeg;
     public Vector3 positionPrisonEnd;
     public Vector3 actualPos;
-    public Vector3 UpDoorPos;
-    public Vector3 DownDoorPos;
+    public Vector3 UpDoorPosCastle;
+    public Vector3 DownDoorPosCastle;
     public Level actualLevel;
     public bool fromBeginning = false;
     public bool doorUpActivated = false;

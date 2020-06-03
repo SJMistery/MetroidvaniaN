@@ -5,46 +5,40 @@ using UnityEngine;
 
 public class DoorsController : MonoBehaviour
 {
-
+    public GameObject openDoorSound; 
     public Vector3 movement;
-    public bool canMove = true;
 
     public void Start()
     {
-        if (name == "DoorTop")
-            transform.position = GlobalController.Instance.UpDoorPos;
-        else if(name == "DoorMid")
-            transform.position = GlobalController.Instance.DownDoorPos;
 
-    }
-
-    // Start is called before the first frame update
-    public void Update()
-    {
-        if (GlobalController.Instance.doorUpActivated == false)
-            transform.position = new Vector3(0, 0);
-        else if (GlobalController.Instance.doorMidActivated == false)
+        if (name == "DoorTopCastle")
         {
-            transform.position = new Vector3(0, 0);
+            this.transform.position = GlobalController.Instance.UpDoorPosCastle;
         }
+
+        if (name == "DoorMidCastle")
+        {
+            this.transform.localPosition = GlobalController.Instance.DownDoorPosCastle;
+        }
+
     }
 
     public void Move()
     {
-        if (canMove)
+        if (name == "DoorTopCastle" && GlobalController.Instance.doorUpActivated == false)
         {
-            this.transform.position += movement;
-            canMove = false;
-            if (name == "DoorTop")
-            {
-                GlobalController.Instance.UpDoorPos = transform.position;
-                GlobalController.Instance.doorUpActivated = true;
-            }
-            else if (name == "DoorMid")
-            {
-                GlobalController.Instance.DownDoorPos = transform.position;
-                GlobalController.Instance.doorMidActivated = true;
-            }
+           GlobalController.Instance.UpDoorPosCastle += movement;
+           this.transform.position = GlobalController.Instance.UpDoorPosCastle;
+           Instantiate(openDoorSound);
+           GlobalController.Instance.doorUpActivated = true;
+        }
+
+        if (name == "DoorMidCastle" && GlobalController.Instance.doorMidActivated == false)
+        {
+            GlobalController.Instance.DownDoorPosCastle += movement;
+            this.transform.localPosition = GlobalController.Instance.DownDoorPosCastle;
+            Instantiate(openDoorSound);
+            GlobalController.Instance.doorMidActivated = true;
         }
     }
 }

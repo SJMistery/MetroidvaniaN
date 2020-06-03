@@ -33,6 +33,9 @@ TagManager:
   - Mace
   - effect
   - cutscene
+  - Roof
+  - ElevatorMessage
+  - Lever
   layers:
   - Default
   - TransparentFX

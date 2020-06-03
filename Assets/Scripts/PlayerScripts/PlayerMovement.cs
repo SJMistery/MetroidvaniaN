@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private float BaseAcc = 15f;
     private float TopSpd = 75f;
     private float Drag = 30f;
-    
+
     float HSpd;
     bool Jump = false;
     bool Crouch = false;
@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     float LHMov = 0f;
     bool JumpStart = false;
     public bool unpaused = true;
+    private bool neverTP = true;
     public Rigidbody2D playerBody;
 
     private float distance = 0.1f; //distancia a la que el raycast detecta la escalera. ES VERTICAL, tiene que estar muy bajo.
@@ -34,14 +35,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float inputVertical;
     [SerializeField] private float speed = 15;
 
-    // Update is called once per frame
-    
-    
+    private GameObject interactMessage;
+    private GameObject lookMessage;
+
     private void Start()
     {
         unpaused = true;
         Control = GetComponent<CharacterController2D_Mod>();
-        if(GlobalController.Instance.actualLevel == GlobalController.Level.STORAGE || GlobalController.Instance.actualLevel == GlobalController.Level.PRISON)
+        if (GlobalController.Instance.actualLevel == GlobalController.Level.STORAGE || GlobalController.Instance.actualLevel == GlobalController.Level.PRISON)
         {
             cutscene = GameObject.FindGameObjectWithTag("cutscene");
             cutsceneText = GameObject.Find("CutsceneText");
@@ -53,6 +54,10 @@ public class PlayerMovement : MonoBehaviour
             cutsceneText = GameObject.Find("CutsceneText");
             cutscene.SetActive(false);
         }
+        interactMessage = GameObject.Find("Press 'E' To interact.");
+        interactMessage.SetActive(false);
+        lookMessage = GameObject.Find("ControlCameraMessage");
+        lookMessage.SetActive(false);
 
     }
     //Update with no physics, FixedUpdate with physics
@@ -60,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
     {
         unpaused = !GlobalController.Instance.stopAll;
 
-        if (unpaused && !GlobalController.Instance.moveIT )
+        if (unpaused && !GlobalController.Instance.moveIT)
         {
             LHMov = HMov;
             HMov = Input.GetAxisRaw("Horizontal");
@@ -124,7 +129,7 @@ public class PlayerMovement : MonoBehaviour
                 //GetComponent<Rigidbody2D>().simulated = true;
             }
         }
-        
+
     }
 
 
@@ -179,117 +184,174 @@ public class PlayerMovement : MonoBehaviour
     //Para teleportarse, detecta si hay un punto de TP
     private void OnTriggerEnter2D(Collider2D collision)
     {
-         if (collision.tag == "Beginning")//Para ir al principio del nivel
+        if (collision.tag == "Beginning")//Para ir al principio del nivel
         {
 
-            if (GlobalController.Instance.actualLevel == GlobalController.Level.OUTSIDE  )
+            if (GlobalController.Instance.actualLevel == GlobalController.Level.OUTSIDE)
             {
                 LoadScenes.Instance.LoadInsideBegLevel();
-                 
+
             }
-            if (GlobalController.Instance.actualLevel == GlobalController.Level.CAVE  )
+            if (GlobalController.Instance.actualLevel == GlobalController.Level.CAVE)
             {
                 LoadScenes.Instance.LoadBCOutsideLevel();
-                 
+
             }
         }
 
         if (collision.tag == "Cave")//Para ir a la cueva
         {
 
-            if (GlobalController.Instance.actualLevel == GlobalController.Level.OUTSIDE  )
+            if (GlobalController.Instance.actualLevel == GlobalController.Level.OUTSIDE)
             {
                 LoadScenes.Instance.LoadCaveLevel();
-                 
+
             }
         }
 
         if (collision.tag == "CaveE")//Para ir a la cueva
         {
 
-            if (GlobalController.Instance.actualLevel == GlobalController.Level.OUTSIDE  )
+            if (GlobalController.Instance.actualLevel == GlobalController.Level.OUTSIDE)
             {
                 LoadScenes.Instance.LoadCaveEndLevel();
-                 
+
             }
         }
 
         if (collision.tag == "End")//Para ir a la cueva
         {
 
-            if (GlobalController.Instance.actualLevel == GlobalController.Level.CAVE  )
+            if (GlobalController.Instance.actualLevel == GlobalController.Level.CAVE)
             {
                 LoadScenes.Instance.LoadACOutsideLevel();
-                 
+
             }
         }
 
         if (collision.tag == "Up")//Parte alta del nivel
         {
-            if (GlobalController.Instance.actualLevel == GlobalController.Level.ROOF  )
+            if (GlobalController.Instance.actualLevel == GlobalController.Level.ROOF)
             {
                 LoadScenes.Instance.LoadInsideUpLevel();
-                 
+
             }
-            if (GlobalController.Instance.actualLevel == GlobalController.Level.INSIDE  )
+            else if (GlobalController.Instance.actualLevel == GlobalController.Level.INSIDE)
             {
                 if (collision.name == "TPpoint storage")
                 {
                     LoadScenes.Instance.LoadStorageUpLevel();
-                     
+
                 }
-                else
-                {
-                    LoadScenes.Instance.LoadRoofLevel();
-                     
-                }
+
             }
-            if (GlobalController.Instance.actualLevel == GlobalController.Level.STORAGE  )
+            else if (GlobalController.Instance.actualLevel == GlobalController.Level.STORAGE)
             {
                 LoadScenes.Instance.LoadInsideUpSTLevel();
-                 
+
             }
 
         }
         if (collision.tag == "Middle")
         {
-            if (GlobalController.Instance.actualLevel == GlobalController.Level.PRISON  )
+            if (GlobalController.Instance.actualLevel == GlobalController.Level.PRISON)
             {
                 LoadScenes.Instance.LoadInsideMidLevel();
-                 
+
             }
-            if (GlobalController.Instance.actualLevel == GlobalController.Level.INSIDE  )
+            else if (GlobalController.Instance.actualLevel == GlobalController.Level.INSIDE)
             {
                 if (collision.name == "TPpoint storage")
                 {
                     LoadScenes.Instance.LoadStorageMiddleLevel();
-                     
+
                 }
                 else
                 {
                     LoadScenes.Instance.LoadPrisonBegLevel();
-                     
+
                 }
             }
-            if (GlobalController.Instance.actualLevel == GlobalController.Level.STORAGE  )
+            else if (GlobalController.Instance.actualLevel == GlobalController.Level.STORAGE)
             {
                 LoadScenes.Instance.LoadInsideMidSTLevel();
-                 
+
             }
         }
         if (collision.tag == "Down")
         {
-            if (GlobalController.Instance.actualLevel == GlobalController.Level.INSIDE  )
+            if (GlobalController.Instance.actualLevel == GlobalController.Level.INSIDE)
             {
                 LoadScenes.Instance.LoadPrisonEndLevel();
-                 
+
             }
 
-            if (GlobalController.Instance.actualLevel == GlobalController.Level.PRISON  )
+            else if (GlobalController.Instance.actualLevel == GlobalController.Level.PRISON)
             {
                 LoadScenes.Instance.LoadInsideDownLevel();
-                 
+
             }
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == "Roof")
+        {
+            interactMessage.SetActive(true);
+        }
+        if (collision.name == "MessagePoint")
+        {
+            lookMessage.SetActive(true);
+        }
+        if(collision.tag == "ElevatorMessage")
+        {
+            interactMessage.SetActive(true);
+        }
+        if(collision.name == "TopDoorButton" && GlobalController.Instance.doorUpActivated == false)
+        {
+            interactMessage.SetActive(true);
+        }
+        else if (collision.name == "TopDoorButton" && GlobalController.Instance.doorUpActivated == true)
+        {
+            interactMessage.SetActive(false);
+        }
+
+        if (collision.name == "MidDoorButton" && GlobalController.Instance.doorMidActivated == false)
+        {
+            interactMessage.SetActive(true);
+        }
+        else if (collision.name == "MidDoorButton" && GlobalController.Instance.doorMidActivated == true)
+        {
+            interactMessage.SetActive(false);
+        }
+            if (collision.tag == "Roof" && neverTP && Input.GetButtonDown("Interact"))
+        {
+            LoadScenes.Instance.LoadRoofLevel();
+            neverTP = false;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Roof")
+        {
+            interactMessage.SetActive(false);
+        }
+        if (collision.name == "MessagePoint")
+        {
+            lookMessage.SetActive(false);
+        }
+        if (collision.tag == "ElevatorMessage")
+        {
+            interactMessage.SetActive(false);
+        }
+        if(collision.name == "TopDoorButton")
+        {
+            interactMessage.SetActive(false);
+        }
+        if (collision.name == "MidDoorButton")
+        {
+            interactMessage.SetActive(false);
         }
     }
 }
