@@ -67,7 +67,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: You've obtained "Ancient Diary"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6d3aba70bc5d912468015aafa2ce813e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d22db98553242e74d8a6528979cdb63e, type: 2}
   m_sharedMaterial: {fileID: -365287818904509158, guid: 6d3aba70bc5d912468015aafa2ce813e,
     type: 2}
   m_fontSharedMaterials: []
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_subTextObjects:
   - {fileID: 0}
   - {fileID: 0}
@@ -1074,16 +1074,16 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: So, this is the rumored place uh...
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6d3aba70bc5d912468015aafa2ce813e, type: 2}
-  m_sharedMaterial: {fileID: -365287818904509158, guid: 6d3aba70bc5d912468015aafa2ce813e,
+  m_fontAsset: {fileID: 11400000, guid: d22db98553242e74d8a6528979cdb63e, type: 2}
+  m_sharedMaterial: {fileID: -1937337614403188371, guid: d22db98553242e74d8a6528979cdb63e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1147,7 +1147,7 @@ MonoBehaviour:
     spaceCount: 6
     wordCount: 7
     linkCount: 0
-    lineCount: 1
+    lineCount: 2
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0

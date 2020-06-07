@@ -36,6 +36,8 @@ TagManager:
   - Roof
   - ElevatorMessage
   - Lever
+  - Elevator
+  - Ladder
   layers:
   - Default
   - TransparentFX

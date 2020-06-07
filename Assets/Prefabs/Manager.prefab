@@ -59,11 +59,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0873fa41b5a33c0429e59c246a2f6bcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 0
-  hp: 0
+  maxHp: 5
+  hp: 5
   cooldown: 0
-  maxpotions: 0
-  disp_potions: 0
+  maxpotions: 3
+  disp_potions: 3
   soundVolume: 0
   musicVolume: 0
   inverseTimeActive: 0
@@ -85,16 +85,31 @@ MonoBehaviour:
   positionPrisonBeg: {x: 0, y: 0, z: 0}
   positionPrisonEnd: {x: 0, y: 0, z: 0}
   actualPos: {x: 0, y: 0, z: 0}
-  UpDoorPos: {x: 0, y: 0, z: 0}
-  DownDoorPos: {x: 0, y: 0, z: 0}
+  UpDoorPosCastle: {x: 0, y: 0, z: 0}
+  DownDoorPosCastle: {x: 0, y: 0, z: 0}
+  PuzzleDoorPosPrison: {x: 0, y: 0, z: 0}
+  PrisonDoorPos: {x: 0, y: 0, z: 0}
   actualLevel: 4
   fromBeginning: 0
   doorUpActivated: 0
   doorMidActivated: 0
+  doorPuzzleActivated: 0
+  doorPrisonActivated: 0
+  abyssOpened: 0
   streamEnded: 0
   stopAll: 0
+  tutorialMoveDone: 0
+  tutorialAttackDone: 0
+  tutorialHealDone: 0
+  ladderTutorialDone: 0
+  platformTutorialDone: 0
+  bossPlatformSpawned: 0
   nameOfPartLevel: 
   infiniteJump: 0
   moveIT: 0
   bossDeafeted: 0
-  musica: {fileID: 0}
+  cutsceneActive: 0
+  firstCutsceneEnded: 0
+  currentSafepoint: {x: 68.42, y: 24.42, z: -1.91}
+  savedLevel: 0.Afueras de la Torre
+  Dead: 0

@@ -20,6 +20,15 @@ public class DoorsController : MonoBehaviour
         {
             this.transform.localPosition = GlobalController.Instance.DownDoorPosCastle;
         }
+        if (name == "DoorPuzzle")
+        {
+            this.transform.localPosition = GlobalController.Instance.PuzzleDoorPosPrison;
+        }
+
+        if (name == "DoorEndPrison")
+        {
+            this.transform.localPosition = GlobalController.Instance.PrisonDoorPos;
+        }
 
     }
 
@@ -39,6 +48,20 @@ public class DoorsController : MonoBehaviour
             this.transform.localPosition = GlobalController.Instance.DownDoorPosCastle;
             Instantiate(openDoorSound);
             GlobalController.Instance.doorMidActivated = true;
+        }
+        if (name == "DoorPuzzle" && GlobalController.Instance.doorPuzzleActivated == false)
+        {
+            GlobalController.Instance.PuzzleDoorPosPrison += movement;
+            this.transform.localPosition = GlobalController.Instance.PuzzleDoorPosPrison;
+            Instantiate(openDoorSound);
+            GlobalController.Instance.doorPuzzleActivated = true;
+        }
+        if (name == "DoorEndPrison" && GlobalController.Instance.doorPrisonActivated == false)
+        {
+            GlobalController.Instance.PrisonDoorPos += movement;
+            this.transform.localPosition = GlobalController.Instance.PrisonDoorPos;
+            Instantiate(openDoorSound);
+            GlobalController.Instance.doorPrisonActivated = true;
         }
     }
 }

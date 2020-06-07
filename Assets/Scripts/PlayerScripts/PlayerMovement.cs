@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 public class PlayerMovement : MonoBehaviour
 {
@@ -20,7 +21,8 @@ public class PlayerMovement : MonoBehaviour
     float LHMov = 0f;
     bool JumpStart = false;
     public bool unpaused = true;
-    private bool neverTP = true;
+    private bool roofDoorTriggered = false;
+    private bool isOnLadder = false;
     public Rigidbody2D playerBody;
 
     private float distance = 0.1f; //distancia a la que el raycast detecta la escalera. ES VERTICAL, tiene que estar muy bajo.
@@ -34,9 +36,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool canTP;
     [SerializeField] private float inputVertical;
     [SerializeField] private float speed = 15;
-
-    private GameObject interactMessage;
-    private GameObject lookMessage;
 
     private void Start()
     {
@@ -54,10 +53,6 @@ public class PlayerMovement : MonoBehaviour
             cutsceneText = GameObject.Find("CutsceneText");
             cutscene.SetActive(false);
         }
-        interactMessage = GameObject.Find("Press 'E' To interact.");
-        interactMessage.SetActive(false);
-        lookMessage = GameObject.Find("ControlCameraMessage");
-        lookMessage.SetActive(false);
 
     }
     //Update with no physics, FixedUpdate with physics
@@ -65,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
     {
         unpaused = !GlobalController.Instance.stopAll;
 
-        if (unpaused && !GlobalController.Instance.moveIT)
+        if ((Control.state != CharacterController2D_Mod.State.dead) && (unpaused && !GlobalController.Instance.moveIT))
         {
             LHMov = HMov;
             HMov = Input.GetAxisRaw("Horizontal");
@@ -129,6 +124,10 @@ public class PlayerMovement : MonoBehaviour
                 //GetComponent<Rigidbody2D>().simulated = true;
             }
         }
+        if (roofDoorTriggered && Input.GetButtonDown("Interact"))
+        {
+            LoadScenes.Instance.LoadRoofLevel();
+        }
 
     }
 
@@ -149,18 +148,9 @@ public class PlayerMovement : MonoBehaviour
         }
         //para subir escaleras
         //detecta si hay una escalera donde el pj dibujando una linea que funciona de detector
-        RaycastHit2D ladderInfo = Physics2D.Raycast(transform.position, Vector2.up, distance, whatIsLadder);
-        if (ladderInfo.collider != null)
+        if (isOnLadder && Input.GetButton("Vertical"))
         {
-            if (Input.GetButtonDown("Vertical"))//detecta si esta pulsando hacia arriba/abajo
-            {
-                isClimbing = true;
-            }
-
-        }
-        else
-        {
-            isClimbing = false;
+            isClimbing = true;
         }
         if (isClimbing == true)
         {
@@ -174,7 +164,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         RaycastHit2D levelPartInfo = Physics2D.Raycast(transform.position, Vector2.up, distance, levelPart);
-
         if (levelPartInfo.collider != null)
         {
             GlobalController.Instance.nameOfPartLevel = levelPartInfo.collider.name;
@@ -184,6 +173,12 @@ public class PlayerMovement : MonoBehaviour
     //Para teleportarse, detecta si hay un punto de TP
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if(collision.tag == "Ladder")
+        {
+            isOnLadder = true;
+        }
+        
+       
         if (collision.tag == "Beginning")//Para ir al principio del nivel
         {
 
@@ -292,66 +287,28 @@ public class PlayerMovement : MonoBehaviour
 
             }
         }
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
+        if (collision.name == "The END")
+        {
+            SceneManager.LoadScene("The End Scene");
+        }
         if (collision.tag == "Roof")
         {
-            interactMessage.SetActive(true);
-        }
-        if (collision.name == "MessagePoint")
-        {
-            lookMessage.SetActive(true);
-        }
-        if(collision.tag == "ElevatorMessage")
-        {
-            interactMessage.SetActive(true);
-        }
-        if(collision.name == "TopDoorButton" && GlobalController.Instance.doorUpActivated == false)
-        {
-            interactMessage.SetActive(true);
-        }
-        else if (collision.name == "TopDoorButton" && GlobalController.Instance.doorUpActivated == true)
-        {
-            interactMessage.SetActive(false);
-        }
-
-        if (collision.name == "MidDoorButton" && GlobalController.Instance.doorMidActivated == false)
-        {
-            interactMessage.SetActive(true);
-        }
-        else if (collision.name == "MidDoorButton" && GlobalController.Instance.doorMidActivated == true)
-        {
-            interactMessage.SetActive(false);
-        }
-            if (collision.tag == "Roof" && neverTP && Input.GetButtonDown("Interact"))
-        {
-            LoadScenes.Instance.LoadRoofLevel();
-            neverTP = false;
+            roofDoorTriggered = true;
         }
     }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.tag == "Roof")
         {
-            interactMessage.SetActive(false);
+            roofDoorTriggered = false;
         }
-        if (collision.name == "MessagePoint")
+
+        if (collision.tag == "Ladder")
         {
-            lookMessage.SetActive(false);
-        }
-        if (collision.tag == "ElevatorMessage")
-        {
-            interactMessage.SetActive(false);
-        }
-        if(collision.name == "TopDoorButton")
-        {
-            interactMessage.SetActive(false);
-        }
-        if (collision.name == "MidDoorButton")
-        {
-            interactMessage.SetActive(false);
+            isOnLadder = false;
+            isClimbing = false;
         }
     }
+
 }

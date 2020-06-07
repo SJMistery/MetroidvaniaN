@@ -1,17 +1,12 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-using System.Collections;
-using UnityEngine.UI;
-using TMPro;
 
-using UnityEditor;
 
 public class CharacterController2D_Mod : MonoBehaviour
 {
     private GameObject gameover;
     private Animator anim;
-    private GlobalController globalController;
     public enum State { idle, running, jumping, falling, dead, resting, climb }
     public State state = State.idle;
 
@@ -24,10 +19,7 @@ public class CharacterController2D_Mod : MonoBehaviour
     private PlayerAttack attack;
     [SerializeField] private GameObject PCS; //player-camera-shadow
     //[SerializeField] private BoxCollider2D hitbox;
-    private GameObject[] potionCDImage; //imagen para el cooldown de la pocion
-    private GameObject[] potionUsedImage; //imagen para el cooldown de la pocion
-    private GameObject[] lifeStars; //imagen para el cooldown de la pocion
-    private GameObject sombra;
+ 
     private PlayerMovement playerMovement;
     const float k_GroundedRadius = 0.2f; // Radius of the overlap circle to determine if grounded
     private Rigidbody2D m_Rigidbody2D;
@@ -44,7 +36,7 @@ public class CharacterController2D_Mod : MonoBehaviour
     private bool canAttack = false;
     private bool isDead = false; //sirve para detener el movimiento del PJ cuando muere.
     private bool isResting = false;
-    public bool respawnReset;
+
     public bool m_Grounded;            // Whether or not the player is grounded.
     public bool alredy_Jumped;
     private bool m_FacingRight = true;  // For determining which way the player is currently facing.
@@ -57,13 +49,10 @@ public class CharacterController2D_Mod : MonoBehaviour
     private float deadTimer = 3f;
     private float lastTimeDamaged;      //Timer que controla el tiempo que el jugador es Invencible después de recibir daño.
     private float cantAttackTimer;           //Timer que controla el tiempo que tarda en poder volver a atacar el jugador después de recibir daño.
-    float targetFill = 0.0f;            //valores para hacer los calculos de la barra de vida.
-    float _maxValue = 25.0f;            //valores para hacer los calculos de la barra de vida.
-    private float _currentFraction = 1.0f;
 
 
     //OTHER VARIABLES
-    private int fullHP = 0;         //vida maxima del PJ
+    public int fullHP = 0;         //vida maxima del PJ
     public int LifeBar;             //Vida actual del PJ.
     public int hpRecovered = 1;     //Cantidad de vida que recupera cada cura.
     public int maxHeals = 3;        //numero máximo de curas.
@@ -73,31 +62,19 @@ public class CharacterController2D_Mod : MonoBehaviour
     private float invencibleTime = 1.5f; //Tiempo para el timer lastTimeDamaged
     private float cantAttackValue = 0.25f;    //Tiempo para el timer cantAttackTimer
 
-    int count = 0;                  //contador para ?? las pociones
-    int frameRet = 180;             //contador para ?? las pociones
-    int frameCoold = 100;           //contador para ?? las pociones
-
     [Header("Events")]
     [Space]
     public UnityEvent OnLandEvent;
     [System.Serializable]
     public class BoolEvent : UnityEvent<bool> { }
 
-
-    public bool controller = false; //detecta si hay un mando conectado
     //public bool controLock = true; // bloquea los controles de PC cuando hay mandos conectados
 
     private void Start()
     {
         PCS = GameObject.FindGameObjectWithTag("P-C-S");
-        sombra = GameObject.Find("SombrAlpha 1");
         playerMovement = GetComponent<PlayerMovement>();
         attack = GetComponent<PlayerAttack>();
-        potionCDImage = new GameObject[maxHeals];
-        potionUsedImage = new GameObject[maxHeals];
-        potionCDImage = GameObject.FindGameObjectsWithTag("potionCD");
-        potionUsedImage = GameObject.FindGameObjectsWithTag("potion");
-        lifeStars = GameObject.FindGameObjectsWithTag("LifeStar");
         gameover = GameObject.Find("GameOver");
         if (GlobalController.Instance.fromBeginning == true)
         {
@@ -111,7 +88,10 @@ public class CharacterController2D_Mod : MonoBehaviour
         }
         else
         {
-            fullHP = LifeBar;
+            fullHP = GlobalController.Instance.maxHp;
+            LifeBar = GlobalController.Instance.hp;
+            maxHeals = GlobalController.Instance.maxpotions;
+            healsAvalible = GlobalController.Instance.disp_potions;
         }
         if (GlobalController.Instance.Dead == true)
         {
@@ -133,39 +113,8 @@ public class CharacterController2D_Mod : MonoBehaviour
         if (OnLandEvent == null)
             OnLandEvent = new UnityEvent();
 
-        respawnReset = false;
         RespawnPoint = transform.position;
-        fullHP = LifeBar;
-        healsAvalible = maxHeals;
 
-    }
-
-    private void UpdateHealFill(float currentValue, float maxValue, int i)
-    {
-        // Fix the value to be a percentage.
-        _currentFraction = currentValue / maxValue;
-
-        // If the value is greater than 1 or less than 0, then fix the values to being min/max.
-        if (_currentFraction < 0 || _currentFraction > 1)
-            _currentFraction = _currentFraction < 0 ? 0 : 1;
-
-        // Store the target amount of fill according to the users options.
-        targetFill = _currentFraction;
-
-        // Store the values so that other functions used can reference the maxValue.
-        _maxValue = maxValue;
-
-        // Then just apply the target fill amount.
-        potionCDImage[i].GetComponent<Image>().fillAmount = 1 - targetFill;
-    } //funcion que controla como se rellena o se vacia la barra de vida.
-
-    // NEW O MOVIDO TODO LO QUE HAY A PARTIR DE AQUI.
-    public float GetCurrentFraction //funcion para hacer los calculos de la ui de la barra de vida.
-    {
-        get
-        {
-            return _currentFraction;
-        }
     }
 
     public void Move(float move, bool crouch, bool jump)
@@ -219,6 +168,7 @@ public class CharacterController2D_Mod : MonoBehaviour
         }
 
     }
+
     private void Flip()
     {
         // Switch the way the player is labelled as facing.
@@ -259,9 +209,8 @@ public class CharacterController2D_Mod : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.tag == "SavePoint" && ((controller & Input.GetButton("Interact MANDO")) || (!controller && Input.GetButton("Interact"))))
+        if (other.gameObject.tag == "SavePoint" && Input.GetButton("Interact"))
         {
-            //Debug.Log("saved");
 
             GlobalController.Instance.currentSafepoint = new Vector3 (other.gameObject.transform.position.x, other.gameObject.transform.position.y, 0);
             isResting = true;
@@ -325,7 +274,7 @@ public class CharacterController2D_Mod : MonoBehaviour
 
     //NEW Y MOVIDO
 
-    private void AnimationState() //NEEW Permite controlar los estados y logica de las animaciones
+    private void AnimationState() //NEW Permite controlar los estados y logica de las animaciones
     {
 
         if (state == State.resting)
@@ -374,7 +323,7 @@ public class CharacterController2D_Mod : MonoBehaviour
                     GlobalController.Instance.actualLevel = GlobalController.Level.PRISON;
                 }
                 GlobalController.Instance.hp = GlobalController.Instance.maxHp;
-                GlobalController.Instance.disp_potions = 3;
+                GlobalController.Instance.disp_potions = GlobalController.Instance.maxpotions;
                 GlobalController.Instance.cutsceneActive = false;
             }
         }
@@ -457,20 +406,12 @@ public class CharacterController2D_Mod : MonoBehaviour
             lastTimeDamaged = invencibleTime;
             cantAttackTimer = cantAttackValue;
         }
-
     }
 
     private void Heal()
     {
-        //potion system
-        if (count < frameRet)
+        if (Input.GetButtonDown("Heal"))
         {
-            count++;
-        }
-        if ((controller && Input.GetButtonDown("Heal MANDO") || ((!controller) && Input.GetButtonDown("Heal"))) && (count > frameCoold))
-        {
-            count = 0;
-
             if (LifeBar != fullHP)
             {
                 if (healsAvalible > 0 && state != State.dead)
@@ -488,17 +429,7 @@ public class CharacterController2D_Mod : MonoBehaviour
                 {
                     healsAvalible = 0;
                 }
-
-
             }
-        }
-
-        for (int i = 0; i < maxHeals; i++)
-        {
-            if (healsAvalible - 1 >= i)
-                UpdateHealFill(count, frameCoold, i);
-            else
-                potionUsedImage[i].SetActive(true);
         }
     }
 
@@ -538,36 +469,6 @@ public class CharacterController2D_Mod : MonoBehaviour
 
     private void Update()
     {
-
-        //Get Joystick Names
-        string[] temp = Input.GetJoystickNames();
-
-        //Check whether array contains anything
-        if (temp.Length > 0)
-        {
-            //Iterate over every element
-            for (int i = 0; i < temp.Length; ++i)
-            {
-                //Check if the string is empty or not
-                if (!string.IsNullOrEmpty(temp[i]))
-                {
-                    //Not empty, controller temp[i] is connected
-
-                    //Debug.Log("Controller " + i + " is connected using: " + temp[i]);
-                    controller = true;
-                }
-                else
-                {
-                    //If it is empty, controller i is disconnected
-                    //where i indicates the controller number
-                    //Debug.Log("Controller: " + i + " is disconnected.");
-                    controller = false;
-
-                }
-            }
-        }
-        else controller = false;
-
         //HACER QUE CUANDO EL PJ RECIBA DAÑO NO PUEDA ATACAR. PARA ESO SE TIENE QUE MOVER EL CODIGO DE ATAQUE EN UN NUEVO SCRIPT.
        if(!GlobalController.Instance.stopAll)
         {
@@ -580,35 +481,25 @@ public class CharacterController2D_Mod : MonoBehaviour
                 attack.enabled = true;
             }
 
-            if ((controller && Input.GetButtonDown("Heal MANDO") || ((!controller) && Input.GetButtonDown("Heal"))) && LifeBar != fullHP)
+            if ( Input.GetButtonDown("Heal") && LifeBar != fullHP)
             {
                 Heal();
             }
-            if ((Input.GetButton("Jump") || Input.GetButton("Jump MANDO")) && m_Rigidbody2D.velocity.y > Mathf.Abs(Mathf.Epsilon))
+            if (Input.GetButton("Jump") && m_Rigidbody2D.velocity.y > Mathf.Abs(Mathf.Epsilon))
             {
                 state = State.jumping;
                 //alredy_Jumped = true;
             }
 
-            if (((controller && Input.GetButtonDown("Jump MANDO")) || ((!controller) && Input.GetButtonDown("Jump"))) && canDoubleJump)
+            if (Input.GetButtonDown("Jump") && canDoubleJump)
             {
                 DoubleJump();
             }
 
         }
 
-        /*if (bobinaDelTiempo) { 
-            sombra.GetComponent<SpriteRenderer>().enabled = true;
-            sombra.GetComponent<InverseTime>().enabled = true;
-        }
-        else if (!bobinaDelTiempo) {
-            sombra.GetComponent<SpriteRenderer>().enabled = false;
-            sombra.GetComponent<InverseTime>().enabled = false; 
-        }*/
-
         AnimationState();
         anim.SetInteger("state", (int)state); //obtiene el valor del integer que tiene state para que las condiciones de las animaciones funcionen correctamente.
-
 
         Timers();
 
@@ -618,38 +509,6 @@ public class CharacterController2D_Mod : MonoBehaviour
             //Debug.Log("deadTimer" + deadTimer.ToString());
         }
 
-        respawnReset = false;
-
-
-
-        //A PARTIR DE AQUI ESTAN LA COSAS DE DAVID DE LA BARRA DE VIDA.
-        for (int i = 0; i <= healsAvalible - 1; i++)
-        {
-            potionUsedImage[i].SetActive(false);
-        }
-
-        if (LifeBar >= 0)
-        {
-            for (int i = fullHP; i > LifeBar; i--)
-            {
-                lifeStars[i - 1].SetActive(false);
-            }
-        }
-        for (int i = 0; i <= LifeBar - 1; i++)
-        {
-            lifeStars[i].SetActive(true);
-        }
-        if (count < frameRet)
-        {
-            count++;
-        }
-        for (int i = 0; i < maxHeals; i++)
-        {
-            if (healsAvalible - 1 >= i)
-                UpdateHealFill(count, frameCoold, i);
-            else
-                potionUsedImage[i].SetActive(true);
-        }
 
         if (GlobalController.Instance.invencible)
         {
@@ -682,7 +541,7 @@ public class CharacterController2D_Mod : MonoBehaviour
         }
 
         //Air resist in the horizontal wa
-        if ((controller && (Mathf.Abs(Input.GetAxis("Horizontal MANDO")) > 0.3)) || ((!controller) && Input.GetButtonDown("Horizontal")))//detecta si esta pulsando hacia arriba/abajo con el mando
+        if (Input.GetButtonDown("Horizontal"))  //detecta si esta pulsando hacia arriba/abajo con el mando
         {
             if (!m_Grounded && m_FacingRight)
             {
@@ -694,7 +553,7 @@ public class CharacterController2D_Mod : MonoBehaviour
             }
         }
 
-        if (Input.GetButton("Horizontal") || Input.GetButton("Horizontal MANDO"))
+        if (Input.GetButton("Horizontal"))
         {
             if (!m_Grounded && m_FacingRight)
             {

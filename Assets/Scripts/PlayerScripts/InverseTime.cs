@@ -39,7 +39,8 @@ public class InverseTime : MonoBehaviour
         playerBody = GameObject.Find("SrBeta1").GetComponent<Rigidbody2D>();
         shadowObj = GetComponent<Transform>();
         cooldown = GameObject.FindGameObjectWithTag("ClockCD");
-        clockBG = GameObject.Find("Cooldown_background"); 
+        clockBG = GameObject.Find("Cooldown_background");
+        clockImage = GameObject.Find("BT");
     }
 
     // Start is called before the first frame update
@@ -52,11 +53,10 @@ public class InverseTime : MonoBehaviour
         temp.z = -1;
         shadowObj.position = temp;
         count = 0;
-        cooldnText = GameObject.Find("cooldown").GetComponent<TextMeshProUGUI>();
-        cooldnText.gameObject.SetActive(false);
-        clockImage = GameObject.Find("clock");
+        //cooldnText = GameObject.Find("cooldown").GetComponent<TextMeshProUGUI>();
+        //cooldnText.gameObject.SetActive(false);
         clockImage.SetActive(false);
-        cooldown.gameObject.SetActive(false);
+        //cooldown.gameObject.SetActive(false);
     }
     private void UpdateCDFill(float currentValue, float maxValue)
     {

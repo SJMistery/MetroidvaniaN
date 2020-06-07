@@ -138,7 +138,6 @@ public class MenuController : MonoBehaviour
             GetComponent<Canvas>().worldCamera = Camera.main;
             GetComponent<Canvas>().sortingLayerName = "Player";
             GetComponent<Canvas>().sortingOrder = 21;
-            potionText.text = GlobalController.Instance.disp_potions.ToString();
             if (!changingStateMenu)
             {
                 if ((Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape)))

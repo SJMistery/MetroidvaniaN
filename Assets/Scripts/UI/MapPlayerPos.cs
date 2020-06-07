@@ -31,11 +31,21 @@ public class MapPlayerPos : MonoBehaviour
                     }
                 }
             }
-            else if(GlobalController.Instance.nameOfPartLevel == "AC")
+            else if(GlobalController.Instance.nameOfPartLevel == "AC Right")
             {
                 for (int i = 0; i < Map.Length; i++)
                 {
-                    if (Map[i].name == "Outside AC")
+                    if (Map[i].name == "Outside AC Right")
+                    {
+                        playerPosMap.transform.position = Map[i].transform.position;
+                    }
+                }
+            }
+            else if (GlobalController.Instance.nameOfPartLevel == "AC Left")
+            {
+                for (int i = 0; i < Map.Length; i++)
+                {
+                    if (Map[i].name == "Outside AC Left")
                     {
                         playerPosMap.transform.position = Map[i].transform.position;
                     }
@@ -60,7 +70,7 @@ public class MapPlayerPos : MonoBehaviour
             {
                 for (int i = 0; i < Map.Length; i++)
                 {
-                    if (Map[i].name == "Inside Start")
+                    if (Map[i].name == "Castle Start")
                     {
                         playerPosMap.transform.position = Map[i].transform.position;
                     }
@@ -70,7 +80,7 @@ public class MapPlayerPos : MonoBehaviour
             {
                 for (int i = 0; i < Map.Length; i++)
                 {
-                    if (Map[i].name == "Inside SUp")
+                    if (Map[i].name == "Castle SUp")
                     {
                         playerPosMap.transform.position = Map[i].transform.position;
                     }
@@ -80,7 +90,7 @@ public class MapPlayerPos : MonoBehaviour
             {
                 for (int i = 0; i < Map.Length; i++)
                 {
-                    if (Map[i].name == "Inside Up")
+                    if (Map[i].name == "Castle Up")
                     {
                         playerPosMap.transform.position = Map[i].transform.position;
                     }
@@ -90,7 +100,7 @@ public class MapPlayerPos : MonoBehaviour
             {
                 for (int i = 0; i < Map.Length; i++)
                 {
-                    if (Map[i].name == "Inside Down BD")
+                    if (Map[i].name == "Castle Down BD")
                     {
                         playerPosMap.transform.position = Map[i].transform.position;
                     }
@@ -100,7 +110,7 @@ public class MapPlayerPos : MonoBehaviour
             {
                 for (int i = 0; i < Map.Length; i++)
                 {
-                    if (Map[i].name == "Inside Down AD")
+                    if (Map[i].name == "Castle Down AD")
                     {
                         playerPosMap.transform.position = Map[i].transform.position;
                     }
@@ -110,7 +120,7 @@ public class MapPlayerPos : MonoBehaviour
             {
                 for (int i = 0; i < Map.Length; i++)
                 {
-                    if (Map[i].name == "Inside Down AD Middle")
+                    if (Map[i].name == "Castle Down AD Middle")
                     {
                         playerPosMap.transform.position = Map[i].transform.position;
                     }
@@ -120,7 +130,7 @@ public class MapPlayerPos : MonoBehaviour
             {
                 for (int i = 0; i < Map.Length; i++)
                 {
-                    if (Map[i].name == "Inside Down AD Down")
+                    if (Map[i].name == "Castle Down AD Down")
                     {
                         playerPosMap.transform.position = Map[i].transform.position;
                     }
@@ -130,7 +140,7 @@ public class MapPlayerPos : MonoBehaviour
             {
                 for (int i = 0; i < Map.Length; i++)
                 {
-                    if (Map[i].name == "Inside Down AP")
+                    if (Map[i].name == "Castle Down AP")
                     {
                         playerPosMap.transform.position = Map[i].transform.position;
                     }

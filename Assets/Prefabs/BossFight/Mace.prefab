@@ -173,6 +173,8 @@ MonoBehaviour:
   speed: 0
   move: 0
   target: {x: 0, y: 0}
+  maceExplosionSound: {fileID: 6824712937126016622, guid: 2172e4bbab474d8428a2af9c8bbfa7bd,
+    type: 3}
 --- !u!114 &6146850189255837785
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -7,6 +7,7 @@ public class ButtonElevator : MonoBehaviour
 
     public bool isMoving = false;
     public int speed;
+    private bool elevatorTrigger = false;
     ElevatorController elevator;
     private CharacterController2D_Mod cc;
 
@@ -20,12 +21,27 @@ public class ButtonElevator : MonoBehaviour
 
     // Update is called once per frame
 
-    private void OnTriggerStay2D(Collider2D other)
+    void Update()
     {
-        if (other.gameObject.tag == "Player" && ((cc.controller && Input.GetButton("Interact MANDO")) || ((!cc.controller) && Input.GetButton("Interact"))))
+        if (elevatorTrigger &&  Input.GetButtonDown("Interact"))
         {
-            
             elevator.isMoving = true;
         }
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            elevatorTrigger = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            elevatorTrigger = false;
+        }
+    }
+
 }

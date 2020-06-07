@@ -9,14 +9,13 @@ using UnityEditor;
 public class TitleSceneScript : MonoBehaviour
 {
     public GameObject manager;
-    [SerializeField] public GameObject savingNotFoundText;
-    [SerializeField] private GameObject menu;
+    [SerializeField] private GameObject savingNotFoundText;
+    [SerializeField] public GameObject menu;
     // Start is called before the first frame update
     void Start()
     {
         manager = GameObject.Find("Manager");
-        savingNotFoundText.SetActive(false);
-        menu.SetActive(false);
+        menu.gameObject.SetActive(false);
     }
     public void LoadLevel1()
     {
@@ -73,11 +72,13 @@ public class TitleSceneScript : MonoBehaviour
 
     public void ActivateMenu()
     {
-        menu.SetActive(true);
+        menu.gameObject.SetActive(true);
+
+
     }
     public void HideMenu()
     {
-        menu.SetActive(false);
+        menu.gameObject.SetActive(false);
     }
 
     public void QuitGame()

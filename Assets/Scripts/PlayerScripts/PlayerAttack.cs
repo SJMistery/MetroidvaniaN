@@ -154,7 +154,7 @@ public class PlayerAttack : MonoBehaviour
     void Update()
     {
         Timers();
-        if (characterController.controller && !GlobalController.Instance.cutsceneActive)
+        if (!GlobalController.Instance.cutsceneActive)
         {
             if (Input.GetButtonUp("Attack MANDO"))
             {
@@ -174,7 +174,7 @@ public class PlayerAttack : MonoBehaviour
                 Attack();
             }
         }
-        if (!characterController.controller && !GlobalController.Instance.cutsceneActive)
+        if (!GlobalController.Instance.cutsceneActive)
         {
             if (Input.GetButtonUp("Attack"))
             {

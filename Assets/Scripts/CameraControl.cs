@@ -56,16 +56,7 @@ public class CameraControl : MonoBehaviour
         {
             newposY = transform.position.y;
             //al pulsar el las flechas abajo y arriba la camara del PJ se desplaza hacia dicha dirección.
-            if (cc.controller && (Mathf.Abs(Input.GetAxis("Flechas MANDO")) > 0.3))
-            {
-
-                float moveCam = Input.GetAxisRaw("Flechas MANDO");
-                followPlayer = false;
-                float temp = moveCam * speed * Time.deltaTime;
-                cam.transform.Translate(new Vector2(0, temp));
-
-            }
-            else if ((!cc.controller) && Input.GetButton("Flechas"))
+            if (Input.GetButton("Flechas"))
             {
                 float moveCam = Input.GetAxisRaw("Flechas");
                 followPlayer = false;
@@ -74,14 +65,14 @@ public class CameraControl : MonoBehaviour
             }
 
             //En cuanto se pulsa alguna de ambas flechas, se almacena la posicion de la camara.
-            if ((cc.controller) && (Mathf.Abs(Input.GetAxis("Flechas MANDO")) > 0.5) || ((!cc.controller) && Input.GetButtonDown("Flechas")))
+            if (Input.GetButtonDown("Flechas"))
             {
                 followPlayer = false;
             }
 
 
             //hacer que cuando se suelta el tecla Up Arrow/DownArrow la camara vuelva a la poscion 0,0,0.
-            if ((cc.controller) && (Mathf.Abs(Input.GetAxis("Flechas MANDO")) <= 0.5) || ((!cc.controller) && Input.GetButtonUp("Flechas")))
+            if (Input.GetButtonUp("Flechas"))
             {
                 followPlayer = true;
                 posY = cam.transform.position.y;

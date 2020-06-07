@@ -90,11 +90,14 @@ public class BossController2D : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+
+        GameObject.Find("Manager").AddComponent<BossManager>();
+
     }
 
     private void Update()
     {
-        
+
         hpBar.value = currentHP; //Relaciona la barra de vida del boss con su vida actual.
         anim.SetInteger("State", (int)estado); //obtiene el valor del integer que tiene state para que las condiciones de las animaciones funcionen correctamente.
         if (jumping)
@@ -130,7 +133,7 @@ public class BossController2D : MonoBehaviour
         anim.SetBool("Die", true);
         m_Rigidbody2D.constraints = RigidbodyConstraints2D.FreezeAll;    //Congela todas las direcciones para que al morir, para que el PJ no salga disparado
         GetComponent<Collider2D>().enabled = false;                 //Desactiva el boxcollider para que se posible atravessar el cuerpo.
-        Instantiate(bobinaDelTiempo, new Vector3(this.transform.position.x , this.transform.position.y + 2 , this.transform.position.z), Quaternion.identity);
+        Instantiate(bobinaDelTiempo, new Vector3(this.transform.position.x, this.transform.position.y + 3, this.transform.position.z), Quaternion.identity);
         globalController.bossDeafeted = true;
         StartCoroutine(waitToDestroy(5f));
     }
@@ -140,7 +143,6 @@ public class BossController2D : MonoBehaviour
         //The attack animation runs from AnimationState()
         //Esperar un breve periodo de tiempo antes de que salte el codigo, i hacer desaparecer al enemigo.
         yield return new WaitForSeconds(time);
-        globalController.bossDeafeted = true;
         Destroy(this.gameObject);
     }
 
@@ -222,7 +224,7 @@ public class BossController2D : MonoBehaviour
         if (player.position.x > m_Rigidbody2D.position.x) targetDash = new Vector2(player.position.x - dashDistance, m_Rigidbody2D.position.y); //we want the enemy to fall short on the player position. so he gets right in front of him but without damaging.
         else if (player.position.x < m_Rigidbody2D.position.x) targetDash = new Vector2(player.position.x + dashDistance, m_Rigidbody2D.position.y);
     }
-    
+
     //Funcion en desarrollo! Para cuando el jefe se tenga que hacer "TP" hasta la maza en el SkyAttack
     public void SkyAttack()
     {
@@ -230,7 +232,7 @@ public class BossController2D : MonoBehaviour
         newPosition = Vector2.MoveTowards(m_Rigidbody2D.position, targetSkyAttack, skyAttackSpeed * Time.deltaTime); //utiliza esa variable para hacer que el enemigo se mueva direccion hacia el jugador.
         m_Rigidbody2D.MovePosition(newPosition);
     }
-    
+
     public void GetMacePos()
     {
 
@@ -293,7 +295,7 @@ public class BossController2D : MonoBehaviour
 
     public void Jump()
     {
-        m_Rigidbody2D.AddForce(new Vector2(0,jumpForce));
+        m_Rigidbody2D.AddForce(new Vector2(0, jumpForce));
     }
 
     public void DestroyMace()
@@ -370,10 +372,6 @@ public class BossController2D : MonoBehaviour
         Instantiate(skyattack);
     }
 
-    private void MusicStop()
-    {
-
-    }
 }
 
 

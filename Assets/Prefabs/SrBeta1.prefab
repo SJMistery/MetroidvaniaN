@@ -109,6 +109,8 @@ GameObject:
   - component: {fileID: 6140360905554585641}
   - component: {fileID: 6140360905554585642}
   - component: {fileID: 6140360905554585643}
+  - component: {fileID: 3668947413981078014}
+  - component: {fileID: 5663433878005947396}
   m_Layer: 8
   m_Name: SrBeta1
   m_TagString: Player
@@ -247,11 +249,11 @@ MonoBehaviour:
   HealParticles: {fileID: 4643673480076291106, guid: fb96f8f7b92aeb54f92c92609aad1431,
     type: 3}
   shadowReset: {fileID: 0}
-  respawnReset: 0
   m_Grounded: 0
   alredy_Jumped: 0
   canDoubleJump: 0
   bobinaDelTiempo: 0
+  fullHP: 5
   LifeBar: 5
   hpRecovered: 1
   maxHeals: 3
@@ -261,7 +263,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  controller: 0
 --- !u!114 &6140360905554585646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,7 +297,6 @@ MonoBehaviour:
   isClimbing: 0
   TPpointName: 
   canTP: 0
-  alredyTP: 0
   inputVertical: 0
   speed: 15
 --- !u!95 &6140360905554585647
@@ -468,3 +468,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OutputMixer: 
   mixer: {fileID: 24100000, guid: 2d6e5aceb214f9240b352688a8dc0c73, type: 2}
+--- !u!114 &3668947413981078014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6140360905554585636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98c19e13b7743e74d85789f434d64cc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5663433878005947396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6140360905554585636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84b28145ac827524b8bbcbcb2d90819c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hearts:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  potions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  fullHeart: {fileID: 21300000, guid: 502296439437fec40b25332841e5a341, type: 3}
+  emptyHeart: {fileID: 21300000, guid: acc14a3e9b571804582ec3a2138fb059, type: 3}
+  fullPotion: {fileID: 21300000, guid: 9a4036c240ee83c42a061fd65b0ab447, type: 3}
+  emptyPotion: {fileID: 21300000, guid: f908d177c98ca4844b02e37cfb8d15fb, type: 3}

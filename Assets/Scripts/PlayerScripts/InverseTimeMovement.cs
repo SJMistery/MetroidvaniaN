@@ -34,7 +34,7 @@ public class InverseTimeMovement : MonoBehaviour
     void Update()
     {
 
-        if(animatedSpriteUI.GetComponent<AnimatedSpriteUI>().started)
+        if (animatedSpriteUI.GetComponent<AnimatedSpriteUI>().started)
         {
             player.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
             player.GetComponent<Rigidbody2D>().gravityScale = 0;
@@ -44,15 +44,15 @@ public class InverseTimeMovement : MonoBehaviour
 
         if (GlobalController.Instance.inverseTimeActive == false)
         {
-           GetComponent<InverseTime>().clockImage.SetActive(false);
-            GetComponent<InverseTime>().cooldnText.gameObject.SetActive(false);
-            GetComponent<InverseTime>().cooldown.SetActive(false);
+            GetComponent<InverseTime>().clockImage.SetActive(false);
+            //GetComponent<InverseTime>().cooldnText.gameObject.SetActive(false);
+            //GetComponent<InverseTime>().cooldown.SetActive(false);
         }
         else
         {
             GetComponent<InverseTime>().clockImage.SetActive(true);
-            GetComponent<InverseTime>().cooldnText.gameObject.SetActive(true);
-            GetComponent<InverseTime>().cooldown.SetActive(true);
+            //GetComponent<InverseTime>().cooldnText.gameObject.SetActive(true);
+            //GetComponent<InverseTime>().cooldown.SetActive(true);
         }
 
         end = animatedSpriteUI.GetComponent<AnimatedSpriteUI>().ended;

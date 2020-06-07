@@ -14,6 +14,7 @@ public class MaceController_Mod: MonoBehaviour
     private Transform ground;
     public bool move = false;
     public Vector2 target;
+    public GameObject maceExplosionSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +31,7 @@ public class MaceController_Mod: MonoBehaviour
         {
             rb.bodyType = RigidbodyType2D.Static;
             anim.SetBool("isGrounded", true);
+
         }
         if (move)
         {

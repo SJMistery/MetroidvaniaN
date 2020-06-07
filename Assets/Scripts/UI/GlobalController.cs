@@ -8,8 +8,8 @@ public class GlobalController : MonoBehaviour
 
     public enum Level {TITLE, INTRO, CREDIT, OUTSIDE, INSIDE, ROOF, PRISON, CAVE, STORAGE };
 
-    public int maxHp = 5;//maximo vida
-    public int hp = 5;//vida de personaje que le queda
+    public int maxHp = 5;   //maximo vida
+    public int hp = 5;      //vida de personaje que le queda
     public int cooldown;
     public int maxpotions = 3;//maximo pociones
     public int disp_potions = 3;//pociones disponibles
@@ -38,12 +38,23 @@ public class GlobalController : MonoBehaviour
     public Vector3 actualPos;
     public Vector3 UpDoorPosCastle;
     public Vector3 DownDoorPosCastle;
+    public Vector3 PuzzleDoorPosPrison;
+    public Vector3 PrisonDoorPos;
     public Level actualLevel;
     public bool fromBeginning = false;
     public bool doorUpActivated = false;
     public bool doorMidActivated = false;
+    public bool doorPuzzleActivated = false;
+    public bool doorPrisonActivated = false;
+    public bool abyssOpened = false;
     public bool streamEnded = false;
     public bool stopAll = false;
+    public bool tutorialMoveDone = false;
+    public bool tutorialAttackDone = false;
+    public bool tutorialHealDone = false;
+    public bool ladderTutorialDone = false;
+    public bool platformTutorialDone = false;
+    public bool bossPlatformSpawned = false;
     public string nameOfPartLevel;
     public bool infiniteJump = false;
     public bool moveIT = false;//para saber si el inverse time esta activo

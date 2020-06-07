@@ -52,22 +52,10 @@ public class ElevatorController : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Player" && ((cc.controller && Input.GetButton("Interact MANDO")) || ((!cc.controller) && Input.GetButton("Interact"))))
+        if (other.gameObject.tag == "Player" &&  Input.GetButton("Interact"))
         {
            
             isMoving = true;
         }
     }
-    /*private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            other.transform.SetParent(childTransform);
-        }
-    }
-    private void OnCollisionExit2D(Collision2D other)
-    {
-        other.transform.SetParent(null);
-    }
-    */
 }
